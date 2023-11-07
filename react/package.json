@@ -1,0 +1,83 @@
+{
+  "name": "canvas-embed",
+  "version": "1.0.0",
+  "description": "Embed your Canvas charts in your application",
+  "scripts": {
+    "dev": "tsup src/index.tsx --format esm --watch",
+    "build": "tsup src/index.tsx --format cjs,esm --dts",
+    "tsc": "tsc",
+    "prettier": "prettier . --write"
+  },
+  "author": "Will Pride <will@canvasapp.com>",
+  "license": "MIT",
+  "files": [
+    "dist/*",
+    "package.json"
+  ],
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./dist/index.css": {
+      "import": "./dist/index.css",
+      "require": "./dist/index.css"
+    }
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "sourceType": "module"
+    },
+    "extends": [
+      "eslint:recommended",
+      "prettier"
+    ],
+    "env": {
+      "browser": true,
+      "es6": true
+    },
+    "plugins": [
+      "prettier"
+    ],
+    "rules": {
+      "prettier/prettier": "error"
+    }
+  },
+  "prettier": {
+    "trailingComma": "es5",
+    "semi": false,
+    "singleQuote": true,
+    "arrowParens": "avoid"
+  },
+  "source": "src/Chart.tsx",
+  "devDependencies": {
+    "@babel/core": "^7.23.2",
+    "@types/chroma-js": "^2.4.2",
+    "@types/luxon": "^3.3.3",
+    "@types/react": "^18.2.33",
+    "concurrently": "^8.2.2",
+    "esbuild": "^0.19.5",
+    "eslint": "^8.52.0",
+    "prettier": "^3.0.3",
+    "tsup": "^7.2.0",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "chroma-js": "^2.4.2",
+    "highcharts": "^11.2.0",
+    "highcharts-react-official": "^3.2.1",
+    "luxon": "^3.4.3",
+    "moment": "^2.29.4",
+    "moment-timezone": "^0.5.43",
+    "react": "^18.2.0"
+  },
+  "sideEffects": [
+    "dist/*",
+    "styles/*"
+  ]
+}

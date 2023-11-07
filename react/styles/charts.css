@@ -1,0 +1,16 @@
+.v2 {
+  .highcharts-exporting-group {
+    visibility: hidden;
+  }
+}
+
+:root {
+  --colors: 40, 42, 60;
+  --colors-faded: 145, 147, 155;
+  --colors-inactive: 199, 200, 203;
+  --colors-border: 227, 227, 229;
+  --colors-divider: 241, 241, 241;
+  --colors-highlight: 245, 245, 245;
+  --colors-background: 255, 255, 255;
+  --colors-cohort: 147, 223, 200;
+}

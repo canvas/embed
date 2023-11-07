@@ -1,0 +1,22 @@
+{
+  "include": ["src/index.tsx", "src/Chart.tsx", "src/DateUtil.ts"],
+  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "module": "ES2020",
+    "outDir": "dist/",
+    "strict": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "inlineSources": true,
+    "sourceRoot": "/",
+    "resolveJsonModule": true,
+    "target": "es2020",
+    "noUncheckedIndexedAccess": true,
+    "declaration": true,
+    "moduleResolution": "node",
+    "emitDeclarationOnly": true,
+    "allowSyntheticDefaultImports": true
+  }
+}
