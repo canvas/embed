@@ -13,7 +13,7 @@ React library for displaying charts from Canvas in your own application. Require
 
 # Internal - Publishing
 ```
-yarn version -- patch
+yarn version --patch
 npm run build
 npm publish
 ```
