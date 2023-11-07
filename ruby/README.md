@@ -10,6 +10,18 @@ If any scopes are required by your charts that are not present in the scopes pay
 
 You can view how this Gem is used in a sample rails app in the `example/` directory
 
+# Usage
+
+Add `gem 'canvas-embed'` to your Gemfile, then:
+
+```
+# key is the private key from Canvas
+# scopes is the Hash of scopes to grant the user
+# expiration_seconds is the duration in seconds for the token to be valid (default is one hour)
+# user_id is an optional user identifier that will be used in Canvas' logging
+Canvas::Embed.generate_token(key, scopes, expiration_seconds, user_id)
+```
+
 # Running tests
 
 ```

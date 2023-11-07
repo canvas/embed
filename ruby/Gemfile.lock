@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    canvas-embed (0.1.0)
+    canvas-embed (0.1.4)
       rbnacl (~> 7.1.1)
 
 GEM
@@ -19,7 +19,7 @@ GEM
       racc
     racc (1.7.1)
     rainbow (3.1.1)
-    rake (13.0.6)
+    rake (13.1.0)
     rbnacl (7.1.1)
       ffi
     regexp_parser (2.8.2)
@@ -59,7 +59,7 @@ PLATFORMS
 
 DEPENDENCIES
   canvas-embed!
-  rake (~> 13.0)
+  rake (~> 13.1)
   rbnacl (~> 7.1.1)
   rspec (~> 3.0)
   rubocop (~> 1.21)

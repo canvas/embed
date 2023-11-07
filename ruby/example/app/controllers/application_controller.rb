@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
     rescue StandardError
       return render json: { 'message' => 'Scopes were not valid JSON' }, status: 500
     end
-    token = Canvas::Embed.generate_token(key_hex, scopes)
+    token = Canvas::Embed.generate_token(key_hex, scopes, 7200, "usr_test123")
     render json: { 'token' => token }
   end
 end
