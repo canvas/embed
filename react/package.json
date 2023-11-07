@@ -9,6 +9,14 @@
     "prettier": "prettier . --write"
   },
   "author": "Will Pride <will@canvasapp.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/canvas/embed.git"
+  },
+  "bugs": {
+    "url": "https://github.com/canvas/embed/issues"
+  },
+  "homepage": "https://github.com/canvas/embed",
   "license": "MIT",
   "files": [
     "dist/*",

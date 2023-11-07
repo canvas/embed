@@ -17,6 +17,7 @@ Gem::Specification.new do |spec|
 
   spec.metadata['homepage_uri'] = 'https://canvasapp.com'
   spec.metadata['source_code_uri'] = 'https://github.com/canvas/embeds'
+  spec.metadata['bug_tracker_uri'] = 'https://github.com/canvas/embeds/issues'
 
   spec.files = Rake::FileList['**/*'].exclude(*File.read('.gitignore').split)
   spec.require_paths = ['lib']

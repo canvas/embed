@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# require "canvas-embed"
-
 class ApplicationController < ActionController::Base
   def generate_token
     # this is the secret signing key from Canvas

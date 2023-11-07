@@ -37,11 +37,13 @@ export const ChartWrapper: React.FC<WrapperProps> = ({
     })
       .then(response => response.json())
       .then(data => {
+        setError(null);
         setChartData(data.embedData)
       })
       .catch(error => {
         console.log(`Error getting embed data: ${error}`);
         setError(`${error}`);
+        setChartData(null);
       })
   }, [authToken, chartId])
 
