@@ -1,6 +1,6 @@
 {
   "name": "canvas-embed",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Embed your Canvas charts in your application",
   "scripts": {
     "dev": "tsup src/index.tsx --format esm --watch",
