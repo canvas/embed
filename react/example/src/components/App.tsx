@@ -1,8 +1,8 @@
 import * as React from "react";
 import "./../assets/scss/App.scss";
-import "canvas-embeds/dist/index.css";
+import "canvas-embed/dist/index.css";
 
-import { ChartWrapper } from "canvas-embeds";
+import { Chart } from "canvas-embed";
 
 const App = () => {
   const [embedId, setEmbedId] = React.useState<string>("");
@@ -21,6 +21,11 @@ const App = () => {
   };
   React.useEffect(() => {
     const url = getTokenUrl();
+    if (!scopes) {
+      setError("No scopes set");
+      return;
+    }
+    setError(null);
     setLoading(true);
     fetch(url, {
       method: "GET",
@@ -66,8 +71,8 @@ const App = () => {
         </label>
       </div>
       <h1>Chart</h1>
-      {token ? (
-        <ChartWrapper
+      {token && embedId ? (
+        <Chart
           chartId={embedId}
           authToken={token}
           disableExport={true}
@@ -77,9 +82,9 @@ const App = () => {
         "Loading"
       ) : error ? (
         error
-      ) : (
+      ) : !token ? (
         "No token set"
-      )}
+      ) : "No embedId set"}
     </div>
   );
 };

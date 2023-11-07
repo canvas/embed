@@ -1,5 +1,5 @@
 import React from 'react'
-import { Chart, ChartData } from './Chart'
+import { Chart as InnerChart, ChartData } from './Chart'
 import { getColors } from './Colors'
 
 type WrapperProps = {
@@ -10,7 +10,7 @@ type WrapperProps = {
   host?: string
 }
 
-export const ChartWrapper: React.FC<WrapperProps> = ({
+export const Chart: React.FC<WrapperProps> = ({
   authToken,
   chartId,
   timezone,
@@ -54,7 +54,7 @@ export const ChartWrapper: React.FC<WrapperProps> = ({
   if (chartData) {
     const colors = getColors(chartData)
     return (
-      <Chart
+      <InnerChart
         data={chartData}
         title="Title"
         timezone={timezone}
@@ -64,7 +64,7 @@ export const ChartWrapper: React.FC<WrapperProps> = ({
     )
   } else {
     return (
-      <Chart
+      <InnerChart
         data={undefined}
         title="Title"
         timezone={timezone}

@@ -51,6 +51,6 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
-    "canvas-embeds": "^1.0.18"
+    "canvas-embed": "^1.0.2"
   }
 }
