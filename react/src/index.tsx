@@ -35,10 +35,17 @@ export const Chart: React.FC<WrapperProps> = ({
         'x-embed-key': authToken,
       },
     })
-      .then(response => response.json())
-      .then(data => {
-        setError(null);
-        setChartData(data.embedData)
+      .then(async (res) => {
+        if (!res.ok) {
+          const text = await res.text();
+          console.error(`Error getting chart data: ${text}`);
+          setChartData(null);
+          setError(text);
+        } else {
+          const chartData = await res.json();
+          setChartData(chartData);
+          setError(null);
+        }
       })
       .catch(error => {
         console.log(`Error getting embed data: ${error}`);

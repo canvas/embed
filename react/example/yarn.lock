@@ -2360,10 +2360,10 @@
   "resolved" "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001449.tgz"
   "version" "1.0.30001449"
 
-"canvas-embed@^1.0.2":
-  "integrity" "sha512-Y+p6VZk4548ZdhiaENoRgazA7zRE3t1bFAdwYN6zB11QV6xvgJBFCtDzoGeiOyx7aoA9OdWjy5ftvnzTHauVHg=="
-  "resolved" "https://registry.npmjs.org/canvas-embed/-/canvas-embed-1.0.2.tgz"
-  "version" "1.0.2"
+"canvas-embed@^1.0.5":
+  "integrity" "sha512-+ipjNW6E7B2bdJ6OsiQ1RGM29VEtjbx+LAr8xHhCQZgUKnkKETFCZ4AO+gctp3Mbi37qm0DGtHmXfLQWm3k/Cg=="
+  "resolved" "https://registry.npmjs.org/canvas-embed/-/canvas-embed-1.0.5.tgz"
+  "version" "1.0.5"
   dependencies:
     "chroma-js" "^2.4.2"
     "highcharts" "^11.2.0"

@@ -37,7 +37,6 @@ const App = () => {
           setError(text);
         } else {
           const token = (await res.json())["token"];
-          console.log("set token", token);
           setToken(token);
           setError(null);
         }
