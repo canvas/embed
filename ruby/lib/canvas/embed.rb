@@ -47,8 +47,10 @@ module Canvas
     # email - String, the email of the user to login. This should match a user or invite in one of your accounts.
     # expiration_seconds - Optional Integer, how long the token should be valid for. Default to 10 minutes.
     # user_id - Optional String, identifier for the user, used in logging in Canvas.
+    # first_name - Optional String, first name of the user
+    # last_name - Optional String, last name of the user
     #
-    def generate_login_token(private_key, email, expiration_seconds = 600, user_id = nil)
+    def generate_login_token(private_key, email, expiration_seconds = 600, user_id = nil, first_name = nil, last_name = nil)
       # token consists of an id and the signing key
       key_id, key = private_key.split('.')
       # transform signing key hex into bytes
@@ -59,6 +61,12 @@ module Canvas
       message = { 'email' => email, 'exp' => exp }
       if user_id != nil
         message['userId'] = user_id
+      end
+      if first_name != nil
+        message['firstName'] = first_name
+      end
+      if last_name != nil
+        message['lastName'] = last_name
       end
       ciphertext = secret_box.encrypt(nonce, message.to_json)
       # transform bytes into hex

@@ -72,7 +72,7 @@ RSpec.describe Canvas::Embed do
   it 'generates login token' do
     key = RbNaCl::Random.random_bytes(RbNaCl::SecretBox.key_bytes)
     unpacked_key = "emk_ZRzQbE9d.#{key.unpack1('H*')}"
-    token = Canvas::Embed.generate_login_token(unpacked_key, "will@cooldata.com", 300)
+    token = Canvas::Embed.generate_login_token(unpacked_key, "will@cooldata.com", 300, nil, 'Will', 'Pride')
     expect(token).not_to be nil
     decoded = JSON.parse(Base64.decode64(token))
     expect(decoded['keyId']).to eq('emk_ZRzQbE9d')
@@ -88,5 +88,7 @@ RSpec.describe Canvas::Embed do
 
     expect(context['exp']).to eq(Time.now.to_i + 300)
     expect(context['email']).to eq("will@cooldata.com")
+    expect(context['firstName']).to eq("Will")
+    expect(context['lastName']).to eq("Pride")
   end
 end

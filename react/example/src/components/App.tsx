@@ -13,7 +13,7 @@ const App = () => {
   const getTokenUrl = () => {
     if (selectedBackend === "rails") {
       const url = encodeURI(
-        `http://localhost:3001/generate_embed_token?scopes=${scopes}`,
+        `http://localhost:3001/generate_token?scopes=${scopes}`,
       );
       return url;
     }

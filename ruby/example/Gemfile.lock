@@ -82,7 +82,7 @@ GEM
     bootsnap (1.17.0)
       msgpack (~> 1.2)
     builder (3.2.4)
-    canvas-embed (0.1.6)
+    canvas-embed (0.1.7)
       rbnacl (~> 7.1.1)
     capybara (3.39.2)
       addressable
@@ -251,7 +251,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap
-  canvas-embed (~> 0.1.6)
+  canvas-embed (~> 0.1.7)
   capybara
   debug
   importmap-rails
