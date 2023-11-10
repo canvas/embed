@@ -19,7 +19,7 @@ Add `gem 'canvas-embed'` to your Gemfile, then:
 # scopes is the Hash of scopes to grant the user
 # expiration_seconds is the duration in seconds for the token to be valid (default is one hour)
 # user_id is an optional user identifier that will be used in Canvas' logging
-Canvas::Embed.generate_token(key, scopes, expiration_seconds, user_id)
+Canvas::Embed.generate_embed_token(key, scopes, expiration_seconds, user_id)
 ```
 
 # Running tests

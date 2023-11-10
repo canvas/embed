@@ -17,9 +17,9 @@ RSpec.describe Canvas::Embed do
     key = RbNaCl::Random.random_bytes(RbNaCl::SecretBox.key_bytes)
     unpacked_key = "emk_ZRzQbE9d.#{key.unpack1('H*')}"
 
-    original_message = { 'team' => 'canvas' }
+    scopes = { 'team' => 'canvas' }
 
-    token = Canvas::Embed.generate_token(unpacked_key, original_message)
+    token = Canvas::Embed.generate_embed_token(unpacked_key, scopes)
     expect(token).not_to be nil
 
     decoded = JSON.parse(Base64.decode64(token))
@@ -43,15 +43,15 @@ RSpec.describe Canvas::Embed do
   it 'rejects non-hash' do
     key = RbNaCl::Random.random_bytes(RbNaCl::SecretBox.key_bytes)
     unpacked_key = "emk_ZRzQbE9d.#{key.unpack1('H*')}"
-    original_message = "'team': 'canvas'"
-    expect { Canvas::Embed.generate_token(unpacked_key, original_message) }.to raise_error(Canvas::InvalidScopeError)
+    scopes = "'team': 'canvas'"
+    expect { Canvas::Embed.generate_embed_token(unpacked_key, scopes) }.to raise_error(Canvas::InvalidScopeError)
   end
 
   it 'accepts custom expiration and userId' do
     key = RbNaCl::Random.random_bytes(RbNaCl::SecretBox.key_bytes)
     unpacked_key = "emk_ZRzQbE9d.#{key.unpack1('H*')}"
-    original_message = { 'team' => 'canvas' }
-    token = Canvas::Embed.generate_token(unpacked_key, original_message, 7200, "cus_abc123")
+    scopes = { 'team' => 'canvas' }
+    token = Canvas::Embed.generate_embed_token(unpacked_key, scopes, 7200, "cus_abc123")
     expect(token).not_to be nil
     decoded = JSON.parse(Base64.decode64(token))
     expect(decoded['keyId']).to eq('emk_ZRzQbE9d')
@@ -67,5 +67,26 @@ RSpec.describe Canvas::Embed do
 
     expect(context['exp']).to eq(Time.now.to_i + 7200)
     expect(context['userId']).to eq("cus_abc123")
+  end
+
+  it 'generates login token' do
+    key = RbNaCl::Random.random_bytes(RbNaCl::SecretBox.key_bytes)
+    unpacked_key = "emk_ZRzQbE9d.#{key.unpack1('H*')}"
+    token = Canvas::Embed.generate_login_token(unpacked_key, "will@cooldata.com", 300)
+    expect(token).not_to be nil
+    decoded = JSON.parse(Base64.decode64(token))
+    expect(decoded['keyId']).to eq('emk_ZRzQbE9d')
+
+    message_hex = decoded['message']
+    nonce_hex = decoded['nonce']
+    nonce = [nonce_hex].pack('H*')
+    message = [message_hex].pack('H*')
+
+    secret_box = RbNaCl::SecretBox.new(key)
+    decrypted_message = secret_box.decrypt(nonce, message)
+    context = JSON.parse(decrypted_message)
+
+    expect(context['exp']).to eq(Time.now.to_i + 300)
+    expect(context['email']).to eq("will@cooldata.com")
   end
 end

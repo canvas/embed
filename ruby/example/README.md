@@ -10,7 +10,7 @@ After running `bundle install` you can start the Rails server with
 CANVAS_SIGNING_KEY=[your signing key] bin/rails server
 ```
 
-This serves a GET endpoint `generate_token?scopes=[scopes]` where scopes are the scopes you want included in the generated token.
+This serves a GET endpoint `generate_embed_token?scopes=[scopes]` where scopes are the scopes you want included in the generated token.
 
 
 This endpoint is used in the [React component](https://github.com/canvas/embeds/tree/main/react) to view embedded Canvas charts as they will appear to your users.
