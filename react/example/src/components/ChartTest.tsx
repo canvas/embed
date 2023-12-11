@@ -1,5 +1,4 @@
 import * as React from "react";
-import "./../assets/scss/App.scss";
 import "canvas-embed/dist/index.css";
 import { Chart } from "canvas-embed";
 

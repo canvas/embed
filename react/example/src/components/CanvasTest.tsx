@@ -1,5 +1,4 @@
 import * as React from "react";
-import "./../assets/scss/App.scss";
 // import { Canvas } from "canvas-embed";
 import { CanvasDev } from "./CanvasDev";
 
