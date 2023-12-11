@@ -1,6 +1,6 @@
 {
   "name": "canvas-embed",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Embed your Canvas charts in your application",
   "scripts": {
     "dev": "webpack serve --config=webpack.dev.cjs",
@@ -26,18 +26,12 @@
     "package.json"
   ],
   "type": "module",
-  "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
-    },
-    "./dist/index.css": {
-      "import": "./dist/index.css",
-      "require": "./dist/index.css"
+      "import": "./dist/index.js"
     }
   },
   "eslintConfig": {
