@@ -2,9 +2,7 @@ import * as React from "react";
 import { Canvas } from "canvas-embed";
 
 const CanvasTest = (): React.ReactElement => {
-  console.log('CanvasTest');
-  const [canvasId, setCanvasId] = React.useState<string>("kaNQwv");
-  console.log('CanvasTest2');
+  const [canvasId, setCanvasId] = React.useState<string>(process.env.DEFAULT_CANVAS);
   return (
     <div className="app">
       <h3>Enter Canvas ID</h3>
