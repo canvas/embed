@@ -6,7 +6,10 @@
     "moduleResolution": "node",
     "outDir": "dist",
     "target": "ESNext",
-    "sourceMap": true
+    "sourceMap": true,
+    "paths": {
+      "react": ["./node_modules/@types/react"]
+    }
   },
   "include": ["src"]
 }

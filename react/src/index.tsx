@@ -1,6 +1,19 @@
 import React from 'react'
-import { Chart as InnerChart, ChartData } from './Chart'
+import {
+  Chart as _Chart,
+  ChartProps,
+  ChartData as InnerChartData,
+} from './Chart'
+import { GetCanvasEmbedResponse, Canvas as InnerCanvas } from './Canvas'
 import { getColors } from './Colors'
+
+export type ChartData = InnerChartData
+
+type CanvasProps = {
+  canvasId: string
+  authToken: string
+  host?: string
+}
 
 type WrapperProps = {
   authToken: string
@@ -10,6 +23,60 @@ type WrapperProps = {
   host?: string
 }
 
+export const DataChart: React.FC<ChartProps> = ({
+  data,
+  title,
+  timezone,
+  disableExport,
+}: ChartProps) => {
+  return (
+    <_Chart
+      data={data}
+      title={title}
+      timezone={timezone}
+      disableExport={disableExport}
+    />
+  )
+}
+
+export const Canvas: React.FC<CanvasProps> = ({
+  canvasId,
+  authToken,
+  host: hostOverride,
+}: CanvasProps) => {
+  const [canvasData, setCanvasData] =
+    React.useState<GetCanvasEmbedResponse | null>(null)
+  const [error, setError] = React.useState<string | null>(null)
+  const host = hostOverride || 'https://api.canvasapp.com'
+  React.useEffect(() => {
+    fetch(`${host}/v1/embed/canvas_embed?canvas_id=${canvasId}`, {
+      method: 'GET',
+      headers: {
+        'x-embed-key': authToken,
+      },
+    })
+      .then(async res => {
+        if (!res.ok) {
+          const text = await res.text()
+          console.error(`Error getting canvas data: ${text}`)
+          setCanvasData(null)
+          setError(text)
+        } else {
+          const chartData = await res.json()
+          setCanvasData(chartData)
+          setError(null)
+        }
+      })
+      .catch(error => {
+        console.log(`Error getting embed data: ${error}`)
+        setError(`${error}`)
+        setCanvasData(null)
+      })
+  }, [authToken, canvasId])
+  console.log('canvasData', canvasData)
+  return <InnerCanvas canvasId={canvasId} />
+}
+
 export const Chart: React.FC<WrapperProps> = ({
   authToken,
   chartId,
@@ -17,8 +84,8 @@ export const Chart: React.FC<WrapperProps> = ({
   disableExport,
   host: hostOverride,
 }: WrapperProps) => {
-  const [chartData, setChartData] = React.useState<ChartData | null>(null)
-  const [error, setError] = React.useState<string | null>(null);
+  const [chartData, setChartData] = React.useState<InnerChartData | null>(null)
+  const [error, setError] = React.useState<string | null>(null)
   const host = hostOverride || 'https://api.canvasapp.com'
   React.useEffect(() => {
     if (!authToken) {
@@ -35,22 +102,22 @@ export const Chart: React.FC<WrapperProps> = ({
         'x-embed-key': authToken,
       },
     })
-      .then(async (res) => {
+      .then(async res => {
         if (!res.ok) {
-          const text = await res.text();
-          console.error(`Error getting chart data: ${text}`);
-          setChartData(null);
-          setError(text);
+          const text = await res.text()
+          console.error(`Error getting chart data: ${text}`)
+          setChartData(null)
+          setError(text)
         } else {
-          const chartData = await res.json();
-          setChartData(chartData);
-          setError(null);
+          const chartData = await res.json()
+          setChartData(chartData)
+          setError(null)
         }
       })
       .catch(error => {
-        console.log(`Error getting embed data: ${error}`);
-        setError(`${error}`);
-        setChartData(null);
+        console.log(`Error getting embed data: ${error}`)
+        setError(`${error}`)
+        setChartData(null)
       })
   }, [authToken, chartId])
 
@@ -59,24 +126,15 @@ export const Chart: React.FC<WrapperProps> = ({
   }
 
   if (chartData) {
-    const colors = getColors(chartData)
     return (
-      <InnerChart
+      <_Chart
         data={chartData}
         title="Title"
         timezone={timezone}
-        colors={colors}
         disableExport={disableExport}
       />
     )
   } else {
-    return (
-      <InnerChart
-        data={undefined}
-        title="Title"
-        timezone={timezone}
-        colors={undefined}
-      />
-    )
+    return <_Chart data={undefined} title="Title" timezone={timezone} />
   }
 }

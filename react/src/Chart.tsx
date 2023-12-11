@@ -9,6 +9,7 @@ import { DateTime } from 'luxon'
 import moment from 'moment-timezone'
 import '../styles/charts.css'
 import '../styles/highcharts.css'
+import { getColors } from './Colors'
 
 type YAxes = Highcharts.YAxisOptions | Highcharts.YAxisOptions[]
 
@@ -111,24 +112,24 @@ type ChartColors = {
   darkColors: string[]
 }
 
-type Props = {
+export type ChartProps = {
   data: ChartData | undefined
   title: string
   timezone: string | null
-  colors: ChartColors | undefined
   disableExport?: boolean
 }
 
 export type ChartHandle = {
   download: () => void
 }
-export const Chart = React.forwardRef<ChartHandle, Props>(function Chart(
-  props: Props,
+export const Chart = React.forwardRef<ChartHandle, ChartProps>(function Chart(
+  props: ChartProps,
   ref
 ) {
   const chartRef = React.useRef<HighchartsReact.RefObject>(null)
-  const { data, title, timezone, colors, disableExport } = props
-  const exportingEnabled = disableExport !== true;
+  const { data, title, timezone, disableExport } = props
+  const colors = data && getColors(data)
+  const exportingEnabled = disableExport !== true
 
   const responsive = {
     rules: [
@@ -150,7 +151,14 @@ export const Chart = React.forwardRef<ChartHandle, Props>(function Chart(
   React.useImperativeHandle(ref, () => ({
     download: () => {
       if (data && colors) {
-        const options = getOptions(data, colors, responsive, true, timezone, true)
+        const options = getOptions(
+          data,
+          colors,
+          responsive,
+          true,
+          timezone,
+          true
+        )
         chartRef.current?.chart.exportChart({ filename: title }, options)
       }
     },
@@ -178,7 +186,14 @@ export const Chart = React.forwardRef<ChartHandle, Props>(function Chart(
     )
   }
 
-  const options = getOptions(data, colors, responsive, false, timezone, exportingEnabled)
+  const options = getOptions(
+    data,
+    colors,
+    responsive,
+    false,
+    timezone,
+    exportingEnabled
+  )
 
   const cssColorVars: { [v: string]: string } = {}
   const { lightColors, darkColors } = colors

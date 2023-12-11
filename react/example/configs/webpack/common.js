@@ -1,6 +1,10 @@
 // shared config (dev and prod)
 const { resolve } = require("path");
+const webpack = require("webpack");
+const dotenv = require('dotenv')
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+dotenv.config();
 
 module.exports = {
   entry: "./index.tsx",
@@ -29,5 +33,10 @@ module.exports = {
       },
     ],
   },
-  plugins: [new HtmlWebpackPlugin({ template: "index.html.ejs" })],
+  plugins: [
+    new HtmlWebpackPlugin({ template: "index.html.ejs" }),
+    new webpack.DefinePlugin({
+      "process.env": JSON.stringify(process.env),
+    }),
+  ],
 };

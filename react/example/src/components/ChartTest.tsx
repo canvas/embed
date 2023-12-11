@@ -3,7 +3,7 @@ import "./../assets/scss/App.scss";
 import "canvas-embed/dist/index.css";
 import { Chart } from "canvas-embed";
 
-const App = () => {
+const ChartTest = (): React.ReactElement => {
   const [embedId, setEmbedId] = React.useState<string>("");
   const [selectedBackend, setSelectedBackend] = React.useState<string>("rails");
   const [scopes, setScopes] = React.useState<string>("");
@@ -82,9 +82,11 @@ const App = () => {
         error
       ) : !token ? (
         "No token set"
-      ) : "No embedId set"}
+      ) : (
+        "No embedId set"
+      )}
     </div>
   );
 };
 
-export default App;
+export default ChartTest;
