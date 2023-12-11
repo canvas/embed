@@ -1,6 +1,6 @@
 {
   "name": "canvas-embed",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "Embed your Canvas charts in your application",
   "scripts": {
     "dev": "webpack serve --config=webpack.dev.cjs",
@@ -79,6 +79,8 @@
     "prettier": "^3.0.3",
     "sass-loader": "^13.3.2",
     "style-loader": "^3.3.3",
+    "tailwindcss": "^3.3.6",
+    "tailwindcss-themer": "^4.0.0",
     "ts-loader": "^9.5.1",
     "tsup": "^7.2.0",
     "typescript": "^5.2.2",
@@ -105,6 +107,7 @@
     "react-window": "^1.8.10"
   },
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.10",
     "mini-css-extract-plugin": "^2.7.6",
     "postcss": "^8.4.32"
   }
