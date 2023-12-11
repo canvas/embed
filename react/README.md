@@ -23,3 +23,7 @@ yarn version --patch
 npm run build
 npm publish
 ```
+
+```
+yarn version --patch; npm run build; cp lib-esm/index.d.ts dist
+```

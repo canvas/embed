@@ -16,8 +16,12 @@ import AutoSizer from "react-virtualized-auto-sizer";
 // import { formatCell, isCohortStore } from '../../util/StoreUtil';
 import percentile from "percentile";
 import { DateTime } from "luxon";
-import { CanvasStoreColumnMetaData, CanvasStoreMetaData } from "./CanvasDev";
 // import { getTypeIcon } from '../../v1/util/ColumnTypeUtil';
+import { CanvasStoreMetaData } from './rust_types/CanvasStoreMetaData';
+import { CanvasStoreColumnMetaData } from './rust_types/CanvasStoreColumnMetaData';
+import { SqlType } from "./rust_types/SqlType";
+import { Format } from "./rust_types/Format";
+import { StoreType } from "./rust_types/StoreType";
 
 type RowSelectionArea = { startRow: number; endRow: number };
 type ColumnSelectionArea = { startColumn: number; endColumn: number };
@@ -32,89 +36,6 @@ type SelectionArea =
       columnIds: string[];
       selectedCellValue: string | null;
     } & CellSelectionArea);
-
-type SpreadsheetSelectedElement = {
-  type: "spreadsheet";
-  elementId: string;
-  storeId: string;
-  storeType: StoreType | null;
-  selectionArea: SelectionArea | null;
-};
-
-type ChartSelection = { type: "chart"; elementId: string };
-
-type TextSelection = { type: "text"; elementId: string };
-
-type ComponentSelection = { type: "component"; elementId: string };
-
-type SelectedElement =
-  | SpreadsheetSelectedElement
-  | ChartSelection
-  | TextSelection
-  | ComponentSelection;
-
-type SqlType =
-  | "Text"
-  | "Boolean"
-  | "Number"
-  | "Date"
-  | "DateTime"
-  | "DateTimeNtz"
-  | "DateTimeTz"
-  | "Object"
-  | "Array";
-
-type Format =
-  | { type: "Automatic" }
-  | { type: "PlainText" }
-  | { type: "Money_v2"; precision: number }
-  | { type: "Percent_v2"; precision: number }
-  | { type: "Number"; precision: number }
-  | { type: "Date" }
-  | { type: "DateTime" }
-  | { type: "Money" }
-  | { type: "Percent" };
-
-type SqlDialect = "Snowflake" | "PostgreSql" | "BigQuery" | "Redshift";
-
-type ColumnType =
-  | "data"
-  | { formula: { formula: string } }
-  | { formulaV2: { formula: any } };
-
-type StoreType =
-  | "text"
-  | { sqlJoinSource: { context: any } }
-  | {
-      sqlPivotSource: {
-        source_id: string;
-        column_fields: Array<any>;
-        row_fields: Array<any>;
-        value_fields: Array<any>;
-      };
-    }
-  | {
-      sqlSource: {
-        database: string | null;
-        schema: string;
-        table: string;
-        warehouse_auth_id: string;
-        sql_dialect: SqlDialect;
-        primary_key_ids: Array<string>;
-      };
-    }
-  | { sqlCloneSource: { source_id: string } }
-  | { sqlTextFormula: { formula: any } }
-  | {
-      sqlSpreadsheet: {
-        schema: string;
-        table: string;
-        warehouse_auth_id: string;
-        initial_query: string;
-      };
-    }
-  | { sqlCohort: { source_id: string; options: any } }
-  | { sqlUniqueValues: { source_id: string; options: any } };
 
 export type DataStore = {
   data: string[][];
@@ -880,7 +801,7 @@ type Props = {
   setSelectionArea: (selectionArea: SelectionArea | null) => void;
   showSqlHeaders: boolean;
   spreadsheetKind: SpreadsheetKind;
-  timezone?: string;
+  timezone: string | null;
 };
 
 const getColumnTypes = (
@@ -1703,7 +1624,7 @@ const InnerSpreadsheetGrid = React.forwardRef<
     const rowHeight = React.useCallback(() => ROW_HEIGHT, []);
     const gutterWidth = React.useCallback(() => GUTTER_WIDTH, []);
     const getDataWidth = React.useCallback(
-      (index) => dataWidths[index]!,
+      (index: number) => dataWidths[index]!,
       [dataWidths],
     );
 
@@ -1840,9 +1761,10 @@ type WrapperProps = {
   dataStore: DataStore | null;
   storeId: string;
   spreadsheetKind: SpreadsheetKind;
+  timezone?: string;
 };
 export function SpreadsheetWrapper(props: WrapperProps): React.ReactElement {
-  const { dataStore, storeId } = props;
+  const { dataStore, storeId, timezone } = props;
   const [selectionArea, setSelectionArea_] =
     React.useState<SelectionArea | null>(null);
   const setSelectionArea = React.useCallback(
@@ -1875,6 +1797,7 @@ export function SpreadsheetWrapper(props: WrapperProps): React.ReactElement {
         selectionArea={selectionArea}
         showSqlHeaders={false}
         spreadsheetKind={"table"}
+	timezone={timezone || null}
       />
       {selectionArea && (
         <div className="absolute bottom-0 left-0 mb-1 flex items-center px-6 text-[11px]">

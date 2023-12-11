@@ -2419,10 +2419,14 @@
   "resolved" "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001449.tgz"
   "version" "1.0.30001449"
 
-"canvas-embed@^1.0.9":
-  "integrity" "sha512-cdBP3Ypof1N7L/fn3uvvfeRQjcVGxplbmv4tYyWJaiRDnQCEWx4bWAzhZKq1qdU6KG5Aou1Y7pXopPyz7E8uQQ=="
-  "resolved" "https://registry.npmjs.org/canvas-embed/-/canvas-embed-1.0.9.tgz"
-  "version" "1.0.9"
+"canvas-embed@^1.0.20":
+  "integrity" "sha512-Jgxd7MRR/7xWrgbWyETtCfeyI7xkJ+wRPADZizwfrfzWVpnPHmrRsDrQq0pcLz1Rz89riV2uuiG2C+gNGPWHGg=="
+  "resolved" "https://registry.npmjs.org/canvas-embed/-/canvas-embed-1.0.20.tgz"
+  "version" "1.0.20"
+  dependencies:
+    "@tailwindcss/typography" "^0.5.10"
+    "mini-css-extract-plugin" "^2.7.6"
+    "postcss" "^8.4.32"
 
 "chalk@^2.4.2":
   "integrity" "sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ=="
@@ -5173,6 +5177,13 @@
   "integrity" "sha512-OqbOk5oEQeAZ8WXWydlu9HJjz9WVdEIvamMCcXmuqUYjTknH/sqsWvhQ3vgwKFRR1HpjvNBKQ37nbJgYzGqGcg=="
   "resolved" "https://registry.npmjs.org/mimic-fn/-/mimic-fn-2.1.0.tgz"
   "version" "2.1.0"
+
+"mini-css-extract-plugin@^2.7.6":
+  "integrity" "sha512-Qk7HcgaPkGG6eD77mLvZS1nmxlao3j+9PkrT9Uc7HAE1id3F41+DdBRYRYkbyfNRGzm8/YWtzhw7nVPmwhqTQw=="
+  "resolved" "https://registry.npmjs.org/mini-css-extract-plugin/-/mini-css-extract-plugin-2.7.6.tgz"
+  "version" "2.7.6"
+  dependencies:
+    "schema-utils" "^4.0.0"
 
 "minimalistic-assert@^1.0.0":
   "integrity" "sha512-UtJcAD4yEaGtjPezWuO9wC4nwUnVH/8/Im3yEHQP4b67cXlD/Qr9hdITCU1xDbSEXg2XKNaP8jsReV7vQd00/A=="

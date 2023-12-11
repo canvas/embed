@@ -1,18 +1,15 @@
-import React from 'react'
+import React from 'react';
 import {
   Chart as _Chart,
-  ChartProps,
   ChartData as InnerChartData,
-} from './Chart'
-import { GetCanvasEmbedResponse, Canvas as InnerCanvas } from './Canvas'
-import { getColors } from './Colors'
-
-export type ChartData = InnerChartData
+} from './Chart';
+import { CanvasInner } from './Canvas';
+import { GetCanvasEmbedResponse } from './rust_types/GetCanvasEmbedResponse';
 
 type CanvasProps = {
-  canvasId: string
-  authToken: string
-  host?: string
+  canvasId: string;
+  authToken: string;
+  host?: string;
 }
 
 type WrapperProps = {
@@ -23,22 +20,6 @@ type WrapperProps = {
   host?: string
 }
 
-export const DataChart: React.FC<ChartProps> = ({
-  data,
-  title,
-  timezone,
-  disableExport,
-}: ChartProps) => {
-  return (
-    <_Chart
-      data={data}
-      title={title}
-      timezone={timezone}
-      disableExport={disableExport}
-    />
-  )
-}
-
 export const Canvas: React.FC<CanvasProps> = ({
   canvasId,
   authToken,
@@ -47,6 +28,9 @@ export const Canvas: React.FC<CanvasProps> = ({
   const [canvasData, setCanvasData] =
     React.useState<GetCanvasEmbedResponse | null>(null)
   const [error, setError] = React.useState<string | null>(null)
+  const [dataHash, setDataHash] = React.useState<string>(
+    Math.random().toString(36).substring(7)
+  )
   const host = hostOverride || 'https://api.canvasapp.com'
   React.useEffect(() => {
     fetch(`${host}/v1/embed/canvas_embed?canvas_id=${canvasId}`, {
@@ -64,17 +48,27 @@ export const Canvas: React.FC<CanvasProps> = ({
         } else {
           const chartData = await res.json()
           setCanvasData(chartData)
+          setDataHash(Math.random().toString(36).substring(7))
           setError(null)
         }
       })
       .catch(error => {
-        console.log(`Error getting embed data: ${error}`)
+        console.log(`Error getting canvas data: ${error}`)
         setError(`${error}`)
         setCanvasData(null)
       })
   }, [authToken, canvasId])
-  console.log('canvasData', canvasData)
-  return <InnerCanvas canvasId={canvasId} />
+  if (error) {
+    return <div>{error}</div>
+  }
+  if (canvasData) {
+    return (
+      <CanvasInner
+        canvasData={canvasData}
+        dataHash={dataHash}
+      />
+    )
+  }
 }
 
 export const Chart: React.FC<WrapperProps> = ({

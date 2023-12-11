@@ -1,5 +1,5 @@
 import * as React from "react";
-import "canvas-embed/dist/index.css";
+// import "canvas-embed/dist/index.css";
 import { Chart } from "canvas-embed";
 
 const ChartTest = (): React.ReactElement => {

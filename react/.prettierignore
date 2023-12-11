@@ -2,4 +2,5 @@ dist
 node_modules
 .cache
 package-lock.json
+src/rust_types
 
