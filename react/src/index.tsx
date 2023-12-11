@@ -5,6 +5,8 @@ import {
 } from './Chart';
 import { CanvasInner } from './Canvas';
 import { GetCanvasEmbedResponse } from './rust_types/GetCanvasEmbedResponse';
+import "../styles/tailwind.css";
+import "../styles/index.less";
 
 type CanvasProps = {
   canvasId: string;

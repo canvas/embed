@@ -55,7 +55,7 @@
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.10",
-    "canvas-embed": "^1.0.20",
+    "canvas-embed": "^1.0.23",
     "lodash": "^4.17.21",
     "percentile": "^1.6.0",
     "postcss": "^8.4.32",

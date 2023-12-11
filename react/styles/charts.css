@@ -1,7 +1,5 @@
-.v2 {
-  .highcharts-exporting-group {
-    visibility: hidden;
-  }
+.highcharts-exporting-group {
+  visibility: hidden;
 }
 
 :root {

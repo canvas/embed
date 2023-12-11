@@ -12,7 +12,6 @@ module.exports = merge(commonConfig, {
     library: {
       type: "module",
     },
-    umdNamedDefine: true
   },
   optimization: {
     minimize: false

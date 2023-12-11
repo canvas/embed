@@ -2419,10 +2419,10 @@
   "resolved" "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001449.tgz"
   "version" "1.0.30001449"
 
-"canvas-embed@^1.0.20":
-  "integrity" "sha512-Jgxd7MRR/7xWrgbWyETtCfeyI7xkJ+wRPADZizwfrfzWVpnPHmrRsDrQq0pcLz1Rz89riV2uuiG2C+gNGPWHGg=="
-  "resolved" "https://registry.npmjs.org/canvas-embed/-/canvas-embed-1.0.20.tgz"
-  "version" "1.0.20"
+"canvas-embed@^1.0.23":
+  "integrity" "sha512-c8kY5dJkdB1Xof8aqNOH0agyw+XaZK3tS6Li/2zZmNsSNdezWUyHMpqvA28VigSyQcTzcL18D9ZqJHZoKGUJlg=="
+  "resolved" "https://registry.npmjs.org/canvas-embed/-/canvas-embed-1.0.23.tgz"
+  "version" "1.0.23"
   dependencies:
     "@tailwindcss/typography" "^0.5.10"
     "mini-css-extract-plugin" "^2.7.6"

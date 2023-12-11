@@ -1,5 +1,4 @@
 import * as React from "react";
-// import "canvas-embed/dist/index.css";
 import { Chart } from "canvas-embed";
 
 const ChartTest = (): React.ReactElement => {
@@ -74,6 +73,7 @@ const ChartTest = (): React.ReactElement => {
           authToken={token}
           disableExport={true}
           host={"http://localhost:3000"}
+          timezone={null}
         />
       ) : loading ? (
         "Loading"
