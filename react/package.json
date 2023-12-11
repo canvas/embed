@@ -1,6 +1,6 @@
 {
   "name": "canvas-embed",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "Embed your Canvas charts in your application",
   "scripts": {
     "dev": "webpack serve --config=webpack.dev.cjs",
