@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 // todo(wpride): nouncheckedindexedaccess
+import "../styles/spreadsheet.less";
+
 import React, { createContext, memo, useContext } from "react";
 import {
   areEqual,
@@ -10,13 +12,12 @@ import {
 import { VariableSizeGrid as Grid } from "react-window";
 // import { RightClickMenu, RightClickMenuType } from '../dropdown/RightClickMenu';
 import _ from "lodash";
-import "../styles/spreadsheet.less";
 // import { usePrevious } from '../../v1/util/UtilUtils';
 import AutoSizer from "react-virtualized-auto-sizer";
 // import { formatCell, isCohortStore } from '../../util/StoreUtil';
 import percentile from "percentile";
 import { DateTime } from "luxon";
-// import { getTypeIcon } from '../../v1/util/ColumnTypeUtil';
+import { getTypeIcon } from './icons/ColumnTypeUtil';
 import { CanvasStoreMetaData } from './rust_types/CanvasStoreMetaData';
 import { CanvasStoreColumnMetaData } from './rust_types/CanvasStoreColumnMetaData';
 import { SqlType } from "./rust_types/SqlType";
@@ -367,12 +368,12 @@ const HeaderCell = ({
 
   let icon;
 
-  //     if (columnType) {
-  //         const TypeIcon = getTypeIcon(columnType);
-  //         icon = <TypeIcon className="h-3 w-3" />;
-  //     } else {
+      if (columnType) {
+          const TypeIcon = getTypeIcon(columnType);
+          icon = <TypeIcon className="h-3 w-3" />;
+      } else {
   icon = <div className="h-3 w-3" />;
-  //     }
+      }
 
   return (
     <div

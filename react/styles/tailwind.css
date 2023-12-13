@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* figure {
+    background-color: green !important;
+}
+ */
