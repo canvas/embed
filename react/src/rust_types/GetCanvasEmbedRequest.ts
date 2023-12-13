@@ -4,5 +4,6 @@ import type { FilterVariableValue } from './FilterVariableValue';
 export interface GetCanvasEmbedRequest {
     canvasId: string;
     warehouseAuthId: string;
-    variables: Record<string, FilterVariableValue> | null;
+    scopedVariables: Record<string, FilterVariableValue> | null;
+    urlVariables: Record<string, string> | null;
 }

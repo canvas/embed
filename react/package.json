@@ -8,6 +8,7 @@
     "build": "NODE_ENV=production webpack --config webpack.config.js",
     "build:css": "npx tailwindcss -i ./src/index.css -o ./dist/output.css",
     "build:css:watch": "npx tailwindcss -i ./src/index.css -o ./dist/output.css --watch",
+    "copy-rust-types": "rm -rf ./src/rust_types/* && cp -r ../../sheets/frontend/src/__rust_generated__/* ./src/rust_types",
     "publish": "npm publish --access public"
   },
   "author": "Will Pride <will@canvasapp.com>",
