@@ -23,6 +23,12 @@ npm run build
 npm publish
 ```
 
+Copy over Rust types from main repo with (may need to adjust paths):
+
+```
+npm run copy-rust-types
+```
+
 ```
 npm version patch; npm run build; cp lib-esm/index.d.ts dist
 ```
