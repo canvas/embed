@@ -6,7 +6,6 @@ React library for displaying charts from Canvas in your own application. Require
 
 ```
 import { Chart } from "canvas-embed";
-import "canvas-embed/dist/index.css";
 
 <Chart
   chartId={embedId} // From a chart you built in Canvas
