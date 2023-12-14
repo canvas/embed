@@ -16,7 +16,6 @@ const stateFn: (set: any, get: any) => CanvasState = (set, get) => ({
         set((state: CanvasState) => ({
             ...state,
             filters: {
-                ...state.filters,
                 ...filters,
             },
         }));
