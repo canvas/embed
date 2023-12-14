@@ -4,6 +4,7 @@ import { getChart, getSpreadsheet } from "./StoreUtil";
 import { Chart } from "./Chart";
 import { SpreadsheetWrapper as Spreadsheet } from "./Spreadsheet";
 import { Element } from "./Element";
+import { Filters } from "./filter/Filters";
 
 type CanvasInnerProps = {
   canvasData: GetCanvasEmbedResponse;
@@ -11,8 +12,11 @@ type CanvasInnerProps = {
 };
 export const CanvasInner = ({ canvasData, dataHash }: CanvasInnerProps) => {
   const { elementOrder, elements } = canvasData;
+  console.log('canvasData', canvasData);
   return (
     <div className="flex flex-1 flex-col gap-4 overflow-y-auto px-4 py-3">
+      <Filters />
+      {/* <Filters filters={canvasData.filters.filters} /> */}
       {elementOrder.element_order.map((elementIds, index) => {
         return (
           <div key={index} className={`flex flex-col sm:max-w-[calc(100vw-276px)]`}>

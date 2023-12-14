@@ -44,6 +44,7 @@ export { default as IntegerIcon } from '../../static/icons/component/integer_ico
 // export const UndoIcon = icon('./static/icons/toolbar/undo.svg');
 // export const ApiIcon = icon('./static/icons/api_icon.svg');
 // export const SettingsIcon = icon('./static/icons/settings.svg');
+export { default as SettingsIcon } from '../../static/icons/settings.svg';
 // export const ForkedSourceIcon = icon('./static/icons/forked_source_icon.svg');
 // export const SnowflakeIcon = icon('./static/icons/snowflake.svg');
 // export const BigQueryIcon = icon('./static/icons/bigquery.svg');
