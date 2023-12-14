@@ -29,14 +29,14 @@ jobs:
 
       - name: Increment Version
         working-directory: react
-        run: npm version patch # You can use "minor" or "major" as well
+        run: echo "NPM_PACKAGE_VERSION=$(npm version patch)" >> $GITHUB_ENV
 
       - name: Commit Version Increment
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add react/package.json react/package-lock.json
-          git commit -m "Bump version" -a
+          git commit -m "${{env.NPM_PACKAGE_VERSION}}" -a
 
       - name: Build
         working-directory: react
