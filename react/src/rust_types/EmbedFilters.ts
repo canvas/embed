@@ -5,4 +5,5 @@ import type { FilterVariableValue } from './FilterVariableValue';
 export interface EmbedFilters {
     filters: Array<FilterConfig>;
     defaultValues: Record<string, FilterVariableValue>;
+    uniqueValues: Record<string, Array<[string, string]>>;
 }
