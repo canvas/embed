@@ -17,7 +17,7 @@ import { Chart } from "canvas-embed";
 
 ## Internal - development
 
-Copy over Rust types from main repo with (may need to adjust paths):
+Copy over Rust types from main repo with (adjust relative path in script as necessary):
 
 ```
 npm run copy-rust-types
