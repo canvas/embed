@@ -1,8 +1,14 @@
-# Canvas embed
+# Canvas embed React library
+
+## Installation
+
+```
+npm install canvas-embed
+```
 
 React library for displaying charts from Canvas in your own application. Requires a grant token generated from one of our backend clients.
 
-# Usage
+## Usage
 
 ```
 import { Chart } from "canvas-embed";
@@ -15,7 +21,9 @@ import { Chart } from "canvas-embed";
 />
 ```
 
-## Internal - development
+### Internal
+
+#### development
 
 Copy over Rust types from main repo with (adjust relative path in script as necessary):
 
@@ -23,7 +31,7 @@ Copy over Rust types from main repo with (adjust relative path in script as nece
 npm run copy-rust-types
 ```
 
-## Internal - Publishing
+#### Publishing
 
 ```
 npm version patch
