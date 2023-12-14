@@ -28,8 +28,6 @@ jobs:
       - name: Install Dependencies
         working-directory: react
         run: npm install
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
 
       - name: Increment Version
         working-directory: react

@@ -15,18 +15,20 @@ import { Chart } from "canvas-embed";
 />
 ```
 
+## Internal - development
+
+Copy over Rust types from main repo with (may need to adjust paths):
+
+```
+npm run copy-rust-types
+```
+
 ## Internal - Publishing
 
 ```
 npm version patch
 npm run build
 npm run publish --access public
-```
-
-Copy over Rust types from main repo with (may need to adjust paths):
-
-```
-npm run copy-rust-types
 ```
 
 ```
