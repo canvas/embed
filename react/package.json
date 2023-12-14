@@ -1,6 +1,6 @@
 {
   "name": "canvas-embed",
-  "version": "1.0.32",
+  "version": "1.0.33",
   "description": "Embed your Canvas charts in your application",
   "main": "dist/bundle.js",
   "types": "dist/index.d.ts",
