@@ -19,6 +19,10 @@ export function Filters({ canvasData }: { canvasData: GetCanvasEmbedResponse }) 
                         key={filter.filterId}
                         value={selectedFilters[filter.variable]}
                         onChange={(value: string) => {
+                            if (value === '') {
+                                updateFilter({});
+                                return;
+                            }
                             const variable = filter.variable;
                             updateFilter({ [variable]: value });
                         }}

@@ -16,7 +16,9 @@ const MultiSelectInput = ({ value, onChange, options }: MultiSelectInputProps) =
             }}
             value={value || ''}
         >
-            <option selected>Select Filter</option>
+            <option selected value="">
+                Select Filter
+            </option>
             {options.map((option) => (
                 <option value={option[0]}>{`${option[0]} (${option[1]})`}</option>
             ))}
