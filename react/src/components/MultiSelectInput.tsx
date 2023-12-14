@@ -14,7 +14,7 @@ const MultiSelectInput = ({ value, onChange, options }: MultiSelectInputProps) =
             onChange={(event) => {
                 onChange(event.target.value);
             }}
-            value={value}
+            value={value || ''}
         >
             <option selected>Select Filter</option>
             {options.map((option) => (
