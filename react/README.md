@@ -18,11 +18,11 @@ import { Chart } from "canvas-embed";
 # Internal - Publishing
 
 ```
-yarn version --patch
+npm version patch
 npm run build
 npm publish
 ```
 
 ```
-yarn version --patch; npm run build; cp lib-esm/index.d.ts dist
+npm version patch; npm run build; cp lib-esm/index.d.ts dist
 ```
