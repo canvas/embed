@@ -48,7 +48,7 @@ jobs:
 
       - name: Publish to NPM
         working-directory: react
-        run: npm run publish
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
 

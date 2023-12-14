@@ -15,7 +15,7 @@ import { Chart } from "canvas-embed";
 />
 ```
 
-# Internal - Publishing
+## Internal - Publishing
 
 ```
 npm version patch
