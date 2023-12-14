@@ -20,7 +20,7 @@ import { Chart } from "canvas-embed";
 ```
 npm version patch
 npm run build
-npm publish
+npm run publish --access public
 ```
 
 Copy over Rust types from main repo with (may need to adjust paths):
