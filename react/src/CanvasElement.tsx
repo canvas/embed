@@ -4,13 +4,14 @@ import { SpreadsheetWrapper as Spreadsheet } from './Spreadsheet';
 import { Element } from './Element';
 import { EmbedElement } from './rust_types/EmbedElement';
 import { BigNumber } from './components/BigNumber';
+import { ComponentEmbedElement } from './types';
 
 export const CanvasElement = ({
     element,
     elementId,
     dataHash,
 }: {
-    element: EmbedElement;
+    element?: EmbedElement;
     elementId: string;
     dataHash: string;
 }) => {
@@ -47,8 +48,10 @@ export const CanvasElement = ({
     }
     if (elementType.type === 'component') {
         if (elementType.component.component === 'BigNumber') {
-            return <BigNumber element={element} />;
+            return <BigNumber element={element as ComponentEmbedElement} />;
         }
     }
+
+    console.log('Unknown element type', element);
     return <></>;
 };
