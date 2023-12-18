@@ -12,7 +12,7 @@ export function Filters({ canvasData }: { canvasData: GetCanvasEmbedResponse }) 
     const valueIsSelected = !isEmpty(selectedFilters);
 
     return (
-        <section>
+        <aside>
             {filtersVisible?.map((filter) => (
                 <div className="flex gap-3">
                     <MultiSelectInput
@@ -37,6 +37,6 @@ export function Filters({ canvasData }: { canvasData: GetCanvasEmbedResponse }) 
                     )}
                 </div>
             ))}
-        </section>
+        </aside>
     );
 }
