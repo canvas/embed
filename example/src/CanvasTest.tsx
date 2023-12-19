@@ -6,7 +6,7 @@ const AUTH_TOKEN = process.env.AUTH_TOKEN;
 const CanvasTest = (): React.ReactElement => {
   const [canvasId, setCanvasId] = React.useState<string>("qtjuwN");
   return (
-    <div className="app py-6 px-8">
+    <div className="app py-8 px-16">
       <div className="flex items-center gap-3">
         <h3>Enter Canvas ID:</h3>
         <input
