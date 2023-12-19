@@ -18,6 +18,7 @@ export const CanvasInner = ({ canvasData, dataHash }: CanvasInnerProps) => {
                         <div className="flex flex-col gap-4 sm:flex-row">
                             {elementIds.map((elementId) => (
                                 <CanvasElement
+                                    key={elementId}
                                     elementId={elementId}
                                     element={elements[elementId]}
                                     dataHash={dataHash}
