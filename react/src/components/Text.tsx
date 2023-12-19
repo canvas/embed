@@ -7,7 +7,7 @@ const Text = ({ element }: { element: TextEmbed }) => {
             style={{
                 ...(element.fontSize && { fontSize: element.fontSize }),
             }}
-            className="whitespace-pre"
+            className="whitespace-pre padding-canvas-element"
         >
             {element.formattedValue}
         </div>

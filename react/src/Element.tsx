@@ -20,7 +20,7 @@ export function Element({ title, children, elementId }: ElementProps): React.Rea
                 }}
                 id={elementId}
             >
-                <div className="flex h-12 items-center rounded-lg px-7 hover:bg-highlight/50">
+                <div className="flex h-12 items-center rounded-lg padding-canvas-element hover:bg-highlight/50">
                     <div className="flex flex-1 items-center">
                         <div style={styles.title}>{title}</div>
                     </div>
