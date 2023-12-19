@@ -26,9 +26,7 @@ export function Element({ title, children, elementId }: ElementProps): React.Rea
                     </div>
                 </div>
                 <div className="mx-6 h-px bg-border dark:bg-faded/50" />
-                <div style={styles.content} className="relative">
-                    {children}
-                </div>
+                <div className="relative padding-canvas-element">{children}</div>
             </div>
         </figure>
     );
@@ -45,8 +43,5 @@ const styles: Record<string, React.CSSProperties> = {
         color: '#91939b',
         display: 'flex',
         justifyContent: 'flex-end',
-    },
-    content: {
-        padding: 24,
     },
 };
