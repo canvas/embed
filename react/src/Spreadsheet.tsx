@@ -785,7 +785,7 @@ type SpreadsheetSize = {
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const SpreadsheetSizeContext = createContext<SpreadsheetSize>(undefined!);
 
-const usePrevious = <T extends unknown>(value: T): T | undefined => {
+const usePrevious = <T,>(value: T): T | undefined => {
     const ref = React.useRef<T>();
     React.useEffect(() => {
         ref.current = value;

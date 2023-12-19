@@ -14,9 +14,8 @@ export function Filters({ canvasData }: { canvasData: GetCanvasEmbedResponse }) 
     return (
         <section>
             {filtersVisible?.map((filter) => (
-                <div className="flex gap-3">
+                <div key={filter.filterId} className="flex gap-3">
                     <MultiSelectInput
-                        key={filter.filterId}
                         value={selectedFilters[filter.variable]}
                         onChange={(item: string) => {
                             if (item === '' || item == null) {
