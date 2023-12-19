@@ -5,6 +5,7 @@ import { Element } from './Element';
 import { EmbedElement } from './rust_types/EmbedElement';
 import { BigNumber } from './components/BigNumber';
 import { ComponentEmbedElement } from './types';
+import Text from './components/Text';
 
 export const CanvasElement = ({
     element,
@@ -50,6 +51,9 @@ export const CanvasElement = ({
         if (elementType.component.component === 'BigNumber') {
             return <BigNumber element={element as ComponentEmbedElement} />;
         }
+    }
+    if (elementType.type === 'text') {
+        return <Text element={elementType} />;
     }
 
     console.log('Unknown element type', element);
