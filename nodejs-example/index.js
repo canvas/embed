@@ -2,7 +2,7 @@ import { generateToken } from "canvas-embed-node";
 
 // Sample values, adjust to taste
 const scopes = { team_id: "79" };
-const expiration = 600000;
+const expiration = Date.now() / 1000 + 6000;
 const key =
   "emk_eZVPZSAl.16933eebf7f9zbqd6p45612165a9246c26a5d7d82e5a48d652496bcm834o836b";
 

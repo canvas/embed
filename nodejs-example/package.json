@@ -5,11 +5,11 @@
   "description": "To generate Canvas authentication tokens from NodeJS you can use the following snippet:",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Jeremy Bernier <jeremy@canvasapp.com>",
+  "license": "MIT",
   "dependencies": {
     "canvas-embed-node": "^1.0.0"
   }
