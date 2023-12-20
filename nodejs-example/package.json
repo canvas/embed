@@ -11,6 +11,6 @@
   "author": "Jeremy Bernier <jeremy@canvasapp.com>",
   "license": "MIT",
   "dependencies": {
-    "canvas-embed-node": "^1.0.0"
+    "canvas-embed-node": "^1.0.2"
   }
 }

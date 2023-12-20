@@ -1,15 +1,16 @@
 {
   "name": "canvas-embed-node",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Canvas embed package for Node.js",
-  "main": "index.js",
+  "main": "./dist/bundle.js",
+  "types": "./dist/index.d.ts",
+  "exports": "./dist/index.js",
   "scripts": {
     "build": "tsc"
   },
   "keywords": [],
   "author": "Jeremy Bernier <jeremy@canvasapp.com>",
   "license": "MIT",
-  "exports": "./build/index.js",
   "dependencies": {
     "btoa": "^1.2.1",
     "libsodium-wrappers": "^0.7.13"

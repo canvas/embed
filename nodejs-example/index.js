@@ -2,9 +2,9 @@ import { generateToken } from "canvas-embed-node";
 
 // Sample values, adjust to taste
 const scopes = { team_id: "79" };
-const expiration = Date.now() / 1000 + 6000;
+const expiration = 60 * 60 * 24 * 7; // expiration time in seconds
 const key =
-  "emk_eZVPZSAl.16933eebf7f9zbqd6p45612165a9246c26a5d7d82e5a48d652496bcm834o836b";
+  "emk_XYZabcDe.123456789ae9a932b1e12345a89abc54deed6549f51034b59478388c45c9e123"; // API key
 
 async function run() {
   const token = await generateToken(scopes, expiration, key);
