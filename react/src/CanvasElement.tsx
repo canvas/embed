@@ -5,6 +5,7 @@ import { Element } from './Element';
 import { EmbedElement } from './rust_types/EmbedElement';
 import { BigNumber } from './components/BigNumber';
 import { ComponentEmbedElement } from './types';
+import Text from './components/Text';
 
 export const CanvasElement = ({
     element,
@@ -17,10 +18,10 @@ export const CanvasElement = ({
 }) => {
     if (!element) return <></>;
 
-    const { elementType } = element;
+    const { elementType, title } = element;
 
     if (elementType.type === 'chart') {
-        const chartTitle = element.title || 'Chart';
+        const chartTitle = title || 'Chart';
         return (
             <Element key={elementId} title={chartTitle} elementId={elementId}>
                 <Chart data={elementType.chartData} title={chartTitle} timezone={null} />
@@ -48,8 +49,19 @@ export const CanvasElement = ({
     }
     if (elementType.type === 'component') {
         if (elementType.component.component === 'BigNumber') {
-            return <BigNumber element={element as ComponentEmbedElement} />;
+            return (
+                <Element key={elementId} title={title || ''} elementId={elementId}>
+                    <BigNumber element={element as ComponentEmbedElement} />
+                </Element>
+            );
         }
+    }
+    if (elementType.type === 'text') {
+        return (
+            <Element key={elementId} title={title || ''} elementId={elementId}>
+                <Text element={elementType} />
+            </Element>
+        );
     }
 
     console.log('Unknown element type', element);

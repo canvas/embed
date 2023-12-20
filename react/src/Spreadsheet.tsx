@@ -785,7 +785,7 @@ type SpreadsheetSize = {
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const SpreadsheetSizeContext = createContext<SpreadsheetSize>(undefined!);
 
-const usePrevious = <T extends unknown>(value: T): T | undefined => {
+const usePrevious = <T,>(value: T): T | undefined => {
     const ref = React.useRef<T>();
     React.useEffect(() => {
         ref.current = value;
@@ -845,16 +845,16 @@ export function SpreadsheetTable({
 
     const [mouseDownPoint, setMouseDownPoint] = React.useState<MouseLocation | null>(null);
 
-    const selectedColumnIds = React.useMemo(() => {
-        if (selectionArea) {
-            switch (selectionArea.type) {
-                case 'cells':
-                case 'columns':
-                    return selectionArea.columnIds;
-            }
-        }
-        return [];
-    }, [selectionArea]);
+    // const selectedColumnIds = React.useMemo(() => {
+    //     if (selectionArea) {
+    //         switch (selectionArea.type) {
+    //             case 'cells':
+    //             case 'columns':
+    //                 return selectionArea.columnIds;
+    //         }
+    //     }
+    //     return [];
+    // }, [selectionArea]);
 
     const setCellSelectionArea = React.useCallback(
         (event1: CellLocation, event2: CellLocation) => {
@@ -878,17 +878,17 @@ export function SpreadsheetTable({
         },
         [metaData, setSelectionArea],
     );
-    const setColumnIdSelectionArea = React.useCallback(
-        (columnId: string, index: number) => {
-            setSelectionArea({
-                type: 'columns',
-                columnIds: [columnId],
-                startColumn: index,
-                endColumn: index,
-            });
-        },
-        [setSelectionArea],
-    );
+    // const setColumnIdSelectionArea = React.useCallback(
+    //     (columnId: string, index: number) => {
+    //         setSelectionArea({
+    //             type: 'columns',
+    //             columnIds: [columnId],
+    //             startColumn: index,
+    //             endColumn: index,
+    //         });
+    //     },
+    //     [setSelectionArea],
+    // );
     const setRowSelectionArea = React.useCallback(
         (event1: RowLocation, event2: RowLocation) => {
             setSelectionArea({

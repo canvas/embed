@@ -9,7 +9,7 @@ type ElementProps = {
 export function Element({ title, children, elementId }: ElementProps): React.ReactElement {
     const elementRef = React.useRef<HTMLDivElement>(null);
     return (
-        <figure className="flex-1 max-w-[900px]">
+        <div className="flex-1 max-w-[900px]">
             <div
                 className={`group rounded-lg border 
                   border-transparent hover:border-transparent
@@ -20,17 +20,14 @@ export function Element({ title, children, elementId }: ElementProps): React.Rea
                 }}
                 id={elementId}
             >
-                <div className="flex h-12 items-center rounded-lg px-7 hover:bg-highlight/50">
-                    <div className="flex flex-1 items-center">
+                {title && (
+                    <div className="flex h-12 items-center rounded-lg hover:bg-highlight/50">
                         <div style={styles.title}>{title}</div>
                     </div>
-                </div>
-                <div className="mx-6 h-px bg-border dark:bg-faded/50" />
-                <div style={styles.content} className="relative">
-                    {children}
-                </div>
+                )}
+                <div className="relative">{children}</div>
             </div>
-        </figure>
+        </div>
     );
 }
 
@@ -45,8 +42,5 @@ const styles: Record<string, React.CSSProperties> = {
         color: '#91939b',
         display: 'flex',
         justifyContent: 'flex-end',
-    },
-    content: {
-        padding: 24,
     },
 };

@@ -10,7 +10,7 @@ interface CanvasState {
 
 /** State */
 
-const stateFn: (set: any, get: any) => CanvasState = (set, get) => ({
+const stateFn: (set, get) => CanvasState = (set, get) => ({
     filters: {},
     updateFilter: (filters: Filter) => {
         set((state: CanvasState) => ({

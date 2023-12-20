@@ -9,7 +9,9 @@
     "build": "NODE_ENV=production webpack --config webpack.config.js",
     "build:css": "npx tailwindcss -i ./src/index.css -o ./dist/output.css",
     "build:css:watch": "npx tailwindcss -i ./src/index.css -o ./dist/output.css --watch",
-    "copy-rust-types": "rm -rf ./src/rust_types/* && cp -r ../../sheets/frontend/src/__rust_generated__/* ./src/rust_types"
+    "copy-rust-types": "rm -rf ./src/rust_types/* && cp -r ../../sheets/frontend/src/__rust_generated__/* ./src/rust_types",
+    "lint": "eslint 'src/**/*.{js,ts,tsx}'",
+    "prettier": "eslint 'src/**/*.{js,ts,tsx}' --quiet --fix"
   },
   "author": "Will Pride <will@canvasapp.com>",
   "contributors": [
@@ -43,8 +45,14 @@
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@types/react-window": "^1.8.8",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
     "babel-loader": "^9.1.3",
     "css-loader": "^6.8.1",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "less-loader": "^11.1.3",
     "postcss-loader": "^7.3.3",
     "postcss-nesting": "^12.0.1",

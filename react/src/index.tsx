@@ -48,27 +48,44 @@ export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostO
             },
         )
             .then(async (res) => {
+                const canvasData = await res.json();
                 if (!res.ok) {
-                    const text = await res.text();
-                    console.error(`Error getting canvas data: ${text}`);
+                    console.error(`Error getting canvas data: ${JSON.stringify(canvasData)}`);
                     setCanvasData(null);
-                    setError(text);
+                    setError(canvasData.message);
                 } else {
-                    const chartData = await res.json();
-                    setCanvasData(chartData);
+                    setCanvasData(canvasData);
                     setDataHash(Math.random().toString(36).substring(7));
                     setError(null);
                 }
             })
             .catch((error) => {
                 console.log(`Error getting canvas data: ${error}`);
-                setError(`${error}`);
+                setError(`Network error - either the server is down or you are offline`);
                 setCanvasData(null);
             });
-    }, [authToken, canvasId, filters]);
+    }, [authToken, canvasId, filters, host]);
 
     if (error) {
-        return <div>{error}</div>;
+        return (
+            <div className="flex flex-col gap-3">
+                <div className="text-red-500 text-xl">
+                    <strong className="mr-1">Error: </strong>
+                    <span>{error}</span>
+                </div>
+                <div className="text-red-500">
+                    Canvas embed instructions can be viewed{' '}
+                    <a
+                        href="https://canvasapp.com/docs/building-canvases/embeds"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="underline"
+                    >
+                        here
+                    </a>
+                </div>
+            </div>
+        );
     }
     if (canvasData) {
         return <CanvasInner canvasData={canvasData} dataHash={dataHash} />;
@@ -118,7 +135,7 @@ export const Chart: React.FC<WrapperProps> = ({
                 setError(`${error}`);
                 setChartData(null);
             });
-    }, [authToken, chartId]);
+    }, [authToken, chartId, host]);
 
     if (error) {
         return <div>{error}</div>;

@@ -1,0 +1,30 @@
+name: Lint
+
+on:
+  push:
+    paths:
+      - "react/**"
+
+jobs:
+  run-linters:
+    name: Run linters
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install React dependencies
+        working-directory: ./react
+        run: npm ci
+
+      - name: Run React linters
+        working-directory: ./react
+        run: npm run lint
