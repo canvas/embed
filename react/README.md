@@ -18,3 +18,5 @@ import { Canvas } from "canvas-embed";
   authToken={AUTH_TOKEN}
 />
 ```
+
+You can find instructions for obtaining the `AUTH_TOKEN` [here](https://canvasapp.com/docs/building-canvases/embeds)
