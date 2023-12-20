@@ -431,6 +431,7 @@ function getOptions(
             layout: 'vertical',
             align: 'right',
             verticalAlign: 'middle',
+            enabled: data.seriesColumnIds.length !== 1,
         },
 
         plotOptions: {
