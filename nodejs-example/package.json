@@ -1,0 +1,16 @@
+{
+  "name": "nodejs-example",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "To generate Canvas authentication tokens from NodeJS you can use the following snippet:",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "Jeremy Bernier <jeremy@canvasapp.com>",
+  "license": "MIT",
+  "dependencies": {
+    "canvas-embed-node": "^1.0.2"
+  }
+}
