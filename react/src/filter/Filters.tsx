@@ -4,11 +4,11 @@ import MultiSelectInput from '../components/MultiSelectInput';
 import useCanvasState from '../state/useCanvasState';
 import { GetCanvasEmbedResponse } from '@/src/rust_types/GetCanvasEmbedResponse';
 
-// Cache mapping filterId to its filterOptions
-// We are exclusively using the initial filter options from the initial API response
-const filterOptionsCache = new Map<string, string[][]>();
-
 export function Filters({ canvasData }: { canvasData: GetCanvasEmbedResponse }) {
+    // Cache mapping filterId to its filterOptions
+    // We are exclusively using the initial filter options from the initial API response
+    const [filterOptionsCache, setFilterOptionsCache] = React.useState<Record<string, string[][]>>({});
+
     const filters = canvasData?.filters?.filters;
     const filtersVisible = filters?.filter((filter) => filter?.filterType?.type === 'select');
     const updateFilter = useCanvasState((state) => state.updateFilter);
@@ -20,12 +20,12 @@ export function Filters({ canvasData }: { canvasData: GetCanvasEmbedResponse }) 
             {filtersVisible?.map((filter) => {
                 let filterOptions;
 
-                if (filterOptionsCache.has(filter.filterId)) {
-                    filterOptions = filterOptionsCache.get(filter.filterId);
+                if (filter.filterId in filterOptionsCache) {
+                    filterOptions = filterOptionsCache[filter.filterId];
                 } else {
                     // @ts-ignore
                     filterOptions = canvasData.filters.uniqueValues[filter.filterType.storeId];
-                    filterOptionsCache.set(filter.filterId, filterOptions);
+                    setFilterOptionsCache((prev) => ({ ...prev, [filter.filterId]: filterOptions }));
                 }
 
                 return (
