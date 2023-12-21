@@ -10,7 +10,7 @@ type CanvasInnerProps = {
 export const CanvasInner = ({ canvasData, dataHash }: CanvasInnerProps) => {
     const { elementOrder, elements } = canvasData;
     return (
-        <div className="flex flex-1 flex-col gap-4 overflow-y-auto">
+        <div className="canvas-container flex flex-1 flex-col gap-4 overflow-y-auto">
             <Filters canvasData={canvasData} />
             <section className="mt-5 flex flex-col gap-8">
                 {elementOrder.element_order.map((elementIds, index) => (
