@@ -20,3 +20,8 @@ export function stripDollarPrefix(obj: Record<string, any>): Record<string, any>
     });
     return newObj;
 }
+
+// https://stackoverflow.com/a/24457420/3494595
+export function isNumeric(value: string): boolean {
+    return /^-?\d+$/.test(value);
+}
