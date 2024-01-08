@@ -1,7 +1,7 @@
 import React from 'react';
 
 type ElementProps = {
-    title: string;
+    title?: string;
     children: React.ReactNode;
     elementId: string;
 };

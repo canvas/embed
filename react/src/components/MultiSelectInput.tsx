@@ -9,13 +9,13 @@ export type SelectOption = [Value, Label];
 type MultiSelectInputProps = {
     value: string; // value === '' when default option is selected
     onChange: (value: string) => void;
-    options: SelectOption[];
+    options: SelectOption[]; // [ID, label]
     defaultOption?: string;
 };
 
 function getLabel(item: SelectOption) {
     if (item[0] === '') return item[1];
-    return `${item[0]}${item[1] ? ` (${item[1]})` : ''}`;
+    return `${item[1]}${item[0] ? ` (${item[0]})` : ''}`;
 }
 
 // taken from https://headlessui.com/react/listbox

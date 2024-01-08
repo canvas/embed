@@ -2,6 +2,8 @@
 // export { Icon };
 
 export { default as IntegerIcon } from '../../static/icons/component/integer_icon.svg';
+export { default as UpToTheRightIcon } from '../../static/icons/up-to-the-right.svg';
+export { default as DownToTheRightIcon } from '../../static/icons/down-to-the-right.svg';
 
 // export const AddSourceIcon = icon('./static/icons/nav/add_source.svg');
 // export const CheckmarkIcon = icon('./static/icons/nav/checkmark.svg');

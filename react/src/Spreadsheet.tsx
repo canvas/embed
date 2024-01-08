@@ -9,7 +9,6 @@ import { VariableSizeGrid as Grid } from 'react-window';
 import _ from 'lodash';
 // import { usePrevious } from '../../v1/util/UtilUtils';
 import AutoSizer from 'react-virtualized-auto-sizer';
-// import { formatCell, isCohortStore } from '../../util/StoreUtil';
 import percentile from 'percentile';
 import { DateTime } from 'luxon';
 import { getTypeIcon } from './icons/ColumnTypeUtil';
