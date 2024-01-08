@@ -3,5 +3,5 @@ import type { Component } from './Component';
 
 export interface ComponentEmbed {
     component: Component;
-    formattedValues: Array<string>;
+    data: Array<Array<string>>;
 }

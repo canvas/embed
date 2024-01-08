@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 
@@ -9,13 +9,13 @@ export type SelectOption = [Value, Label];
 type MultiSelectInputProps = {
     value: string; // value === '' when default option is selected
     onChange: (value: string) => void;
-    options: SelectOption[];
+    options: SelectOption[]; // [ID, label]
     defaultOption?: string;
 };
 
 function getLabel(item: SelectOption) {
     if (item[0] === '') return item[1];
-    return `${item[0]}${item[1] ? ` (${item[1]})` : ''}`;
+    return `${item[1]}${item[0] ? ` (${item[0]})` : ''}`;
 }
 
 // taken from https://headlessui.com/react/listbox
@@ -49,20 +49,25 @@ const MultiSelectInputDisplay = ({ value, onChange, options }: MultiSelectInputP
                                     }
                                     value={option}
                                 >
-                                    {({ selected }) => (
-                                        <>
-                                            <span
-                                                className={`block truncate ${selected ? 'font-medium' : 'font-normal'}`}
-                                            >
-                                                {getLabel(option)}
-                                            </span>
-                                            {selected ? (
-                                                <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
-                                                    <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                    {() => {
+                                        const selected = option[0] === value;
+                                        return (
+                                            <>
+                                                <span
+                                                    className={`block truncate ${
+                                                        selected ? 'font-medium' : 'font-normal'
+                                                    }`}
+                                                >
+                                                    {getLabel(option)}
                                                 </span>
-                                            ) : null}
-                                        </>
-                                    )}
+                                                {selected ? (
+                                                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                                                        <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                                    </span>
+                                                ) : null}
+                                            </>
+                                        );
+                                    }}
                                 </Listbox.Option>
                             ))}
                         </Listbox.Options>

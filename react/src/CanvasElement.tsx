@@ -50,8 +50,8 @@ export const CanvasElement = ({
     if (elementType.type === 'component') {
         if (elementType.component.component === 'BigNumber') {
             return (
-                <Element key={elementId} title={title || ''} elementId={elementId}>
-                    <BigNumber element={element as ComponentEmbedElement} />
+                <Element key={elementId} elementId={elementId}>
+                    <BigNumber element={element as ComponentEmbedElement} title={title || ''} />
                 </Element>
             );
         }
