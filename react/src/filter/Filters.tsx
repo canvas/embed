@@ -9,7 +9,7 @@ export function Filters({ canvasData }: { canvasData: GetCanvasEmbedResponse }) 
     );
 
     return (
-        <section>
+        <section className="flex">
             {filtersVisible?.map((filter) => <Filter key={filter.filterId} canvasData={canvasData} filter={filter} />)}
         </section>
     );

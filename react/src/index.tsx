@@ -8,7 +8,7 @@ import { CanvasInner } from './Canvas';
 import { GetCanvasEmbedResponse } from './rust_types/GetCanvasEmbedResponse';
 import useCanvasState from './state/useCanvasState';
 import isEmpty from 'lodash/isEmpty';
-import { buildUrl, stripDollarPrefix } from './util';
+import { buildUrl, convertFilterParams } from './util';
 
 type CanvasProps = {
     canvasId: string;
@@ -30,15 +30,16 @@ export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostO
     const [canvasData, setCanvasData] = useState<GetCanvasEmbedResponse | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [dataHash, setDataHash] = useState<string>(Math.random().toString(36).substring(7));
+    const [loading, setLoading] = useState(false);
     const host = hostOverride || API_BASE_URL;
     const filters = useCanvasState((state) => state.filters);
 
     useEffect(() => {
-        // fetch(`${host}/v1/embed/canvas_embed?canvas_id=${canvasId}${!isEmpty(filters) ? '&select_2=9338' : ''}`, {
+        setLoading(true);
         fetch(
             buildUrl(`${host}/v1/embed/canvas_embed`, {
                 canvas_id: canvasId,
-                ...(!isEmpty(filters) && stripDollarPrefix(filters)),
+                ...(!isEmpty(filters) && convertFilterParams(filters)),
             }),
             {
                 method: 'GET',
@@ -48,6 +49,7 @@ export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostO
             },
         )
             .then(async (res) => {
+                setLoading(false);
                 const canvasData = await res.json();
                 if (!res.ok) {
                     console.error(`Error getting canvas data: ${JSON.stringify(canvasData)}`);
@@ -60,6 +62,7 @@ export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostO
                 }
             })
             .catch((error) => {
+                setLoading(false);
                 console.log(`Error getting canvas data: ${error}`);
                 setError(`Network error - either the server is down or you are offline`);
                 setCanvasData(null);
@@ -88,7 +91,7 @@ export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostO
         );
     }
     if (canvasData) {
-        return <CanvasInner canvasData={canvasData} dataHash={dataHash} />;
+        return <CanvasInner canvasData={canvasData} dataHash={dataHash} loading={loading} />;
     }
 };
 

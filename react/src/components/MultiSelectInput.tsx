@@ -1,33 +1,34 @@
 import React, { Fragment } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
+import { ChevronUpDownIcon } from '@heroicons/react/20/solid';
 
-type Value = string;
-type Label = string;
-export type SelectOption = [Value, Label];
-
-type MultiSelectInputProps = {
-    value: string; // value === '' when default option is selected
-    onChange: (value: string) => void;
-    options: SelectOption[]; // [ID, label]
-    defaultOption?: string;
+export type SelectOption = {
+    value: string;
+    label: string;
 };
 
-function getLabel(item: SelectOption) {
-    if (item[0] === '') return item[1];
-    return `${item[1]}${item[0] ? ` (${item[0]})` : ''}`;
-}
+type MultiSelectInputProps = {
+    selections: SelectOption[];
+    onChange: (options: SelectOption[]) => void;
+    options: SelectOption[];
+    label: string | null;
+};
 
 // taken from https://headlessui.com/react/listbox
-const MultiSelectInputDisplay = ({ value, onChange, options }: MultiSelectInputProps) => {
+const MultiSelectInput = ({ selections, onChange, options, label }: MultiSelectInputProps) => {
+    const buttonText = selections.length > 0 ? selections.map((filter) => filter.label).join(', ') : label;
     return (
         <div className="w-72 z-30">
-            <Listbox value={value} onChange={(item) => onChange(item[0])}>
+            <Listbox
+                value={selections}
+                onChange={(items) => {
+                    onChange(items);
+                }}
+                multiple
+            >
                 <div className="relative mt-1">
                     <Listbox.Button className="relative w-full cursor-pointer rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-                        <span className="block truncate">
-                            {getLabel(options.find((item) => item[0] === value) as SelectOption)}
-                        </span>
+                        <Listbox.Button>{buttonText}</Listbox.Button>
                         <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                             <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
                         </span>
@@ -50,7 +51,7 @@ const MultiSelectInputDisplay = ({ value, onChange, options }: MultiSelectInputP
                                     value={option}
                                 >
                                     {() => {
-                                        const selected = option[0] === value;
+                                        const selected = selections.map((sel) => sel.value).includes(option.value);
                                         return (
                                             <>
                                                 <span
@@ -58,13 +59,8 @@ const MultiSelectInputDisplay = ({ value, onChange, options }: MultiSelectInputP
                                                         selected ? 'font-medium' : 'font-normal'
                                                     }`}
                                                 >
-                                                    {getLabel(option)}
+                                                    {option.label}
                                                 </span>
-                                                {selected ? (
-                                                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
-                                                        <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                                                    </span>
-                                                ) : null}
                                             </>
                                         );
                                     }}
@@ -77,19 +73,4 @@ const MultiSelectInputDisplay = ({ value, onChange, options }: MultiSelectInputP
         </div>
     );
 };
-
-// Our wrapper that adds default option
-const MultiSelectInput = ({ value, onChange, options, defaultOption }: MultiSelectInputProps) => {
-    const optionsFinal = defaultOption ? [['', defaultOption] as SelectOption, ...options] : options;
-    const valueFinal = value || '';
-    return (
-        <MultiSelectInputDisplay
-            value={valueFinal}
-            onChange={onChange}
-            options={optionsFinal}
-            defaultOption={defaultOption}
-        />
-    );
-};
-
 export default MultiSelectInput;

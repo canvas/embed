@@ -1,4 +1,5 @@
 import isEmpty from 'lodash/isEmpty';
+import { SelectOption } from './components/MultiSelectInput';
 
 export function buildUrl(url: string, params: Record<string, string>): string {
     if (isEmpty(params)) return url;
@@ -9,14 +10,12 @@ export function buildUrl(url: string, params: Record<string, string>): string {
     return `${url}?${queryString}`;
 }
 
-export function stripDollarPrefix(obj: Record<string, any>): Record<string, any> {
+export function convertFilterParams(obj: Record<string, SelectOption[]>): Record<string, string> {
     const newObj = {};
-    Object.keys(obj).forEach((key) => {
-        if (key.startsWith('$')) {
-            newObj[key.slice(1)] = obj[key];
-        } else {
-            newObj[key] = obj[key];
-        }
+    Object.entries(obj).forEach(([key, value]) => {
+        const newKey = key.startsWith('$') ? key.slice(1) : key;
+        const newValue = value.map((v) => v.value);
+        newObj[newKey] = newValue;
     });
     return newObj;
 }

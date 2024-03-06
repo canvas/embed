@@ -70,5 +70,9 @@ module.exports = {
     port: 3005,
     open: true,
   },
-  plugins: [new Dotenv()],
+  plugins: [
+    new Dotenv({
+      path: "./config/.env.local",
+    }),
+  ],
 };
