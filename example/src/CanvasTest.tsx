@@ -1,10 +1,10 @@
 import * as React from "react";
 import { Canvas } from "canvas-embed";
 
-const AUTH_TOKEN = process.env.AUTH_TOKEN;
+const AUTH_TOKEN = 'eyJtZXNzYWdlIjoiZjYwZDhjZTdiODNiYWRjNjhjMWNhMDQxZmE3ODE3ZjRlYjRjNmEzYTM3ZDQyMjE1NDYyNDhmNmJmM2ZhNTgxOGIwODlkYjcxODVjNTliMjk3OTYyMjg0MDRkOTBmNzE3NTNhYTRhM2Y4ZDg1YWM0ZGJlMzJmNTI5ZDlmNTJhMDdiNzMxYzQzMSIsIm5vbmNlIjoiZGVjZDNiYTM0YWYxZmI4Y2VkNjM3Mzk5OGU3MTQ0YjlkNTUzN2RhYTRmNDM4OTRlIiwia2V5SWQiOiJlbWtfanJPT1JnQ2gifQ==';
 
 const CanvasTest = (): React.ReactElement => {
-  const [canvasId, setCanvasId] = React.useState<string>("qtjuwN");
+  const [canvasId, setCanvasId] = React.useState<string>("7WrUZU");
   return (
     <div className="app py-8 px-16">
       <div className="flex items-center gap-3">

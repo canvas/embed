@@ -1,6 +1,5 @@
 import React from 'react';
-import isEmpty from 'lodash/isEmpty';
-import MultiSelectInput from '../components/MultiSelectInput';
+import MultiSelectInput, { SelectOption } from '../components/MultiSelectInput';
 import useCanvasState from '../state/useCanvasState';
 import { GetCanvasEmbedResponse } from '@/src/rust_types/GetCanvasEmbedResponse';
 import { FilterConfig } from '../rust_types/FilterConfig';
@@ -8,45 +7,41 @@ import { FilterConfig } from '../rust_types/FilterConfig';
 const Filter = ({ canvasData, filter }: { canvasData: GetCanvasEmbedResponse; filter: FilterConfig }) => {
     const updateFilter = useCanvasState((state) => state.updateFilter);
     const selectedFilters = useCanvasState((state) => state.filters);
-    const valueIsSelected = !isEmpty(selectedFilters);
-    // Cache mapping filterId to its filterOptions
     // We are exclusively using the initial filter options from the initial API response
-    const [filterOptionsCache, setFilterOptionsCache] = React.useState<Record<string, string[][]>>({});
+    const [filterOptionsCache, setFilterOptionsCache] = React.useState<SelectOption[] | null>(null);
 
     // currently only Select filters are supported, but remove this as we support more filter types
     if (filter.filterType.type !== 'select' || filter.filterType.storeId == null) {
         return null;
     }
+    const storeId = filter.filterType.storeId;
 
-    let filterOptions;
+    const getFilterOptions = (): SelectOption[] => {
+        if (filterOptionsCache) {
+            return filterOptionsCache;
+        }
+        const uniqueValues = canvasData.filters.uniqueValues[storeId];
+        if (!uniqueValues) {
+            return [];
+        }
+        const options = uniqueValues.map((option) => ({ label: option[0], value: option[1] }));
+        setFilterOptionsCache(options);
+        return options;
+    };
 
-    if (filter.filterId in filterOptionsCache) {
-        filterOptions = filterOptionsCache[filter.filterId];
-    } else {
-        filterOptions = canvasData.filters.uniqueValues[filter.filterType.storeId];
-        setFilterOptionsCache((prev) => ({ ...prev, [filter.filterId]: filterOptions }));
-    }
+    const filterOptions = getFilterOptions();
 
     return (
-        <div key={filter.filterId} className="flex gap-3">
+        <div key={filter.filterId} className="flex gap-3 mx-1">
             <MultiSelectInput
-                value={selectedFilters[filter.variable]}
-                onChange={(item: string) => {
-                    if (item === '' || item == null) {
-                        updateFilter({});
-                        return;
-                    }
+                selections={selectedFilters[filter.variable] || []}
+                onChange={(filters: SelectOption[]) => {
                     const variable = filter.variable;
-                    updateFilter({ [variable]: item });
+                    updateFilter({ [variable]: filters });
                 }}
-                defaultOption="Select Filter"
                 options={filterOptions}
+                label={filter.label}
             />
-            {valueIsSelected && (
-                <button onClick={() => updateFilter({})} className="text-xs text-blue-700">
-                    Clear Filter
-                </button>
-            )}
         </div>
     );
 };
