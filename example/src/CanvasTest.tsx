@@ -9,9 +9,7 @@ const CanvasTest = (): React.ReactElement => {
   const [canvasId, setCanvasId] = React.useState<string>(
     process.env.CANVAS_ID || ""
   );
-  const [authToken, setAuthToken] = React.useState<string>(
-    process.env.AUTH_TOKEN || ""
-  );
+  const [authToken, setAuthToken] = React.useState<string>(AUTH_TOKEN || "");
   return (
     <div className="app py-8 px-16">
       <div className="flex items-center gap-3">
