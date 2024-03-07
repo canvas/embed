@@ -37,6 +37,6 @@
     "react-dom": "^18.2.0"
   },
   "dependencies": {
-    "canvas-embed": "^1.0.47"
+    "canvas-embed": "^1.0.48"
   }
 }
