@@ -30,6 +30,9 @@ export const CanvasElement = ({
     }
     if (elementType.type === 'spreadsheet') {
         const spreadsheetElement = elementType;
+        if (spreadsheetElement.displayExtras.hiddenWhenEmpty === true && spreadsheetElement.rowCount === 0) {
+            return;
+        }
         return (
             <Element key={elementId} title={spreadsheetElement.metaData.title} elementId={elementId}>
                 <Spreadsheet
