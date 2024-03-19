@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+    <!-- Demonstrates inlining as pure JS without bundler -->
+    <head>
+        <title>React App</title>
+    </head>
+    <body>
+        <div id="react"></div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+        <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <script charset="UTF-8" src="./dist/bundle.js"></script>
+
+        <script type="text/babel">
+            const CanvasEmbed = window['canvas-embed'];
+            const container = document.getElementById('react');
+            const root = ReactDOM.createRoot(container);
+            root.render(<CanvasEmbed.Canvas canvasId="" authToken="" />);
+        </script>
+    </body>
+</html>

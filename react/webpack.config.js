@@ -7,28 +7,45 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js',
         libraryTarget: 'umd',
-        library: 'canvas-embed', // Your component's name
+        library: 'canvas-embed',
+        globalObject: 'this',
+        umdNamedDefine: true,
     },
+    // devtool: process.env.NODE_ENV === 'production' ? 'source-map' : 'inline-source-map',
     resolve: {
         extensions: ['.tsx', '.ts', '.js', '.jsx'],
     },
     externals: {
-        react: 'react', // Treat React as an external dependency
-        'react-dom': 'react-dom', // Treat ReactDOM as an external dependency
+        // Don't bundle react or react-dom
+        react: {
+            commonjs: 'react',
+            commonjs2: 'react',
+            amd: 'React',
+            root: 'React',
+        },
+        'react-dom': {
+            commonjs: 'react-dom',
+            commonjs2: 'react-dom',
+            amd: 'ReactDOM',
+            root: 'ReactDOM',
+        },
     },
     module: {
         rules: [
             {
-                test: /\.jsx?$/,
+                test: /\.(ts|tsx)$/,
+                exclude: /node_modules/,
+                use: ['ts-loader'],
+            },
+            {
+                test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env', '@babel/preset-react'],
+                    },
                 },
-            },
-            {
-                test: /\.(tsx?)$/,
-                exclude: /node_modules/,
-                use: ['ts-loader'],
             },
             {
                 test: /\.css$/i,
