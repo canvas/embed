@@ -92,17 +92,17 @@ type ChartColors = {
     darkColors: string[];
 };
 
-type Props = {
+type ChartProps = {
     data: ChartData | undefined;
     title: string;
     timezone: string | null;
     theme: Theme;
 };
 
-export type HighchartChartHandle = {
+export type ChartHandle = {
     download: () => void;
 };
-export const Chart = React.forwardRef<HighchartChartHandle, Props>(function HighchartChart(props: Props, ref) {
+export const Chart = React.forwardRef<ChartHandle, ChartProps>(function HighchartChart(props: ChartProps, ref) {
     const chartRef = React.useRef<HighchartsReact.RefObject>(null);
     const { data, title, timezone, theme } = props;
     const colors = React.useMemo(() => {

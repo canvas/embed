@@ -22,7 +22,6 @@ type WrapperProps = {
     authToken: string;
     chartId: string;
     timezone: string | null;
-    disableExport?: boolean;
     host?: string;
 };
 
@@ -97,13 +96,7 @@ export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostO
     }
 };
 
-export const Chart: React.FC<WrapperProps> = ({
-    authToken,
-    chartId,
-    timezone,
-    disableExport,
-    host: hostOverride,
-}: WrapperProps) => {
+export const Chart: React.FC<WrapperProps> = ({ authToken, chartId, timezone, host: hostOverride }: WrapperProps) => {
     const [chartData, setChartData] = useState<ChartData | null>(null);
     const [error, setError] = useState<string | null>(null);
     const host = hostOverride || API_BASE_URL;
