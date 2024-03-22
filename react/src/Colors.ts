@@ -1,5 +1,6 @@
 import chroma from 'chroma-js';
-import { ChartData, ColorTheme } from './Chart';
+import { ColorTheme } from './rust_types/ColorTheme';
+import { ChartData } from './rust_types/ChartData';
 
 type ColorPalette =
     | {

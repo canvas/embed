@@ -2,3 +2,4 @@ node_modules
 dist
 react/lib-esm/
 *.env
+.DS_Store

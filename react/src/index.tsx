@@ -3,12 +3,13 @@ import '../styles/index.less';
 // import "../static/fonts/proxima-nova.css";
 
 import React, { useEffect, useState } from 'react';
-import { Chart as _Chart, ChartData as InnerChartData } from './Chart';
+import { Chart as _Chart } from './Chart';
 import { CanvasInner } from './Canvas';
 import { GetCanvasEmbedResponse } from './rust_types/GetCanvasEmbedResponse';
 import useCanvasState from './state/useCanvasState';
 import isEmpty from 'lodash/isEmpty';
 import { buildUrl, convertFilterParams } from './util';
+import { ChartData } from './rust_types/ChartData';
 
 type CanvasProps = {
     canvasId: string;
@@ -27,6 +28,7 @@ type WrapperProps = {
 const API_BASE_URL = 'https://api.canvasapp.com';
 
 export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostOverride }: CanvasProps) => {
+    console.log('local');
     const [canvasData, setCanvasData] = useState<GetCanvasEmbedResponse | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [dataHash, setDataHash] = useState<string>(Math.random().toString(36).substring(7));
@@ -102,7 +104,7 @@ export const Chart: React.FC<WrapperProps> = ({
     disableExport,
     host: hostOverride,
 }: WrapperProps) => {
-    const [chartData, setChartData] = useState<InnerChartData | null>(null);
+    const [chartData, setChartData] = useState<ChartData | null>(null);
     const [error, setError] = useState<string | null>(null);
     const host = hostOverride || API_BASE_URL;
 

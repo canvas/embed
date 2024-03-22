@@ -11,66 +11,13 @@ import { parseDateTimeNtz, parseDateTimeTz } from './DateUtil';
 import { DateTime } from 'luxon';
 import moment from 'moment-timezone';
 import { getColors } from './Colors';
+import { ChartData } from './rust_types/ChartData';
+import { Format } from './rust_types/Format';
+import { ChartDataSeriesConfig } from './rust_types/ChartDataSeriesConfig';
 
 type YAxes = Highcharts.YAxisOptions | Highcharts.YAxisOptions[];
 
 type SeriesChartType = 'column' | 'bar' | 'line' | 'pie' | 'scatter' | 'area' | 'waterfall' | 'funnel';
-type ColorDimension = 'none' | 'series' | 'categories' | 'automatic';
-type VariableCategory = 'nominal' | 'ordinal' | 'discrete' | 'continuous';
-type ChartType = 'bar' | 'line' | 'pie' | 'combo' | 'scatter' | 'funnel' | 'area';
-export type ColorTheme = 'Rainbow' | 'Bright' | 'Plasma' | 'GreenYellow' | 'Blue' | 'Red' | 'Gray';
-type StackType = 'none' | 'standard' | 'onehundredpercent';
-type ChartMargin = {
-    top: number | null;
-    bottom: number | null;
-    left: number | null;
-    right: number | null;
-    pad: number | null;
-    xTickAngle: number | null;
-    yTickAngle: number | null;
-    maxTickLength: number | null;
-    yAxisMinimum: number | null;
-    yAxisMaximum: number | null;
-};
-type Format =
-    | { type: 'Automatic' }
-    | { type: 'PlainText' }
-    | { type: 'Money_v2'; precision: number }
-    | { type: 'Percent_v2'; precision: number }
-    | { type: 'Number'; precision: number }
-    | { type: 'Date' }
-    | { type: 'DateTime' }
-    | { type: 'Money' }
-    | { type: 'Percent' };
-type SeriesFormat = 'line' | 'bar' | 'waterfall';
-type LineShape = 'spline' | 'hvh' | 'linear';
-type LineDash = 'solid' | 'dot' | 'dashdot';
-type ChartDataSeriesConfig = {
-    secondYAxis: boolean;
-    lineShape: LineShape;
-    lineDash: LineDash;
-    format: Format;
-};
-
-export type ChartData = {
-    colorDimension: ColorDimension;
-    domainCategory: VariableCategory | null;
-    chartType: ChartType;
-    seriesNames: Array<string>;
-    values: Array<Array<string>>;
-    colorTheme: ColorTheme;
-    horizontal: boolean;
-    stackType: StackType | null;
-    labels: Array<string>;
-    xAxisTitle: string | null;
-    yAxisTitle: string | null;
-    margin: ChartMargin | null;
-    seriesFormat: Format;
-    seriesConfigs: Record<string, ChartDataSeriesConfig>;
-    seriesColumnIds: Array<string>;
-    seriesFormats: Array<SeriesFormat> | null;
-    showBarTotals: boolean;
-};
 
 Funnel(Highcharts);
 exportingModule(Highcharts);
