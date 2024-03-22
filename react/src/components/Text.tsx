@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextEmbed } from '../rust_types/TextEmbed';
+import { TextEmbed } from '../__rust_generated__/TextEmbed';
 
 const Text = ({ element }: { element: TextEmbed }) => {
     return (

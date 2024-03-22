@@ -11,6 +11,10 @@ module.exports = {
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js', '.jsx'],
+        alias: {
+            root: __dirname,
+            src: path.resolve(__dirname, 'src'),
+        },
     },
     externals: {
         react: 'react', // Treat React as an external dependency

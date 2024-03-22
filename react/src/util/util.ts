@@ -1,5 +1,5 @@
 import isEmpty from 'lodash/isEmpty';
-import { SelectOption } from './components/MultiSelectInput';
+import { SelectOption } from '../components/MultiSelectInput';
 
 export function buildUrl(url: string, params: Record<string, string>): string {
     if (isEmpty(params)) return url;

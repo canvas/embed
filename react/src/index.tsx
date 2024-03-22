@@ -5,12 +5,12 @@ import '../styles/index.less';
 import React, { useEffect, useState } from 'react';
 import { Chart as _Chart } from './Chart';
 import { CanvasInner } from './Canvas';
-import { GetCanvasEmbedResponse } from './rust_types/GetCanvasEmbedResponse';
+import { GetCanvasEmbedResponse } from './__rust_generated__/GetCanvasEmbedResponse';
 import useCanvasState from './state/useCanvasState';
 import isEmpty from 'lodash/isEmpty';
-import { buildUrl, convertFilterParams } from './util';
-import { ChartData } from './rust_types/ChartData';
-import { defaultTheme } from './theme.util';
+import { buildUrl, convertFilterParams } from './util/util';
+import { ChartData } from './__rust_generated__/ChartData';
+import { defaultTheme } from './components/layout/themes/theme.util';
 
 type CanvasProps = {
     canvasId: string;
