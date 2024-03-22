@@ -1,7 +1,7 @@
 import type { SvgrComponent } from './SvgrComponent.d.ts';
 import { BooleanIcon, DateIcon, DateTimeIcon, IntegerIcon, MiscIcon, SqlErrorIcon, TextIcon } from './index';
 // import { CsvColumnType } from '../../__generated__/globalTypes';
-import { SqlType } from '../__rust_generated__/SqlType.js';
+import { SqlType } from '../__rust_generated__/SqlType';
 
 function exhaustiveGuard(_value: never): never {
     throw new Error(`ERROR! Reached forbidden guard function with unexpected value: ${JSON.stringify(_value)}`);
