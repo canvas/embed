@@ -75,7 +75,6 @@ const ChartTest = (): React.ReactElement => {
         <Chart
           chartId={embedId}
           authToken={token}
-          disableExport={true}
           host={"http://localhost:3000"}
           // TODO: fix this
           timezone="America/Los_Angeles"

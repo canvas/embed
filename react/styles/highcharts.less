@@ -1,10 +1,97 @@
 /**
  * @license Highcharts
  *
- * (c) 2009-2016 Torstein Honsi
- *
+ * (c) 2009-2022 Torstein Honsi
  * License: www.highcharts.com/license
+
+ * (c) 2022-2024 Infinite Canvas Inc. (modifications)
+ *
  */
+
+:root {
+    --neutral-50: #fafafa;
+    --neutral-100: #f5f5f5;
+    --neutral-200: #e5e5e5;
+    --neutral-300: #d4d4d4;
+    --neutral-400: #a3a3a3;
+    --neutral-500: #737373;
+    --neutral-600: #525252;
+    --neutral-700: #404040;
+    --neutral-800: #262626;
+    --neutral-900: #171717;
+    --neutral-950: #0a0a0a;
+
+    --blue-50: #eff6ff;
+    --blue-100: #dbeafe;
+    --blue-200: #bfdbfe;
+    --blue-300: #93c5fd;
+    --blue-400: #60a5fa;
+    --blue-500: #3b82f6;
+    --blue-600: #2563eb;
+    --blue-700: #1d4ed8;
+    --blue-800: #1e40af;
+    --blue-900: #1e3a8a;
+    --blue-950: #172554;
+
+    --red-500: #ef4444;
+    --green-500: #22c55e;
+
+    --theme-body-font-family: inherit;
+    --theme-body-font-size: 12px;
+
+    --theme-light-background-color: #ffffff;
+    --theme-background-color: var(--theme-light-background-color);
+
+    --theme-light-neutral-950: var(--neutral-950);
+    --theme-light-neutral-900: var(--neutral-900);
+    --theme-light-neutral-800: var(--neutral-800);
+    --theme-light-neutral-700: var(--neutral-700);
+    --theme-light-neutral-600: var(--neutral-600);
+    --theme-light-neutral-500: var(--neutral-500);
+    --theme-light-neutral-400: var(--neutral-400);
+    --theme-light-neutral-300: var(--neutral-300);
+    --theme-light-neutral-200: var(--neutral-200);
+    --theme-light-neutral-100: var(--neutral-100);
+    --theme-light-neutral-50: var(--neutral-50);
+
+    --theme-neutral-950: var(--theme-light-neutral-950);
+    --theme-neutral-900: var(--theme-light-neutral-900);
+    --theme-neutral-800: var(--theme-light-neutral-800);
+    --theme-neutral-700: var(--theme-light-neutral-700);
+    --theme-neutral-600: var(--theme-light-neutral-600);
+    --theme-neutral-500: var(--theme-light-neutral-500);
+    --theme-neutral-400: var(--theme-light-neutral-400);
+    --theme-neutral-300: var(--theme-light-neutral-300);
+    --theme-neutral-200: var(--theme-light-neutral-200);
+    --theme-neutral-100: var(--theme-light-neutral-100);
+    --theme-neutral-50: var(--theme-light-neutral-50);
+
+    --theme-accent-700: var(--blue-700);
+    --theme-accent-500: var(--blue-500);
+    --theme-accent-400: var(--blue-400);
+    --theme-accent-200: var(--blue-200);
+    --theme-accent-50: var(--blue-50);
+
+    --theme-positive-500: var(--green-500);
+    --theme-negative-500: var(--red-500);
+}
+
+.dark {
+    --theme-background-color: var(--theme-dark-background-color, var(--neutral-950));
+
+    --theme-neutral-950: var(--theme-dark-neutral-950, var(--theme-light-neutral-50));
+    --theme-neutral-900: var(--theme-dark-neutral-900, var(--theme-light-neutral-100));
+    --theme-neutral-800: var(--theme-dark-neutral-800, var(--theme-light-neutral-200));
+    --theme-neutral-700: var(--theme-dark-neutral-700, var(--theme-light-neutral-300));
+    --theme-neutral-600: var(--theme-dark-neutral-600, var(--theme-light-neutral-400));
+    --theme-neutral-500: var(--theme-dark-neutral-500, var(--theme-light-neutral-500));
+    --theme-neutral-400: var(--theme-dark-neutral-400, var(--theme-light-neutral-600));
+    --theme-neutral-300: var(--theme-dark-neutral-300, var(--theme-light-neutral-700));
+    --theme-neutral-200: var(--theme-dark-neutral-200, var(--theme-light-neutral-800));
+    --theme-neutral-100: var(--theme-dark-neutral-100, var(--theme-light-neutral-900));
+    --theme-neutral-50: var(--theme-dark-neutral-50, var(--theme-light-neutral-950));
+}
+
 .highcharts-container {
     position: relative;
     overflow: hidden;
@@ -13,16 +100,17 @@
     text-align: left;
     line-height: normal;
     z-index: 0; /* #1072 */
-    -webkit-tap-highlight-color: rgb(var(--colors));
-    font-family: var(--theme-font-family), proxima-nova, 'Proxima Nova', sans-serif;
-    font-size: 12px;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    font-family: var(--theme-body-font-family);
+    font-size: var(--theme-body-font-size);
     user-select: none;
     touch-action: manipulation;
     outline: none;
 }
 
 .highcharts-container text {
-    font-family: var(--theme-font-family), proxima-nova, 'Proxima Nova', sans-serif !important;
+    font-family: var(--theme-body-font-family);
+    font-size: var(--theme-body-font-size);
 }
 
 .highcharts-root {
@@ -46,7 +134,7 @@
 }
 
 .highcharts-background {
-    fill: rgb(var(--colors-background));
+    fill: transparent;
 }
 
 .highcharts-plot-border,
@@ -58,37 +146,43 @@
     fill: none;
 }
 
+.highcharts-label text {
+    fill: var(--theme-neutral-700);
+    font-size: 0.8em;
+}
+
 .highcharts-button-box {
     fill: inherit;
 }
 
 .highcharts-tracker-line {
     stroke-linejoin: round;
-    stroke: rgba(var(--colors-faded), 0.0001);
+    stroke: rgba(192, 192, 192, 0.0001);
     stroke-width: 22;
     fill: none;
 }
 
 .highcharts-tracker-area {
-    fill: rgba(var(--colors-faded), 0.0001);
+    fill: rgba(192, 192, 192, 0.0001);
     stroke-width: 0;
 }
 
 /* Titles */
 .highcharts-title {
-    fill: rgb(var(--colors));
-    font-size: 1.5em;
+    fill: var(--theme-neutral-700);
+    font-size: 1.2em;
+    // font-weight: bold;
 }
 
 .highcharts-subtitle {
-    fill: rgb(var(--colors-faded));
-    font-size: 1em;
+    fill: var(--theme-neutral-500);
+    font-size: 0.8em;
 }
 
 /* Axes */
 .highcharts-axis-line {
     fill: none;
-    stroke: rgb(var(--colors-inactive));
+    stroke: var(--theme-neutral-700);
 }
 
 .highcharts-yaxis .highcharts-axis-line {
@@ -96,26 +190,27 @@
 }
 
 .highcharts-axis-title {
-    fill: rgb(var(--colors-faded));
+    fill: var(--theme-neutral-500);
+    font-size: 0.8em;
 }
 
 .highcharts-axis-labels {
-    fill: rgb(var(--colors-faded));
+    fill: var(--theme-neutral-700);
     cursor: default;
-    font-size: 0.9em;
+    font-size: 0.8em;
 }
 
 .highcharts-grid-line {
     fill: none;
-    stroke: rgb(var(--colors-border));
+    stroke: var(--theme-neutral-200);
 }
 
 .highcharts-xaxis-grid .highcharts-grid-line {
-    stroke-width: 0px;
+    stroke-width: 0;
 }
 
 .highcharts-tick {
-    stroke: rgb(var(--colors-inactive));
+    stroke: var(--theme-neutral-700);
 }
 
 .highcharts-yaxis .highcharts-tick {
@@ -123,16 +218,16 @@
 }
 
 .highcharts-minor-grid-line {
-    stroke: rgb(var(--colors-divider));
+    stroke: var(--theme-neutral-100);
 }
 
 .highcharts-crosshair-thin {
     stroke-width: 1px;
-    stroke: rgb(var(--colors-inactive));
+    stroke: var(--theme-neutral-300);
 }
 
 .highcharts-crosshair-category {
-    stroke: rgb(var(--colors-inactive));
+    stroke: var(--theme-accent-200);
     stroke-opacity: 0.25;
 }
 
@@ -147,7 +242,7 @@
 }
 
 .highcharts-credits:hover {
-    fill: rgb(var(--colors));
+    fill: transparent;
     font-size: 1em;
 }
 
@@ -166,13 +261,13 @@
 /* lol */
 .highcharts-tooltip > span {
     display: block;
-    background-color: rgb(var(--colors-background));
+    background-color: var(--theme-background-color);
     padding: 8px 16px 12px 16px;
     border-radius: 10px;
     box-shadow:
         0px 0px 24px 0px rgba(0, 0, 0, 0.04),
         0px 0px 8px 0px rgba(0, 0, 0, 0.08);
-    border: 1px solid var(--light-theme-light-border, #d2d2d7);
+    border: 1px solid var(--theme-neutral-200);
 }
 
 .dark .highcharts-tooltip > span {
@@ -188,7 +283,7 @@ g.highcharts-tooltip {
 
 .highcharts-label.highcharts-tooltip,
 .dark .highcharts-label.highcharts-tooltip {
-    color: rgb(var(--colors));
+    color: var(--theme-neutral-950);
 }
 
 .highcharts-tooltip .highcharts-header {
@@ -219,10 +314,11 @@ g.highcharts-tooltip {
 
 div.highcharts-tooltip {
     filter: none;
+    font-size: 0.8em;
 }
 
 .highcharts-selection-marker {
-    fill: rgb(var(--accent));
+    fill: var(--theme-accent-500);
     fill-opacity: 0.25;
 }
 
@@ -236,7 +332,7 @@ div.highcharts-tooltip {
 .highcharts-empty-series {
     stroke-width: 1px;
     fill: none;
-    stroke: rgb(var(--colors-inactive));
+    stroke: var(--theme-neutral-300);
 }
 
 .highcharts-state-hover .highcharts-graph {
@@ -276,134 +372,163 @@ g.highcharts-series,
     opacity: 0.2;
 }
 
+.target-column-range .highcharts-point {
+    fill: #000000;
+    stroke: #000000;
+    color: #000000;
+}
+.inside-data-labels.highcharts-data-label text {
+    fill: #ffffff;
+    stroke: #ffffff;
+    color: #ffffff;
+}
+.pacing-negative-point:not(.highcharts-bullet-target) {
+    fill: #eb1d2c;
+    stroke: #eb1d2c;
+    color: #eb1d2c;
+}
+.pacing-positive-point:not(.highcharts-bullet-target) {
+    fill: #5ebb68;
+    stroke: #5ebb68;
+    color: #5ebb68;
+}
+
 /* Series options */
+
 /* Default colors */
 .highcharts-color-0 {
-    fill: var(--chart-color-0, #7cb5ec);
-    stroke: var(--chart-color-0, #7cb5ec);
-    color: var(--chart-color-0, #7cb5ec);
+    fill: var(--theme-light-chart-color-0, #7cb5ec);
+    stroke: var(--theme-light-chart-color-0, #7cb5ec);
+    color: var(--theme-light-chart-color-0, #7cb5ec);
 }
 
 .dark .highcharts-color-0 {
-    fill: var(--chart-dark-color-0, var(--chart-color-0, #7cb5ec));
-    stroke: var(--chart-dark-color-0, var(--chart-color-0, #7cb5ec));
-    color: var(--chart-dark-color-0, var(--chart-color-0, #7cb5ec));
+    fill: var(--theme-dark-chart-color-0, var(--theme-light-chart-color-0, #7cb5ec));
+    stroke: var(--theme-dark-chart-color-0, var(--theme-light-chart-color-0, #7cb5ec));
+    color: var(--theme-dark-chart-color-0, var(--theme-light-chart-color-0, #7cb5ec));
 }
 
 .highcharts-color-1 {
-    fill: var(--chart-color-1, #434348);
-    stroke: var(--chart-color-1, #434348);
-    color: var(--chart-color-1, #434348);
+    fill: var(--theme-light-chart-color-1, #434348);
+    stroke: var(--theme-light-chart-color-1, #434348);
+    color: var(--theme-light-chart-color-1, #434348);
 }
 
 .dark .highcharts-color-1 {
-    fill: var(--chart-dark-color-1, var(--chart-color-1, #434348));
-    stroke: var(--chart-dark-color-1, var(--chart-color-1, #434348));
-    color: var(--chart-dark-color-1, var(--chart-color-1, #434348));
+    fill: var(--theme-dark-chart-color-1, var(--theme-light-chart-color-1, #434348));
+    stroke: var(--theme-dark-chart-color-1, var(--theme-light-chart-color-1, #434348));
+    color: var(--theme-dark-chart-color-1, var(--theme-light-chart-color-1, #434348));
 }
 
 .highcharts-color-2 {
-    fill: var(--chart-color-2, #90ed7d);
-    stroke: var(--chart-color-2, #90ed7d);
-    color: var(--chart-color-2, #90ed7d);
+    fill: var(--theme-light-chart-color-2, #90ed7d);
+    stroke: var(--theme-light-chart-color-2, #90ed7d);
+    color: var(--theme-light-chart-color-2, #90ed7d);
 }
 
 .dark .highcharts-color-2 {
-    fill: var(--chart-dark-color-2, var(--chart-color-2, #90ed7d));
-    stroke: var(--chart-dark-color-2, var(--chart-color-2, #90ed7d));
-    color: var(--chart-dark-color-2, var(--chart-color-2, #90ed7d));
+    fill: var(--theme-dark-chart-color-2, var(--theme-light-chart-color-2, #90ed7d));
+    stroke: var(--theme-dark-chart-color-2, var(--theme-light-chart-color-2, #90ed7d));
+    color: var(--theme-dark-chart-color-2, var(--theme-light-chart-color-2, #90ed7d));
 }
 
 .highcharts-color-3 {
-    fill: var(--chart-color-3, #f7a35c);
-    stroke: var(--chart-color-3, #f7a35c);
-    color: var(--chart-color-3, #f7a35c);
+    fill: var(--theme-light-chart-color-3, #f7a35c);
+    stroke: var(--theme-light-chart-color-3, #f7a35c);
+    color: var(--theme-light-chart-color-3, #f7a35c);
 }
 
 .dark .highcharts-color-3 {
-    fill: var(--chart-dark-color-3, var(--chart-color-3, #f7a35c));
-    stroke: var(--chart-dark-color-3, var(--chart-color-3, #f7a35c));
-    color: var(--chart-dark-color-3, var(--chart-color-3, #f7a35c));
+    fill: var(--theme-dark-chart-color-3, var(--theme-light-chart-color-3, #f7a35c));
+    stroke: var(--theme-dark-chart-color-3, var(--theme-light-chart-color-3, #f7a35c));
+    color: var(--theme-dark-chart-color-3, var(--theme-light-chart-color-3, #f7a35c));
 }
 
 .highcharts-color-4 {
-    fill: var(--chart-color-4, #8085e9);
-    stroke: var(--chart-color-4, #8085e9);
-    color: var(--chart-color-4, #8085e9);
+    fill: var(--theme-light-chart-color-4, #8085e9);
+    stroke: var(--theme-light-chart-color-4, #8085e9);
+    color: var(--theme-light-chart-color-4, #8085e9);
 }
 
 .dark .highcharts-color-4 {
-    fill: var(--chart-dark-color-4, var(--chart-color-4, #8085e9));
-    stroke: var(--chart-dark-color-4, var(--chart-color-4, #8085e9));
-    color: var(--chart-dark-color-4, var(--chart-color-4, #8085e9));
+    fill: var(--theme-dark-chart-color-4, var(--theme-light-chart-color-4, #8085e9));
+    stroke: var(--theme-dark-chart-color-4, var(--theme-light-chart-color-4, #8085e9));
+    color: var(--theme-dark-chart-color-4, var(--theme-light-chart-color-4, #8085e9));
 }
 
 .highcharts-color-5 {
-    fill: var(--chart-color-5, #f15c80);
-    stroke: var(--chart-color-5, #f15c80);
-    color: var(--chart-color-5, #f15c80);
+    fill: var(--theme-light-chart-color-5, #f15c80);
+    stroke: var(--theme-light-chart-color-5, #f15c80);
+    color: var(--theme-light-chart-color-5, #f15c80);
 }
 
 .dark .highcharts-color-5 {
-    fill: var(--chart-dark-color-5, var(--chart-color-5, #f15c80));
-    stroke: var(--chart-dark-color-5, var(--chart-color-5, #f15c80));
-    color: var(--chart-dark-color-5, var(--chart-color-5, #f15c80));
+    fill: var(--theme-dark-chart-color-5, var(--theme-light-chart-color-5, #f15c80));
+    stroke: var(--theme-dark-chart-color-5, var(--theme-light-chart-color-5, #f15c80));
+    color: var(--theme-dark-chart-color-5, var(--theme-light-chart-color-5, #f15c80));
 }
 
 .highcharts-color-6 {
-    fill: var(--chart-color-6, #e4d354);
-    stroke: var(--chart-color-6, #e4d354);
-    color: var(--chart-color-6, #e4d354);
+    fill: var(--theme-light-chart-color-6, #e4d354);
+    stroke: var(--theme-light-chart-color-6, #e4d354);
+    color: var(--theme-light-chart-color-6, #e4d354);
 }
 
 .dark .highcharts-color-6 {
-    fill: var(--chart-dark-color-6, var(--chart-color-6, #e4d354));
-    stroke: var(--chart-dark-color-6, var(--chart-color-6, #e4d354));
-    color: var(--chart-dark-color-6, var(--chart-color-6, #e4d354));
+    fill: var(--theme-dark-chart-color-6, var(--theme-light-chart-color-6, #e4d354));
+    stroke: var(--theme-dark-chart-color-6, var(--theme-light-chart-color-6, #e4d354));
+    color: var(--theme-dark-chart-color-6, var(--theme-light-chart-color-6, #e4d354));
 }
 
 .highcharts-color-7 {
-    fill: var(--chart-color-7, #2b908f);
-    stroke: var(--chart-color-7, #2b908f);
-    color: var(--chart-color-7, #2b908f);
+    fill: var(--theme-light-chart-color-7, #2b908f);
+    stroke: var(--theme-light-chart-color-7, #2b908f);
+    color: var(--theme-light-chart-color-7, #2b908f);
 }
 
 .dark .highcharts-color-7 {
-    fill: var(--chart-dark-color-7, var(--chart-color-7, #2b908f));
-    stroke: var(--chart-dark-color-7, var(--chart-color-7, #2b908f));
-    color: var(--chart-dark-color-7, var(--chart-color-7, #2b908f));
+    fill: var(--theme-dark-chart-color-7, var(--theme-light-chart-color-7, #2b908f));
+    stroke: var(--theme-dark-chart-color-7, var(--theme-light-chart-color-7, #2b908f));
+    color: var(--theme-dark-chart-color-7, var(--theme-light-chart-color-7, #2b908f));
 }
 
 .highcharts-color-8 {
-    fill: var(--chart-color-8, #f45b5b);
-    stroke: var(--chart-color-8, #f45b5b);
-    color: var(--chart-color-8, #f45b5b);
+    fill: var(--theme-light-chart-color-8, #f45b5b);
+    stroke: var(--theme-light-chart-color-8, #f45b5b);
+    color: var(--theme-light-chart-color-8, #f45b5b);
 }
 
 .dark .highcharts-color-8 {
-    fill: var(--chart-dark-color-8, var(--chart-color-8, #f45b5b));
-    stroke: var(--chart-dark-color-8, var(--chart-color-8, #f45b5b));
-    color: var(--chart-dark-color-8, var(--chart-color-8, #f45b5b));
+    fill: var(--theme-dark-chart-color-8, var(--theme-light-chart-color-8, #f45b5b));
+    stroke: var(--theme-dark-chart-color-8, var(--theme-light-chart-color-8, #f45b5b));
+    color: var(--theme-dark-chart-color-8, var(--theme-light-chart-color-8, #f45b5b));
 }
 
 .highcharts-color-9 {
-    fill: var(--chart-color-9, #91e8e1);
-    stroke: var(--chart-color-9, #91e8e1);
-    color: var(--chart-color-9, #91e8e1);
+    fill: var(--theme-light-chart-color-9, #91e8e1);
+    stroke: var(--theme-light-chart-color-9, #91e8e1);
+    color: var(--theme-light-chart-color-9, #91e8e1);
 }
 
 .dark .highcharts-color-9 {
-    fill: var(--chart-dark-color-9, var(--chart-color-9, #91e8e1));
-    stroke: var(--chart-dark-color-9, var(--chart-color-9, #91e8e1));
-    color: var(--chart-dark-color-9, var(--chart-color-9, #91e8e1));
+    fill: var(--theme-dark-chart-color-9, var(--theme-light-chart-color-9, #91e8e1));
+    stroke: var(--theme-dark-chart-color-9, var(--theme-light-chart-color-9, #91e8e1));
+    color: var(--theme-dark-chart-color-9, var(--theme-light-chart-color-9, #91e8e1));
+}
+
+/* Display: none */
+.highcharts-color-99 {
+    display: none;
+    pointer-events: none;
 }
 
 /* Other on pie charts */
 .highcharts-color-100 {
-    fill: var(--chart-color-100, rgb(var(--colors-inactive)));
-    stroke: var(--chart-color-100, rgb(var(--colors-inactive)));
+    fill: var(--theme-light-chart-color-other, var(--theme-neutral-500));
+    stroke: var(--theme-light-chart-color-other, var(--theme-neutral-500));
 }
 
+/* Various series-specific */
 .highcharts-area {
     fill-opacity: 0.5;
     stroke-width: 0;
@@ -411,10 +536,10 @@ g.highcharts-series,
 
 .highcharts-markers {
     stroke-width: 1px;
-    stroke: rgb(var(--colors-background));
+    stroke: var(--theme-background-color);
 }
 
-.highcharts-a11y-markers-hidden .highcharts-point:not(.highcharts-point-hover):not(.highcharts-a11y-marker-visible),
+.highcharts-a11y-markers-hidden .highcharts-point:not(.highcharts-point-hover, .highcharts-a11y-marker-visible),
 .highcharts-a11y-marker-hidden {
     opacity: 0;
 }
@@ -425,6 +550,12 @@ g.highcharts-series,
 
 .highcharts-dense-data .highcharts-point {
     stroke-width: 0;
+}
+
+// todo(wpride): this is a hack, these labels should be bigger when there are fewer bars
+.dense .highcharts-data-label {
+    font-size: 1.2em;
+    font-weight: 600;
 }
 
 .highcharts-data-label {
@@ -439,7 +570,7 @@ g.highcharts-series,
 
 .highcharts-data-label text,
 text.highcharts-data-label {
-    fill: rgb(var(--colors));
+    fill: var(--theme-neutral-700);
 }
 
 .highcharts-data-label-connector {
@@ -455,14 +586,21 @@ text.highcharts-data-label {
     stroke-width: 0;
 }
 
-.highcharts-series:not(.highcharts-pie-series) .highcharts-point-select,
-.highcharts-markers .highcharts-point-select {
-    fill: rgb(var(--colors-inactive));
-    stroke: rgb(var(--colors));
+.highcharts-series-label text {
+    fill: inherit;
+    font-weight: bold;
 }
 
-.highcharts-column-series rect.highcharts-point {
-    stroke: rgb(var(--colors-background));
+.highcharts-series:not(.highcharts-pie-series) .highcharts-point-select,
+.highcharts-markers .highcharts-point-select {
+    fill: var(--theme-neutral-300);
+    stroke: var(--theme-neutral-950);
+}
+
+.highcharts-column-series path.highcharts-point,
+.highcharts-bar-series path.highcharts-point {
+    /* path to prevent stroke on 3D columns and bars */
+    stroke: var(--theme-background-color);
 }
 
 .highcharts-column-series .highcharts-point {
@@ -476,7 +614,7 @@ text.highcharts-data-label {
 
 .highcharts-pie-series .highcharts-point {
     stroke-linejoin: round;
-    stroke: rgb(var(--colors-background));
+    stroke: var(--theme-background-color);
 }
 
 .highcharts-pie-series .highcharts-point-hover {
@@ -486,7 +624,7 @@ text.highcharts-data-label {
 
 .highcharts-funnel-series .highcharts-point {
     stroke-linejoin: round;
-    stroke: rgb(var(--colors-background));
+    stroke: var(--theme-background-color);
 }
 
 .highcharts-funnel-series .highcharts-point-hover {
@@ -501,7 +639,7 @@ text.highcharts-data-label {
 
 .highcharts-pyramid-series .highcharts-point {
     stroke-linejoin: round;
-    stroke: rgb(var(--colors-background));
+    stroke: var(--theme-background-color);
 }
 
 .highcharts-pyramid-series .highcharts-point-hover {
@@ -520,7 +658,7 @@ text.highcharts-data-label {
 
 .highcharts-treemap-series .highcharts-point {
     stroke-width: 1px;
-    stroke: rgb(var(--colors-border));
+    stroke: var(--theme-neutral-200);
     transition:
         stroke 250ms,
         fill 250ms,
@@ -528,7 +666,7 @@ text.highcharts-data-label {
 }
 
 .highcharts-treemap-series .highcharts-point-hover {
-    stroke: rgb(var(--colors-faded));
+    stroke: var(--theme-neutral-400);
     transition:
         stroke 25ms,
         fill 25ms,
@@ -563,7 +701,7 @@ text.highcharts-data-label {
 }
 
 .highcharts-lollipop-stem {
-    stroke: rgb(var(--colors));
+    stroke: var(--theme-neutral-950);
 }
 
 .highcharts-focus-border {
@@ -582,7 +720,7 @@ text.highcharts-data-label {
 }
 
 .highcharts-legend-item > text {
-    fill: rgb(var(--colors));
+    fill: var(--theme-neutral-700);
     font-weight: bold;
     font-size: 1em;
     cursor: pointer;
@@ -590,28 +728,29 @@ text.highcharts-data-label {
 }
 
 .highcharts-legend-item:hover text {
-    fill: rgb(var(--colors));
+    fill: var(--theme-neutral-950);
 }
 
 .highcharts-legend-item-hidden * {
-    fill: rgb(var(--colors-inactive)) !important;
-    stroke: rgb(var(--colors-inactive)) !important;
+    fill: var(--theme-neutral-500) !important;
+    stroke: var(--theme-neutral-500) !important;
     transition: fill 250ms;
+    text-decoration: line-through;
 }
 
 .highcharts-legend-nav-active {
-    fill: #003399;
+    fill: var(--theme-accent-700);
     cursor: pointer;
 }
 
 .highcharts-legend-nav-inactive {
-    fill: rgb(var(--colors-inactive));
+    fill: var(--theme-neutral-300);
 }
 
 circle.highcharts-legend-nav-active,
 circle.highcharts-legend-nav-inactive {
     /* tracker */
-    fill: rgba(var(--colors-inactive), 0.0001);
+    fill: rgba(192, 192, 192, 0.0001);
 }
 
 .highcharts-legend-title-box {
@@ -630,13 +769,14 @@ circle.highcharts-legend-nav-inactive {
 }
 
 .highcharts-bubble-legend-labels {
-    fill: rgb(var(--colors));
+    fill: var(--theme-neutral-700);
+    font-size: 0.7em;
 }
 
 /* Loading */
 .highcharts-loading {
     position: absolute;
-    background-color: rgb(var(--colors-background));
+    background-color: var(--theme-background-color);
     opacity: 0.5;
     text-align: center;
     z-index: 10;
@@ -661,19 +801,23 @@ circle.highcharts-legend-nav-inactive {
 /* Plot bands and polar pane backgrounds */
 .highcharts-plot-band,
 .highcharts-pane {
-    fill: rgb(var(--colors));
+    fill: var(--theme-neutral-950);
     fill-opacity: 0.05;
 }
 
 .highcharts-plot-line {
     fill: none;
-    stroke: rgb(var(--colors-faded));
+    stroke: var(--theme-neutral-400);
     stroke-width: 1px;
+}
+
+.highcharts-plot-line-label {
+    font-size: 0.8em;
 }
 
 /* Highcharts More and modules */
 .highcharts-boxplot-box {
-    fill: rgb(var(--colors-background));
+    fill: var(--theme-background-color);
 }
 
 .highcharts-boxplot-median {
@@ -685,16 +829,16 @@ circle.highcharts-legend-nav-inactive {
 }
 
 .highcharts-errorbar-series .highcharts-point {
-    stroke: #000000;
+    stroke: var(--theme-neutral-950);
 }
 
 .highcharts-gauge-series .highcharts-data-label-box {
-    stroke: #cccccc;
+    stroke: var(--theme-neutral-300);
     stroke-width: 1px;
 }
 
 .highcharts-gauge-series .highcharts-dial {
-    fill: #000000;
+    fill: var(--theme-neutral-950);
     stroke-width: 0;
 }
 
@@ -704,7 +848,7 @@ circle.highcharts-legend-nav-inactive {
 }
 
 .highcharts-waterfall-series .highcharts-graph {
-    stroke: #333333;
+    stroke: var(--theme-neutral-700);
     stroke-dasharray: 1, 3;
 }
 
@@ -726,9 +870,13 @@ circle.highcharts-legend-nav-inactive {
     fill-opacity: 1;
 }
 
+.highcharts-sankey-series .highcharts-data-label {
+    text-shadow: #fff 0 0 5px;
+}
+
 .highcharts-venn-series .highcharts-point {
     fill-opacity: 0.75;
-    stroke: #cccccc;
+    stroke: var(--theme-neutral-300);
     transition:
         stroke 250ms,
         fill-opacity 250ms;
@@ -736,7 +884,11 @@ circle.highcharts-legend-nav-inactive {
 
 .highcharts-venn-series .highcharts-point-hover {
     fill-opacity: 1;
-    stroke: #cccccc;
+    stroke: var(--theme-neutral-300);
+}
+
+.highcharts-timeline-series .highcharts-graph {
+    stroke: var(--theme-neutral-300);
 }
 
 /* Highstock */
@@ -745,25 +897,25 @@ circle.highcharts-legend-nav-inactive {
 }
 
 .highcharts-navigator-mask-inside {
-    fill: #6685c2; /* navigator.maskFill option */
+    fill: var(--theme-accent-400); /* navigator.maskFill option */
     fill-opacity: 0.25;
     cursor: ew-resize;
 }
 
 .highcharts-navigator-outline {
-    stroke: #cccccc;
+    stroke: var(--theme-neutral-400);
     fill: none;
 }
 
 .highcharts-navigator-handle {
-    stroke: #cccccc;
-    fill: #f2f2f2;
+    stroke: var(--theme-neutral-400);
+    fill: var(--theme-neutral-100);
     cursor: ew-resize;
 }
 
 .highcharts-navigator-series {
-    fill: #335cad;
-    stroke: #335cad;
+    fill: var(--theme-accent-500);
+    stroke: var(--theme-accent-500);
 }
 
 .highcharts-navigator-series .highcharts-graph {
@@ -780,11 +932,13 @@ circle.highcharts-legend-nav-inactive {
 
 .highcharts-navigator-xaxis .highcharts-grid-line {
     stroke-width: 1px;
-    stroke: #e6e6e6;
+    stroke: var(--theme-neutral-200);
 }
 
 .highcharts-navigator-xaxis.highcharts-axis-labels {
-    fill: #999999;
+    fill: var(--theme-neutral-950);
+    font-size: 0.7em;
+    opacity: 0.6;
 }
 
 .highcharts-navigator-yaxis .highcharts-grid-line {
@@ -792,71 +946,72 @@ circle.highcharts-legend-nav-inactive {
 }
 
 .highcharts-scrollbar-thumb {
-    fill: #cccccc;
-    stroke: #cccccc;
-    stroke-width: 1px;
+    fill: var(--theme-neutral-300);
+    stroke: var(--theme-neutral-300);
+    stroke-width: 0;
 }
 
 .highcharts-scrollbar-button {
-    fill: #e6e6e6;
-    stroke: #cccccc;
+    fill: var(--theme-neutral-200);
+    stroke: var(--theme-neutral-300);
     stroke-width: 1px;
 }
 
 .highcharts-scrollbar-arrow {
-    fill: #666666;
+    fill: var(--theme-neutral-500);
 }
 
 .highcharts-scrollbar-rifles {
-    stroke: #666666;
+    stroke: none;
     stroke-width: 1px;
 }
 
 .highcharts-scrollbar-track {
-    fill: #f2f2f2;
-    stroke: #f2f2f2;
+    fill: rgba(255, 255, 255, 0.001);
+    stroke: var(--theme-neutral-300);
     stroke-width: 1px;
 }
 
 .highcharts-button {
-    fill: #f7f7f7;
-    stroke: #cccccc;
+    fill: var(--theme-neutral-50);
+    stroke: var(--theme-neutral-300);
     cursor: default;
     stroke-width: 1px;
     transition: fill 250ms;
 }
 
 .highcharts-button text {
-    fill: #333333;
+    fill: var(--theme-neutral-700);
+    font-size: 0.8em;
 }
 
 .highcharts-button-hover {
     transition: fill 0ms;
-    fill: #e6e6e6;
-    stroke: #cccccc;
+    fill: var(--theme-neutral-200);
+    stroke: var(--theme-neutral-300);
 }
 
 .highcharts-button-hover text {
-    fill: #333333;
+    fill: var(--theme-neutral-700);
 }
 
 .highcharts-button-pressed {
     font-weight: bold;
-    fill: #e6ebf5;
-    stroke: #cccccc;
+    fill: var(--theme-accent-50);
+    stroke: var(--theme-neutral-300);
 }
 
 .highcharts-button-pressed text {
-    fill: #333333;
+    fill: var(--theme-neutral-700);
     font-weight: bold;
 }
 
 .highcharts-button-disabled text {
-    fill: #333333;
+    fill: var(--theme-neutral-700);
 }
 
 .highcharts-range-selector-buttons .highcharts-button {
-    stroke-width: 0px;
+    stroke-width: 0;
 }
 
 .highcharts-range-label rect {
@@ -864,7 +1019,7 @@ circle.highcharts-legend-nav-inactive {
 }
 
 .highcharts-range-label text {
-    fill: #666666;
+    fill: var(--theme-neutral-500);
 }
 
 .highcharts-range-input rect {
@@ -872,12 +1027,13 @@ circle.highcharts-legend-nav-inactive {
 }
 
 .highcharts-range-input text {
-    fill: #333333;
+    fill: var(--theme-neutral-700);
+    font-size: 0.8em;
 }
 
 .highcharts-range-input {
     stroke-width: 1px;
-    stroke: #cccccc;
+    stroke: var(--theme-neutral-300);
 }
 
 input.highcharts-range-selector {
@@ -891,8 +1047,8 @@ input.highcharts-range-selector {
 }
 
 .highcharts-crosshair-label text {
-    fill: #ffffff;
-    font-size: 1.1em;
+    fill: var(--theme-background-color);
+    font-size: 1.7em;
 }
 
 .highcharts-crosshair-label .highcharts-label-box {
@@ -900,27 +1056,27 @@ input.highcharts-range-selector {
 }
 
 .highcharts-candlestick-series .highcharts-point {
-    stroke: #000000;
+    stroke: var(--theme-neutral-950);
     stroke-width: 1px;
 }
 
 .highcharts-candlestick-series .highcharts-point-up {
-    fill: #ffffff;
+    fill: var(--theme-background-color);
 }
 
 .highcharts-hollowcandlestick-series .highcharts-point-down {
-    fill: #f21313;
-    stroke: #f21313;
+    fill: var(--theme-negative-500);
+    stroke: var(--theme-negative-500);
 }
 
 .highcharts-hollowcandlestick-series .highcharts-point-down-bearish-up {
-    fill: #06b535;
-    stroke: #06b535;
+    fill: var(--theme-positive-500);
+    stroke: var(--theme-positive-500);
 }
 
 .highcharts-hollowcandlestick-series .highcharts-point-up {
     fill: transparent;
-    stroke: #06b535;
+    stroke: var(--theme-positive-500);
 }
 
 .highcharts-ohlc-series .highcharts-point-hover {
@@ -928,18 +1084,18 @@ input.highcharts-range-selector {
 }
 
 .highcharts-flags-series .highcharts-point .highcharts-label-box {
-    stroke: #999999;
-    fill: #ffffff;
+    stroke: var(--theme-neutral-400);
+    fill: var(--theme-background-color);
     transition: fill 250ms;
 }
 
 .highcharts-flags-series .highcharts-point-hover .highcharts-label-box {
-    stroke: #000000;
-    fill: #ccd6eb;
+    stroke: var(--theme-neutral-950);
+    fill: var(--theme-accent-200);
 }
 
 .highcharts-flags-series .highcharts-point text {
-    fill: #000000;
+    fill: var(--theme-neutral-950);
     font-size: 0.9em;
     font-weight: bold;
 }
@@ -950,7 +1106,7 @@ input.highcharts-range-selector {
         fill 500ms,
         fill-opacity 500ms,
         stroke-width 250ms;
-    stroke: #cccccc;
+    stroke: var(--theme-neutral-300);
     stroke-width: inherit;
 }
 
@@ -975,8 +1131,21 @@ input.highcharts-range-selector {
     text-align: center;
 }
 
+.highcharts-map-navigation.highcharts-button {
+    fill: var(--theme-background-color);
+    stroke: var(--theme-neutral-200);
+}
+
+.highcharts-map-navigation.highcharts-button:hover {
+    fill: var(--theme-neutral-200);
+}
+
+.highcharts-map-navigation.highcharts-button .highcharts-button-symbol {
+    stroke-width: 2px;
+}
+
 .highcharts-mapview-inset-border {
-    stroke: #cccccc;
+    stroke: var(--theme-neutral-300);
     stroke-width: 1px;
     fill: none;
 }
@@ -986,11 +1155,11 @@ input.highcharts-range-selector {
 }
 
 .highcharts-coloraxis-marker {
-    fill: #999999;
+    fill: var(--theme-neutral-400);
 }
 
 .highcharts-null-point {
-    fill: #f7f7f7;
+    fill: var(--theme-neutral-50);
 }
 
 /* 3d charts */
@@ -1000,41 +1169,45 @@ input.highcharts-range-selector {
 
 /* Exporting module */
 .highcharts-contextbutton {
-    fill: #ffffff; /* needed to capture hover */
+    /* Fill is needed to capture hover */
+    fill: var(--theme-background-color);
     stroke: none;
     stroke-linecap: round;
 }
 
 .highcharts-contextbutton:hover {
-    fill: #e6e6e6;
-    stroke: #e6e6e6;
+    fill: var(--theme-neutral-200);
+    stroke: var(--theme-neutral-200);
 }
 
 .highcharts-button-symbol {
-    stroke: #666666;
+    stroke: var(--theme-neutral-500);
     stroke-width: 3px;
 }
 
 .highcharts-menu {
-    border: 1px solid #999999;
-    background: #ffffff;
-    padding: 5px 0;
-    box-shadow: 3px 3px 10px #888;
+    border: none;
+    background: var(--theme-background-color);
+    border-radius: 3px;
+    padding: 0.5em;
+    box-shadow: 3px 3px 10px #888888;
 }
 
 .highcharts-menu-item {
-    padding: 0.5em 1em;
     background: none;
-    color: rgb(var(--colors));
+    border-radius: 3px;
+    color: var(--theme-neutral-700);
     cursor: pointer;
+    font-size: 0.8em;
+    list-style-type: none;
+    padding: 0.5em;
     transition:
         background 250ms,
         color 250ms;
 }
 
 .highcharts-menu-item:hover {
-    background: #335cad;
-    color: rgb(var(--colors-background));
+    background: var(--theme-neutral-100);
 }
 
 /* Breadcrumbs */
@@ -1045,7 +1218,7 @@ input.highcharts-range-selector {
 }
 
 .highcharts-breadcrumbs-separator {
-    fill: rgb(var(--colors-faded));
+    fill: var(--theme-neutral-500);
 }
 
 /* Drilldown module */
@@ -1057,7 +1230,7 @@ input.highcharts-range-selector {
 text.highcharts-drilldown-data-label,
 .highcharts-drilldown-axis-label {
     cursor: pointer;
-    fill: #003399;
+    fill: var(--theme-accent-700);
     font-weight: bold;
     text-decoration: underline;
 }
@@ -1065,14 +1238,14 @@ text.highcharts-drilldown-data-label,
 /* No-data module */
 .highcharts-no-data text {
     font-weight: bold;
-    font-size: 12px;
-    fill: rgb(var(--colors-faded));
+    font-size: 0.8em;
+    fill: var(--theme-neutral-500);
 }
 
 /* Drag-panes module */
 .highcharts-axis-resizer {
     cursor: ns-resize;
-    stroke: rgb(var(--colors));
+    stroke: var(--theme-neutral-950);
     stroke-width: 2px;
 }
 
@@ -1084,28 +1257,29 @@ text.highcharts-drilldown-data-label,
 /* Lineargauge type series */
 .highcharts-lineargauge-target {
     stroke-width: 1px;
-    stroke: rgb(var(--colors));
+    stroke: var(--theme-neutral-700);
 }
 
 .highcharts-lineargauge-target-line {
     stroke-width: 1px;
-    stroke: rgb(var(--colors));
+    stroke: var(--theme-neutral-700);
 }
 
 /* Annotations module */
 .highcharts-annotation-label-box {
     stroke-width: 1px;
-    stroke: rgb(var(--colors));
-    fill: rgb(var(--colors));
+    stroke: var(--theme-neutral-950);
+    fill: var(--theme-neutral-950);
     fill-opacity: 0.75;
 }
 
 .highcharts-annotation-label text {
-    fill: rgb(var(--colors-border));
+    fill: var(--theme-neutral-200);
+    font-size: 0.8em;
 }
 
 /* A11y module */
-.highcharts-a11y-proxy-button {
+.highcharts-a11y-proxy-element {
     border-width: 0;
     background-color: transparent;
     cursor: pointer;

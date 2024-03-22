@@ -3,12 +3,14 @@ import '../styles/index.less';
 // import "../static/fonts/proxima-nova.css";
 
 import React, { useEffect, useState } from 'react';
-import { Chart as _Chart, ChartData as InnerChartData } from './Chart';
+import { Chart as _Chart } from './Chart';
 import { CanvasInner } from './Canvas';
 import { GetCanvasEmbedResponse } from './rust_types/GetCanvasEmbedResponse';
 import useCanvasState from './state/useCanvasState';
 import isEmpty from 'lodash/isEmpty';
 import { buildUrl, convertFilterParams } from './util';
+import { ChartData } from './rust_types/ChartData';
+import { defaultTheme } from './theme.util';
 
 type CanvasProps = {
     canvasId: string;
@@ -20,7 +22,6 @@ type WrapperProps = {
     authToken: string;
     chartId: string;
     timezone: string | null;
-    disableExport?: boolean;
     host?: string;
 };
 
@@ -95,14 +96,8 @@ export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostO
     }
 };
 
-export const Chart: React.FC<WrapperProps> = ({
-    authToken,
-    chartId,
-    timezone,
-    disableExport,
-    host: hostOverride,
-}: WrapperProps) => {
-    const [chartData, setChartData] = useState<InnerChartData | null>(null);
+export const Chart: React.FC<WrapperProps> = ({ authToken, chartId, timezone, host: hostOverride }: WrapperProps) => {
+    const [chartData, setChartData] = useState<ChartData | null>(null);
     const [error, setError] = useState<string | null>(null);
     const host = hostOverride || API_BASE_URL;
 
@@ -145,8 +140,8 @@ export const Chart: React.FC<WrapperProps> = ({
     }
 
     if (chartData) {
-        return <_Chart data={chartData} title="Title" timezone={timezone} disableExport={disableExport} />;
+        return <_Chart data={chartData} title="Title" timezone={timezone} theme={defaultTheme} />;
     } else {
-        return <_Chart data={undefined} title="Title" timezone={timezone} />;
+        return <_Chart data={undefined} title="Title" timezone={timezone} theme={defaultTheme} />;
     }
 };
