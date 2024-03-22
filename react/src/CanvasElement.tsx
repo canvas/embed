@@ -6,6 +6,7 @@ import { EmbedElement } from './rust_types/EmbedElement';
 import { BigNumber } from './components/BigNumber';
 import { ComponentEmbedElement } from './types';
 import Text from './components/Text';
+import { defaultTheme } from './theme.util';
 
 export const CanvasElement = ({
     element,
@@ -24,7 +25,7 @@ export const CanvasElement = ({
         const chartTitle = title || 'Chart';
         return (
             <Element key={elementId} title={chartTitle} elementId={elementId}>
-                <Chart data={elementType.chartData} title={chartTitle} timezone={null} />
+                <Chart data={elementType.chartData} title={chartTitle} timezone={null} theme={defaultTheme} />
             </Element>
         );
     }

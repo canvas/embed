@@ -39,4 +39,6 @@ export interface ChartData {
     margin: ChartMargin | null;
     error: string | null;
     seriesConfigs: Record<string, ChartDataSeriesConfig>;
+    targets: Array<Highlight>;
+    fullWidth: boolean;
 }

@@ -10,6 +10,7 @@ import useCanvasState from './state/useCanvasState';
 import isEmpty from 'lodash/isEmpty';
 import { buildUrl, convertFilterParams } from './util';
 import { ChartData } from './rust_types/ChartData';
+import { defaultTheme } from './theme.util';
 
 type CanvasProps = {
     canvasId: string;
@@ -28,7 +29,6 @@ type WrapperProps = {
 const API_BASE_URL = 'https://api.canvasapp.com';
 
 export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostOverride }: CanvasProps) => {
-    console.log('local');
     const [canvasData, setCanvasData] = useState<GetCanvasEmbedResponse | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [dataHash, setDataHash] = useState<string>(Math.random().toString(36).substring(7));
@@ -147,8 +147,8 @@ export const Chart: React.FC<WrapperProps> = ({
     }
 
     if (chartData) {
-        return <_Chart data={chartData} title="Title" timezone={timezone} disableExport={disableExport} />;
+        return <_Chart data={chartData} title="Title" timezone={timezone} theme={defaultTheme} />;
     } else {
-        return <_Chart data={undefined} title="Title" timezone={timezone} />;
+        return <_Chart data={undefined} title="Title" timezone={timezone} theme={defaultTheme} />;
     }
 };
