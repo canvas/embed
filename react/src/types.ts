@@ -1,4 +1,4 @@
-import { ComponentEmbed } from './rust_types/ComponentEmbed';
-import { EmbedElement } from './rust_types/EmbedElement';
+import { ComponentEmbed } from './__rust_generated__/ComponentEmbed';
+import { EmbedElement } from './__rust_generated__/EmbedElement';
 
 export type ComponentEmbedElement = EmbedElement & { elementType: { type: 'component' } & ComponentEmbed };

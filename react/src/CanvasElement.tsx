@@ -2,11 +2,11 @@ import React from 'react';
 import { Chart } from './Chart';
 import { SpreadsheetWrapper as Spreadsheet } from './Spreadsheet';
 import { Element } from './Element';
-import { EmbedElement } from './rust_types/EmbedElement';
+import { EmbedElement } from './__rust_generated__/EmbedElement';
 import { BigNumber } from './components/BigNumber';
 import { ComponentEmbedElement } from './types';
 import Text from './components/Text';
-import { defaultTheme } from './theme.util';
+import { defaultTheme } from './components/layout/themes/theme.util';
 
 export const CanvasElement = ({
     element,

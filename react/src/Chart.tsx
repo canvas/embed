@@ -1,6 +1,3 @@
-import '../styles/charts.less';
-import '../styles/highcharts.less';
-
 import React from 'react';
 import { HighchartsReact as HighchartsReactComponent } from 'highcharts-react-official';
 import HighchartsReact from 'highcharts-react-official';
@@ -8,15 +5,16 @@ import Highcharts, { PointOptionsObject } from 'highcharts';
 import Funnel from 'highcharts/modules/funnel';
 import Sankey from 'highcharts/modules/sankey';
 import Bullet from 'highcharts/modules/bullet';
-import HCMore from 'highcharts/highcharts-more';
 import exportingModule from 'highcharts/modules/exporting';
-import { parseDateTimeNtz, parseDateTimeTz } from './DateUtil';
 import { DateTime } from 'luxon';
 import moment from 'moment-timezone';
-import { ChartData } from './rust_types/ChartData';
-import { Format } from './rust_types/Format';
-import { ChartDataSeriesConfig } from './rust_types/ChartDataSeriesConfig';
-import { Theme, colorTable } from './theme.util';
+import HCMore from 'highcharts/highcharts-more';
+import { ChartData } from 'src/__rust_generated__/ChartData';
+import { ChartDataSeriesConfig } from 'src/__rust_generated__/ChartDataSeriesConfig';
+import { Format } from 'src/__rust_generated__/Format';
+import { colorTable, Theme } from 'src/components/layout/themes/theme.util';
+import { parseDateTimeNtz, parseDateTimeTz } from 'src/util/DateUtil';
+import 'src/styles/charts.less';
 
 type YAxes = Highcharts.YAxisOptions | Highcharts.YAxisOptions[];
 
@@ -92,7 +90,7 @@ type ChartColors = {
     darkColors: string[];
 };
 
-type ChartProps = {
+type Props = {
     data: ChartData | undefined;
     title: string;
     timezone: string | null;
@@ -102,7 +100,7 @@ type ChartProps = {
 export type ChartHandle = {
     download: () => void;
 };
-export const Chart = React.forwardRef<ChartHandle, ChartProps>(function HighchartChart(props: ChartProps, ref) {
+export const Chart = React.forwardRef<ChartHandle, Props>(function Chart(props: Props, ref) {
     const chartRef = React.useRef<HighchartsReact.RefObject>(null);
     const { data, title, timezone, theme } = props;
     const colors = React.useMemo(() => {
@@ -726,7 +724,7 @@ function getOptions(
     };
 }
 
-export function SimpleHighchartChart(props: React.ComponentProps<typeof HighchartsReactComponent>): React.ReactElement {
+export function SimpleChart(props: React.ComponentProps<typeof HighchartsReactComponent>): React.ReactElement {
     const options = {
         credits: { enabled: false },
         title: { text: null },

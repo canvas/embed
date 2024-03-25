@@ -1,5 +1,5 @@
 import React from 'react';
-import { GetCanvasEmbedResponse } from './rust_types/GetCanvasEmbedResponse';
+import { GetCanvasEmbedResponse } from './__rust_generated__/GetCanvasEmbedResponse';
 import { Filters } from './filter/Filters';
 import { CanvasElement } from './CanvasElement';
 import { Spinner } from './Spinner';

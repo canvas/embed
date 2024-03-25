@@ -1,8 +1,8 @@
 import React from 'react';
 import MultiSelectInput, { SelectOption } from '../components/MultiSelectInput';
 import useCanvasState from '../state/useCanvasState';
-import { GetCanvasEmbedResponse } from '@/src/rust_types/GetCanvasEmbedResponse';
-import { FilterConfig } from '../rust_types/FilterConfig';
+import { GetCanvasEmbedResponse } from '@/src/__rust_generated__/GetCanvasEmbedResponse';
+import { FilterConfig } from '../__rust_generated__/FilterConfig';
 
 const Filter = ({ canvasData, filter }: { canvasData: GetCanvasEmbedResponse; filter: FilterConfig }) => {
     const updateFilter = useCanvasState((state) => state.updateFilter);

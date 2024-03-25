@@ -12,11 +12,11 @@ import AutoSizer from 'react-virtualized-auto-sizer';
 import percentile from 'percentile';
 import { DateTime } from 'luxon';
 import { getTypeIcon } from './icons/ColumnTypeUtil';
-import { CanvasStoreMetaData } from './rust_types/CanvasStoreMetaData';
-import { CanvasStoreColumnMetaData } from './rust_types/CanvasStoreColumnMetaData';
-import { SqlType } from './rust_types/SqlType';
-import { Format } from './rust_types/Format';
-import { StoreType } from './rust_types/StoreType';
+import { CanvasStoreMetaData } from './__rust_generated__/CanvasStoreMetaData';
+import { CanvasStoreColumnMetaData } from './__rust_generated__/CanvasStoreColumnMetaData';
+import { SqlType } from './__rust_generated__/SqlType';
+import { Format } from './__rust_generated__/Format';
+import { StoreType } from './__rust_generated__/StoreType';
 
 type RowSelectionArea = { startRow: number; endRow: number };
 type ColumnSelectionArea = { startColumn: number; endColumn: number };

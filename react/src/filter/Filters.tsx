@@ -1,5 +1,5 @@
 import React from 'react';
-import { GetCanvasEmbedResponse } from '@/src/rust_types/GetCanvasEmbedResponse';
+import { GetCanvasEmbedResponse } from '@/src/__rust_generated__/GetCanvasEmbedResponse';
 import Filter from './Filter';
 
 export function Filters({ canvasData }: { canvasData: GetCanvasEmbedResponse }) {
