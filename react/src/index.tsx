@@ -70,6 +70,36 @@ export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostO
             });
     }, [authToken, canvasId, filters, host]);
 
+    const downloadCsv = (elementId: string, title: string) => {
+        setLoading(true);
+        fetch(
+            buildUrl(`${host}/v1/embed/canvas_embed_csv`, {
+                canvas_id: canvasId,
+                element_id: elementId,
+                ...(!isEmpty(filters) && convertFilterParams(filters)),
+            }),
+            {
+                method: 'GET',
+                headers: {
+                    'x-embed-key': authToken,
+                },
+            },
+        )
+            .then(async (res) => {
+                setLoading(false);
+                const canvasData = await res.json();
+                const downloadLink = document.createElement('a');
+                downloadLink.href = canvasData.signedUrl;
+                downloadLink.download = `${title}.csv`;
+                downloadLink.click();
+            })
+            .catch((error) => {
+                setLoading(false);
+                console.log(`Error getting CSV data data: ${error}`);
+                setError(`Network error - either the server is down or you are offline`);
+            });
+    };
+
     if (error) {
         return (
             <div className="flex flex-col gap-3">
@@ -92,7 +122,7 @@ export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostO
         );
     }
     if (canvasData) {
-        return <CanvasInner canvasData={canvasData} dataHash={dataHash} loading={loading} />;
+        return <CanvasInner canvasData={canvasData} dataHash={dataHash} loading={loading} downloadCsv={downloadCsv} />;
     }
 };
 
