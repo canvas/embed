@@ -8,8 +8,9 @@ type CanvasInnerProps = {
     canvasData: GetCanvasEmbedResponse;
     dataHash: string;
     loading: boolean;
+    downloadCsv: (elementId: string, title: string) => void;
 };
-export const CanvasInner = ({ canvasData, dataHash, loading }: CanvasInnerProps) => {
+export const CanvasInner = ({ canvasData, dataHash, loading, downloadCsv }: CanvasInnerProps) => {
     const { elementOrder, elements } = canvasData;
     return (
         <div className="flex flex-1 flex-col gap-4 overflow-y-auto">
@@ -27,6 +28,7 @@ export const CanvasInner = ({ canvasData, dataHash, loading }: CanvasInnerProps)
                                     elementId={elementId}
                                     element={elements[elementId]}
                                     dataHash={dataHash}
+                                    downloadCsv={downloadCsv}
                                 />
                             ))}
                         </div>

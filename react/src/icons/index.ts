@@ -1,5 +1,6 @@
 // import { icon, Icon } from './icon';
 // export { Icon };
+// import { DownloadIcon } from '../../dist/bundle';
 
 export { default as IntegerIcon } from '../../static/icons/component/integer_icon.svg';
 export { default as UpToTheRightIcon } from '../../static/icons/up-to-the-right.svg';
@@ -10,7 +11,7 @@ export { default as DownToTheRightIcon } from '../../static/icons/down-to-the-ri
 // export const CommentModeIcon = icon('./static/icons/nav/comment_mode.svg');
 // export const PointerModeIcon = icon('./static/icons/nav/pointer_mode.svg');
 // export const VerticalEllipsis = icon('./static/icons/nav/vertical-ellipsis.svg');
-// export const HorizontalEllipsis = icon('./static/icons/nav/horizontal_ellipsis.svg');
+export { default as HorizontalEllipsis } from '../../static/icons/nav/horizontal_ellipsis.svg';
 // export const TextModeIcon = icon('./static/icons/nav/text_mode.svg');
 // export const HandToolIcon = icon('./static/icons/nav/hand_tool.svg');
 // export const SqlEditorIcon = icon('./static/icons/nav/sql-editor.svg');
@@ -129,6 +130,8 @@ export { default as DateIcon } from '../../static/icons/component/date_icon.svg'
 
 export { default as DateTimeIcon } from '../../static/icons/component/date_time_icon.svg';
 export { default as BooleanIcon } from '../../static/icons/component/boolean_icon.svg';
+// export const DownloadIcon = icon('./static/icons/download.svg');
+export { default as DownloadIcon } from '../../static/icons/download.svg';
 export { default as MiscIcon } from '../../static/icons/component/misc_icon.svg';
 // export const LineageArrow = icon('./static/icons/lineage_arrow.svg');
 
@@ -146,7 +149,6 @@ export { default as MiscIcon } from '../../static/icons/component/misc_icon.svg'
 // export const CloneTableIcon = icon('./static/icons/clone_table.svg');
 // export const SelectColumnsIcon = icon('./static/icons/select_columns.svg');
 // export const RemoveElementIcon = icon('./static/icons/remove_element.svg');
-// export const DownloadIcon = icon('./static/icons/download.svg');
 // export const ShareCanvasIcon = icon('./static/icons/share_canvas.svg');
 // export const SimpleShareCanvasIcon = icon('./static/icons/share-canvas-simple.svg');
 // export const UploadFileIcon = icon('./static/icons/upload_file.svg');

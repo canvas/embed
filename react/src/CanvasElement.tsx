@@ -7,15 +7,18 @@ import { BigNumber } from './components/BigNumber';
 import { ComponentEmbedElement } from './types';
 import Text from './components/Text';
 import { defaultTheme } from './components/layout/themes/theme.util';
+import { DownloadIcon } from './icons';
 
 export const CanvasElement = ({
     element,
     elementId,
     dataHash,
+    downloadCsv,
 }: {
     element?: EmbedElement;
     elementId: string;
     dataHash: string;
+    downloadCsv: (elementId: string, title: string) => void;
 }) => {
     if (!element) return <></>;
 
@@ -34,8 +37,22 @@ export const CanvasElement = ({
         if (spreadsheetElement.displayExtras.hiddenWhenEmpty === true && spreadsheetElement.rowCount === 0) {
             return;
         }
+        const title = spreadsheetElement.metaData.title;
         return (
-            <Element key={elementId} title={spreadsheetElement.metaData.title} elementId={elementId}>
+            <Element
+                key={elementId}
+                title={title}
+                elementId={elementId}
+                commands={[
+                    {
+                        id: 'download_csv',
+                        callback: () => downloadCsv(elementId, title),
+                        icon: DownloadIcon,
+                        text: 'Download CSV',
+                        keys: null,
+                    },
+                ]}
+            >
                 <Spreadsheet
                     dataStore={{
                         data: spreadsheetElement.payload,
