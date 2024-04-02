@@ -264,7 +264,6 @@ const cellStyle: React.CSSProperties = {
     borderTop: CELL_BORDER_HIDDEN,
     borderBottom: CELL_BORDER,
     borderRight: CELL_BORDER,
-    fontFamily: 'proxima-nova',
     fontStyle: 'normal',
     fontWeight: 400,
     fontSize: '12px',
