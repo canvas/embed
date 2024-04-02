@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+    important: '.canvas-embed',
     darkMode: 'class',
     content: ['./src/**/*.{js,ts,jsx,tsx,html}'],
     theme: {
