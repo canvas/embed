@@ -13,7 +13,7 @@ type CanvasInnerProps = {
 export const CanvasInner = ({ canvasData, dataHash, loading, downloadCsv }: CanvasInnerProps) => {
     const { elementOrder, elements } = canvasData;
     return (
-        <div className="canvas-inner flex flex-1 flex-col gap-4 overflow-y-auto">
+        <div className="flex flex-1 flex-col gap-4 overflow-y-auto">
             <div className="flex items-center gap-1">
                 <Filters canvasData={canvasData} />
                 {loading && <Spinner />}
