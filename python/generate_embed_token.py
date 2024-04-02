@@ -38,5 +38,5 @@ def generate_embed_token(private_key, scopes, expiration_seconds=3600, user_id=N
     return b64encode(json.dumps(token).encode()).decode()
 
 print('---') 
-print(generate_embed_token('emk_...', { "team_id": "123" }, 60000))
+print(generate_embed_token('emk_abcdefgh.abcdef01234567890', { "team_id": 123 }, 60000))
 print('---')
