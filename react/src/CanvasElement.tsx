@@ -8,6 +8,7 @@ import { ComponentEmbedElement } from './types';
 import Text from './components/Text';
 import { defaultTheme } from './components/layout/themes/theme.util';
 import { DownloadIcon } from './icons';
+import { DropdownMenuCommand } from './DropdownMenu';
 
 export const CanvasElement = ({
     element,
@@ -17,8 +18,8 @@ export const CanvasElement = ({
 }: {
     element?: EmbedElement;
     elementId: string;
-    dataHash: string;
-    downloadCsv: (elementId: string, title: string) => void;
+    dataHash?: string;
+    downloadCsv?: (elementId: string, title: string) => void;
 }) => {
     if (!element) return <></>;
 
@@ -38,21 +39,19 @@ export const CanvasElement = ({
             return;
         }
         const title = spreadsheetElement.metaData.title;
+        const commands: DropdownMenuCommand[] = [];
+
+        if (downloadCsv) {
+            commands.push({
+                id: 'download_csv',
+                callback: () => downloadCsv(elementId, title),
+                icon: DownloadIcon,
+                text: 'Download CSV',
+                keys: null,
+            });
+        }
         return (
-            <Element
-                key={elementId}
-                title={title}
-                elementId={elementId}
-                commands={[
-                    {
-                        id: 'download_csv',
-                        callback: () => downloadCsv(elementId, title),
-                        icon: DownloadIcon,
-                        text: 'Download CSV',
-                        keys: null,
-                    },
-                ]}
-            >
+            <Element key={elementId} title={title} elementId={elementId} commands={commands}>
                 <Spreadsheet
                     dataStore={{
                         data: spreadsheetElement.payload,
@@ -60,7 +59,7 @@ export const CanvasElement = ({
                         columnCount: spreadsheetElement.columnCount,
                         metaData: spreadsheetElement.metaData,
                         storeId: spreadsheetElement.metaData.sourceKey,
-                        dataHash,
+                        dataHash: dataHash ?? 'unset',
                     }}
                     storeId={spreadsheetElement.metaData.sourceKey}
                     spreadsheetKind={'table'}
