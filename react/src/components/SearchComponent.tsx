@@ -7,9 +7,13 @@ export const SearchComponent = ({ element, title }: { element: ComponentEmbedEle
     const updateFilter = useCanvasState((state) => state.updateFilter);
     const filterVariable = JSON.parse(element.elementType.component.config).filterVariable;
 
-    const debounceUpdateFilter = debounce((value: string) => {
-        updateFilter({ [filterVariable]: [{ value, label: value }] });
-    }, 500);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const debounceUpdateFilter = React.useCallback(
+        debounce((value: string) => {
+            updateFilter({ [filterVariable]: [{ value, label: value }] });
+        }, 500),
+        [updateFilter],
+    );
 
     const [filterValue, setFilterValue] = React.useState<string>('');
     const onFilterChange = (value: string) => {
