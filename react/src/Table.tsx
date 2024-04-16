@@ -22,8 +22,8 @@ export function Table(props: Props) {
         <div className="max-w-full">
             <div className="mb-2 text-base font-medium">{title}</div>
             <div className="border border-[#ccc] rounded-md max-w-full">
-                <div className="overflow-y-auto max-h-[75vh] max-w-full overflow-x-auto rounded-t-md border-b border-b-[#ccc] ">
-                    <table className="relative max-w-screen border-separate border-spacing-0 ">
+                <div className="overflow-y-auto max-h-[75vh] max-w-full overflow-x-auto rounded-t-md">
+                    <table className="relative max-w-screen border-separate border-spacing-0">
                         <thead>
                             <tr>
                                 {columns.map((column, index) => {
@@ -68,8 +68,8 @@ export function Table(props: Props) {
                         </tbody>
                     </table>
                 </div>
-                {download || true ? (
-                    <div className="flex justify-end text-[#666] py-0.5 px-3">
+                {download ? (
+                    <div className="flex justify-end text-[#666] py-0.5 px-3 border-t border-t-[#ccc] ">
                         <div className="p-1 hover:bg-[#f8f8f8] cursor-pointer" onClick={download}>
                             <DownloadIcon className="w-4 h-4" />
                         </div>
