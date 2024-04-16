@@ -68,7 +68,7 @@ export function Table(props: Props) {
                         </tbody>
                     </table>
                 </div>
-                {download || true ? (
+                {download ? (
                     <div className="flex justify-end text-[#666] py-0.5 px-3">
                         <div className="p-1 hover:bg-[#f8f8f8] cursor-pointer" onClick={download}>
                             <DownloadIcon className="w-4 h-4" />
