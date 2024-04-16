@@ -1,16 +1,17 @@
 import React from 'react';
 import { TextEmbed } from '../__rust_generated__/TextEmbed';
+import DOMPurify from 'dompurify';
 
 const Text = ({ element }: { element: TextEmbed }) => {
+    const cleanValue = DOMPurify.sanitize(element.formattedValue);
     return (
         <div
             style={{
                 ...(element.fontSize && { fontSize: element.fontSize }),
             }}
             className="whitespace-pre"
-        >
-            {element.formattedValue}
-        </div>
+            dangerouslySetInnerHTML={{ __html: cleanValue }}
+        />
     );
 };
 
