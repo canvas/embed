@@ -1,6 +1,5 @@
 import React from 'react';
 import { ComponentEmbedElement } from '../types';
-import { parseNumber } from '../Spreadsheet';
 import { DownToTheRightIcon, UpToTheRightIcon } from '../icons';
 
 export const BigNumber = ({ element, title }: { element: ComponentEmbedElement; title: string }) => {
