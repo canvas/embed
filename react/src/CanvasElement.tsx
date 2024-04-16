@@ -6,6 +6,7 @@ import { BigNumber } from './components/BigNumber';
 import { ComponentEmbedElement } from './types';
 import Text from './components/Text';
 import { defaultTheme } from './components/layout/themes/theme.util';
+import { SearchComponent } from './components/SearchComponent';
 import { Table } from './Table';
 
 export const CanvasElement = ({
@@ -62,6 +63,12 @@ export const CanvasElement = ({
             return (
                 <Element key={elementId} elementId={elementId}>
                     <BigNumber element={element as ComponentEmbedElement} title={title || ''} />
+                </Element>
+            );
+        } else if (elementType.component.component === 'SearchComponent') {
+            return (
+                <Element key={elementId} elementId={elementId}>
+                    <SearchComponent element={element as ComponentEmbedElement} title={title || ''} />
                 </Element>
             );
         }

@@ -11,6 +11,7 @@ type ElementProps = {
 
 export function Element({ title, children, elementId, commands }: ElementProps): React.ReactElement {
     const elementRef = React.useRef<HTMLDivElement>(null);
+    const headerBar = title || commands;
     return (
         <div className="flex-1">
             <div
@@ -21,20 +22,24 @@ export function Element({ title, children, elementId, commands }: ElementProps):
                 }}
                 id={elementId}
             >
-                <div className="flex h-12 item-center rounded-lg hover:bg-highlight/50 px-2">
-                    <div className="flex flex-1 items-center">
-                        <div style={styles.title}>{title}</div>
-                    </div>
-                    <div className="invisible flex items-center group-hover:visible">
-                        {commands && (
-                            <div style={styles.icons}>
-                                <DropdownMenu commands={commands} onMenuClick={() => {}}>
-                                    <HorizontalEllipsis style={{ width: 12 }} />
-                                </DropdownMenu>
+                {headerBar && (
+                    <div className="flex h-12 item-center rounded-lg hover:bg-highlight/50 px-2">
+                        {title && (
+                            <div className="flex flex-1 items-center">
+                                <div style={styles.title}>{title}</div>
                             </div>
                         )}
+                        <div className="invisible flex items-center group-hover:visible">
+                            {commands && (
+                                <div style={styles.icons}>
+                                    <DropdownMenu commands={commands} onMenuClick={() => {}}>
+                                        <HorizontalEllipsis style={{ width: 12 }} />
+                                    </DropdownMenu>
+                                </div>
+                            )}
+                        </div>
                     </div>
-                </div>
+                )}
                 <div className="relative">{children}</div>
             </div>
         </div>
