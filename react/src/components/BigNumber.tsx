@@ -49,3 +49,7 @@ export const BigNumber = ({ element, title }: { element: ComponentEmbedElement; 
         </div>
     );
 };
+
+export function parseNumber(s: string): number {
+    return parseFloat(s.replace(/[,%$]/g, ''));
+}
