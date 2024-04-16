@@ -5,12 +5,12 @@ import '../styles/index.less';
 import React, { ReactNode, useEffect, useState } from 'react';
 import { Chart as _Chart } from './Chart';
 import { CanvasInner } from './Canvas';
-import { GetCanvasEmbedResponse } from './__rust_generated__/GetCanvasEmbedResponse';
 import useCanvasState from './state/useCanvasState';
 import isEmpty from 'lodash/isEmpty';
 import { buildUrl, convertFilterParams } from './util/util';
 import { ChartData } from './__rust_generated__/ChartData';
-import { defaultTheme } from './components/layout/themes/theme.util';
+import { Theme, defaultTheme } from './components/layout/themes/theme.util';
+import { EmbedResponse } from './types/EmbedResponse';
 
 type CanvasProps = {
     canvasId: string;
@@ -19,7 +19,7 @@ type CanvasProps = {
 };
 
 type CanvasSnapshotProps = {
-    canvasData: GetCanvasEmbedResponse;
+    canvasData: EmbedResponse;
 };
 
 type WrapperProps = {
@@ -32,7 +32,7 @@ type WrapperProps = {
 const API_BASE_URL = 'https://api.canvasapp.com';
 
 export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostOverride }: CanvasProps) => {
-    const [canvasData, setCanvasData] = useState<GetCanvasEmbedResponse | null>(null);
+    const [canvasData, setCanvasData] = useState<EmbedResponse | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [dataHash, setDataHash] = useState<string>(Math.random().toString(36).substring(7));
     const [loading, setLoading] = useState(false);

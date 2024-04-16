@@ -1,10 +1,10 @@
 import React from 'react';
 import MultiSelectInput, { SelectOption } from '../components/MultiSelectInput';
 import useCanvasState from '../state/useCanvasState';
-import { GetCanvasEmbedResponse } from '@/src/__rust_generated__/GetCanvasEmbedResponse';
 import { FilterConfig } from '../__rust_generated__/FilterConfig';
+import { EmbedResponse } from '../types/EmbedResponse';
 
-const Filter = ({ canvasData, filter }: { canvasData: GetCanvasEmbedResponse; filter: FilterConfig }) => {
+const Filter = ({ canvasData, filter }: { canvasData: EmbedResponse; filter: FilterConfig }) => {
     const updateFilter = useCanvasState((state) => state.updateFilter);
     const selectedFilters = useCanvasState((state) => state.filters);
     // We are exclusively using the initial filter options from the initial API response
