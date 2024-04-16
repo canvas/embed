@@ -2,7 +2,7 @@ import '../styles/tailwind.css';
 import '../styles/index.less';
 // import "../static/fonts/proxima-nova.css";
 
-import React, { useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import { Chart as _Chart } from './Chart';
 import { CanvasInner } from './Canvas';
 import { GetCanvasEmbedResponse } from './__rust_generated__/GetCanvasEmbedResponse';
@@ -16,6 +16,10 @@ type CanvasProps = {
     canvasId: string;
     authToken: string;
     host?: string;
+};
+
+type CanvasSnapshotProps = {
+    canvasData: GetCanvasEmbedResponse;
 };
 
 type WrapperProps = {
@@ -102,28 +106,42 @@ export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostO
 
     if (error) {
         return (
-            <div className="flex flex-col gap-3">
-                <div className="text-red-500 text-xl">
-                    <strong className="mr-1">Error: </strong>
-                    <span>{error}</span>
+            <TailwindWrapper>
+                <div className="flex flex-col gap-3">
+                    <div className="text-red-500 text-xl">
+                        <strong className="mr-1">Error_: </strong>
+                        <span>{error}</span>
+                    </div>
+                    <div className="text-red-500">
+                        Canvas embed instructions can be viewed{' '}
+                        <a
+                            href="https://canvasapp.com/docs/building-canvases/embeds"
+                            target="_blank"
+                            rel="noreferrer"
+                            className="underline"
+                        >
+                            here
+                        </a>
+                    </div>
                 </div>
-                <div className="text-red-500">
-                    Canvas embed instructions can be viewed{' '}
-                    <a
-                        href="https://canvasapp.com/docs/building-canvases/embeds"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="underline"
-                    >
-                        here
-                    </a>
-                </div>
-            </div>
+            </TailwindWrapper>
         );
     }
     if (canvasData) {
-        return <CanvasInner canvasData={canvasData} dataHash={dataHash} loading={loading} downloadCsv={downloadCsv} />;
+        return (
+            <TailwindWrapper>
+                <CanvasInner canvasData={canvasData} dataHash={dataHash} loading={loading} downloadCsv={downloadCsv} />
+            </TailwindWrapper>
+        );
     }
+};
+
+export const CanvasSnapshot: React.FC<CanvasSnapshotProps> = ({ canvasData }: CanvasSnapshotProps) => {
+    return (
+        <TailwindWrapper>
+            <CanvasInner canvasData={canvasData} loading={false} />
+        </TailwindWrapper>
+    );
 };
 
 export const Chart: React.FC<WrapperProps> = ({ authToken, chartId, timezone, host: hostOverride }: WrapperProps) => {
@@ -170,8 +188,24 @@ export const Chart: React.FC<WrapperProps> = ({ authToken, chartId, timezone, ho
     }
 
     if (chartData) {
-        return <_Chart data={chartData} title="Title" timezone={timezone} theme={defaultTheme} />;
+        return (
+            <TailwindWrapper>
+                <_Chart data={chartData} title="Title" timezone={timezone} theme={defaultTheme} />
+            </TailwindWrapper>
+        );
     } else {
-        return <_Chart data={undefined} title="Title" timezone={timezone} theme={defaultTheme} />;
+        return (
+            <TailwindWrapper>
+                <_Chart data={undefined} title="Title" timezone={timezone} theme={defaultTheme} />
+            </TailwindWrapper>
+        );
     }
 };
+
+function TailwindWrapper({ children }: { children: ReactNode }) {
+    return (
+        <div className="canvas-embed" style={{ display: 'flex', flex: 1 }}>
+            {children}
+        </div>
+    );
+}

@@ -1,19 +1,12 @@
-@import 'reset.less';
-@import '../static/fonts/prixma-nova.css';
 @import 'highcharts.less';
 
-.canvas-inner {
-    font: inherit;
-    vertical-align: baseline;
-    line-height: 1.54;
-
-    font-family: proxima-nova, 'Proxima Nova', sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    font-size: 13px;
-
+.canvas-embed {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
     overscroll-behavior-x: contain;
+
+    [contenteditable] {
+        outline: 0px solid transparent;
+    }
 }

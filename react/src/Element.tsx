@@ -12,11 +12,9 @@ type ElementProps = {
 export function Element({ title, children, elementId, commands }: ElementProps): React.ReactElement {
     const elementRef = React.useRef<HTMLDivElement>(null);
     return (
-        <div className="flex-1 max-w-[900px]">
+        <div className="flex-1">
             <div
-                className={`group rounded-lg border 
-                  border-transparent hover:border-transparent
-              h-full max-w-[calc(100vw-48px)] dark:bg-background`}
+                className={`group rounded-lg border border-transparent hover:border-transparent h-full dark:bg-background`}
                 ref={elementRef}
                 onMouseUp={(e) => {
                     e.stopPropagation();
