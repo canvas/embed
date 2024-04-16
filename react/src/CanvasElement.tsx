@@ -9,6 +9,7 @@ import Text from './components/Text';
 import { defaultTheme } from './components/layout/themes/theme.util';
 import { DownloadIcon } from './icons';
 import { DropdownMenuCommand } from './DropdownMenu';
+import { SearchComponent } from './components/SearchComponent';
 
 export const CanvasElement = ({
     element,
@@ -72,6 +73,12 @@ export const CanvasElement = ({
             return (
                 <Element key={elementId} elementId={elementId}>
                     <BigNumber element={element as ComponentEmbedElement} title={title || ''} />
+                </Element>
+            );
+        } else if (elementType.component.component === 'SearchComponent') {
+            return (
+                <Element key={elementId} elementId={elementId}>
+                    <SearchComponent element={element as ComponentEmbedElement} title={title || ''} />
                 </Element>
             );
         }
