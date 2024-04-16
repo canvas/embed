@@ -1,15 +1,24 @@
 import * as React from "react";
 import { Canvas } from "canvas-embed";
 
-const AUTH_TOKEN = process.env.AUTH_TOKEN;
 const CANVAS_HOST = "https://api.canvasapp.com";
 const HOST = process.env.HOST || CANVAS_HOST;
 
 const CanvasTest = (): React.ReactElement => {
-  const [canvasId, setCanvasId] = React.useState<string>(
-    process.env.CANVAS_ID || ""
+  const [canvasId, _setCanvasId] = React.useState<string>(
+    localStorage.getItem("canvasId") || ""
   );
-  const [authToken, setAuthToken] = React.useState<string>(AUTH_TOKEN || "");
+  const [authToken, _setAuthToken] = React.useState<string>(
+    localStorage.getItem("authToken") || ""
+  );
+  const setCanvasId = (id: string) => {
+    _setCanvasId(id);
+    localStorage.setItem("canvasId", id);
+  };
+  const setAuthToken = (token: string) => {
+    _setAuthToken(token);
+    localStorage.setItem("authToken", token);
+  };
   return (
     <div className="app py-8 px-16">
       <div className="flex items-center gap-3">
