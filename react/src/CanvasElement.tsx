@@ -1,18 +1,16 @@
 import React from 'react';
 import { Chart } from './Chart';
-import { SpreadsheetWrapper as Spreadsheet } from './Spreadsheet';
 import { Element } from './Element';
 import { EmbedElement } from './__rust_generated__/EmbedElement';
 import { BigNumber } from './components/BigNumber';
 import { ComponentEmbedElement } from './types';
 import Text from './components/Text';
 import { defaultTheme } from './components/layout/themes/theme.util';
-import { DownloadIcon } from './icons';
+import { Table } from './Table';
 
 export const CanvasElement = ({
     element,
     elementId,
-    dataHash,
     downloadCsv,
 }: {
     element?: EmbedElement;
@@ -38,34 +36,25 @@ export const CanvasElement = ({
             return;
         }
         const title = spreadsheetElement.metaData.title;
+
+        const columnMeta = spreadsheetElement.metaData.columnMeta;
+        const columns = spreadsheetElement.metaData.visibleColumns.map((columnId) => {
+            const meta = columnMeta[columnId];
+            return {
+                header: meta?.humanizedHeader || columnId,
+                type: meta?.sqlType ?? null,
+                format: meta?.format ?? null,
+            };
+        });
+
         return (
-            <Element
-                key={elementId}
+            <Table
+                data={spreadsheetElement.payload}
+                columns={columns}
+                rowCount={spreadsheetElement.rowCount}
+                download={downloadCsv ? () => downloadCsv(elementId, title) : undefined}
                 title={title}
-                elementId={elementId}
-                commands={[
-                    {
-                        id: 'download_csv',
-                        callback: () => downloadCsv(elementId, title),
-                        icon: DownloadIcon,
-                        text: 'Download CSV',
-                        keys: null,
-                    },
-                ]}
-            >
-                <Spreadsheet
-                    dataStore={{
-                        data: spreadsheetElement.payload,
-                        rowCount: spreadsheetElement.rowCount,
-                        columnCount: spreadsheetElement.columnCount,
-                        metaData: spreadsheetElement.metaData,
-                        storeId: spreadsheetElement.metaData.sourceKey,
-                        dataHash,
-                    }}
-                    storeId={spreadsheetElement.metaData.sourceKey}
-                    spreadsheetKind={'table'}
-                />
-            </Element>
+            />
         );
     }
     if (elementType.type === 'component') {

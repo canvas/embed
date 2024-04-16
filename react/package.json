@@ -86,8 +86,6 @@
     "moment-timezone": "^0.5.43",
     "percentile": "^1.6.0",
     "postcss": "^8.4.32",
-    "react-virtualized-auto-sizer": "^1.0.20",
-    "react-window": "^1.8.10",
     "slugify": "^1.6.6",
     "watch": "^0.13.0",
     "zustand": "^4.4.7"
