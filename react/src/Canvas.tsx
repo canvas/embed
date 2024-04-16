@@ -1,17 +1,17 @@
 import React from 'react';
-import { GetCanvasEmbedResponse } from './__rust_generated__/GetCanvasEmbedResponse';
 import { Filters } from './filter/Filters';
 import { CanvasElement } from './CanvasElement';
 import { Spinner } from './Spinner';
+import { EmbedResponse } from './types/EmbedResponse';
 
 type CanvasInnerProps = {
-    canvasData: GetCanvasEmbedResponse;
+    canvasData: EmbedResponse;
     dataHash?: string;
     loading: boolean;
     downloadCsv?: (elementId: string, title: string) => void;
 };
 export const CanvasInner = ({ canvasData, dataHash, loading, downloadCsv }: CanvasInnerProps) => {
-    const { elementOrder, elements } = canvasData;
+    const { elementOrder, elements, theme } = canvasData;
     return (
         <div className="flex flex-1 flex-col overflow-y-auto gap-4">
             <div className="flex items-center gap-1">
@@ -29,6 +29,7 @@ export const CanvasInner = ({ canvasData, dataHash, loading, downloadCsv }: Canv
                                     element={elements[elementId]}
                                     dataHash={dataHash}
                                     downloadCsv={downloadCsv}
+                                    theme={theme}
                                 />
                             ))}
                         </div>
