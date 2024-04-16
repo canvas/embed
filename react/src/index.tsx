@@ -18,6 +18,10 @@ type CanvasProps = {
     host?: string;
 };
 
+type CanvasSnapshotProps = {
+    canvasData: GetCanvasEmbedResponse;
+};
+
 type WrapperProps = {
     authToken: string;
     chartId: string;
@@ -130,6 +134,14 @@ export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostO
             </TailwindWrapper>
         );
     }
+};
+
+export const CanvasSnapshot: React.FC<CanvasSnapshotProps> = ({ canvasData }: CanvasSnapshotProps) => {
+    return (
+        <TailwindWrapper>
+            <CanvasInner canvasData={canvasData} loading={false} />
+        </TailwindWrapper>
+    );
 };
 
 export const Chart: React.FC<WrapperProps> = ({ authToken, chartId, timezone, host: hostOverride }: WrapperProps) => {

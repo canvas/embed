@@ -15,8 +15,8 @@ export const CanvasElement = ({
 }: {
     element?: EmbedElement;
     elementId: string;
-    dataHash: string;
-    downloadCsv: (elementId: string, title: string) => void;
+    dataHash?: string;
+    downloadCsv?: (elementId: string, title: string) => void;
 }) => {
     if (!element) return <></>;
 

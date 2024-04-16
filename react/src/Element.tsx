@@ -14,9 +14,7 @@ export function Element({ title, children, elementId, commands }: ElementProps):
     return (
         <div className="flex-1">
             <div
-                className={`group rounded-lg border 
-                  border-transparent hover:border-transparent
-              h-full max-w-[calc(100vw-48px)] dark:bg-background`}
+                className={`group rounded-lg border border-transparent hover:border-transparent h-full dark:bg-background`}
                 ref={elementRef}
                 onMouseUp={(e) => {
                     e.stopPropagation();
