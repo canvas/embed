@@ -33,7 +33,6 @@ const MultiSelectInput = ({ selections, onChange, options, label }: MultiSelectI
                             <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
                         </span>
                     </Listbox.Button>
-                    <button onClick={() => onChange([])}>Clear</button>
                     <Transition
                         as={Fragment}
                         leave="transition ease-in duration-100"
