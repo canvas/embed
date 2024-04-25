@@ -26,6 +26,8 @@ export interface ChartConfig {
     highlightColumnId: string | null;
     colorBackgroundColumnId: string | null;
     margin: ChartMargin | null;
+    targetColumnIds: Array<string>;
     seriesConfigs: Record<string, SeriesConfig>;
     version: ChartVersion;
+    fullWidth: boolean;
 }

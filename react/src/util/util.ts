@@ -3,11 +3,8 @@ import { SelectOption } from '../components/MultiSelectInput';
 
 export function buildUrl(url: string, params: Record<string, string>): string {
     if (isEmpty(params)) return url;
-
-    const queryString = Object.keys(params)
-        .map((key) => `${key}=${params[key]}`)
-        .join('&');
-    return `${url}?${queryString}`;
+    const queryString = new URLSearchParams(params);
+    return `${url}?${queryString.toString()}`;
 }
 
 export function convertFilterParams(obj: Record<string, SelectOption[]>): Record<string, string> {

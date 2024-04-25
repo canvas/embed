@@ -3,4 +3,5 @@ import type { ElementModel } from './ElementModel';
 
 export interface GetTableModelDataRequest {
     element: ElementModel;
+    warehouse_auth_id: string | null;
 }

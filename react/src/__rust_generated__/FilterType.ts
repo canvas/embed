@@ -11,4 +11,13 @@ export type FilterType =
           sourceTable: FilterSourceTable | null;
           valuesColumn: string | null;
           labelsColumn: string | null;
+      }
+    | {
+          type: 'scope';
+          storeId: string | null;
+          sourceStoreId: string | null;
+          sourceTable: FilterSourceTable | null;
+          valuesColumn: string | null;
+          labelsColumn: string | null;
+          scopeName: string | null;
       };

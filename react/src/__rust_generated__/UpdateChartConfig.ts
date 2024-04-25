@@ -32,4 +32,6 @@ export interface UpdateChartConfig {
     margin: ChartMargin | null;
     seriesConfigs: Record<string, SeriesConfig>;
     colorBackgroundColumnId: string | null;
+    targets: Array<string>;
+    fullWidth: boolean;
 }
