@@ -37,7 +37,7 @@ export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostO
     const [dataHash, setDataHash] = useState<string>(Math.random().toString(36).substring(7));
     const [loading, setLoading] = useState(false);
     const host = hostOverride || API_BASE_URL;
-    const filters = useCanvasState((state) => state.filters);
+    const { filters, sorts } = useCanvasState((state) => state);
 
     useEffect(() => {
         setLoading(true);
@@ -45,6 +45,7 @@ export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostO
             buildUrl(`${host}/v1/embed/canvas_embed`, {
                 canvas_id: canvasId,
                 ...(!isEmpty(filters) && convertFilterParams(filters)),
+                sorts: JSON.stringify(sorts),
             }),
             {
                 method: 'GET',
@@ -72,7 +73,7 @@ export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostO
                 setError(`Network error - either the server is down or you are offline`);
                 setCanvasData(null);
             });
-    }, [authToken, canvasId, filters, host]);
+    }, [authToken, canvasId, filters, host, sorts]);
 
     const downloadCsv = (elementId: string, title: string) => {
         setLoading(true);

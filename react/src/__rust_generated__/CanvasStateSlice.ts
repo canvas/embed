@@ -12,4 +12,5 @@ export interface CanvasStateSlice {
     filterState: FilterState;
     filterUrl: string;
     elementOrder: Array<Array<string>>;
+    connectComplete: boolean;
 }

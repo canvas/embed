@@ -3,4 +3,5 @@
 export type GlobalFilter =
     | { type: 'DateFilter'; variable: string }
     | { type: 'Search'; variable: string }
-    | { type: 'MultiSelect'; variable: string };
+    | { type: 'MultiSelect'; variable: string }
+    | { type: 'Scope'; variable: string };

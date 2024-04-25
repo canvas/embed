@@ -49,6 +49,7 @@ export const CanvasElement = ({
                 header: meta?.humanizedHeader || columnId,
                 type: meta?.sqlType ?? null,
                 format: meta?.format ?? null,
+                columnId,
             };
         });
 
@@ -59,6 +60,7 @@ export const CanvasElement = ({
                 rowCount={spreadsheetElement.rowCount}
                 download={downloadCsv ? () => downloadCsv(elementId, title) : undefined}
                 title={title}
+                storeId={spreadsheetElement.storeId}
             />
         );
     }

@@ -181,3 +181,6 @@ export { default as MiscIcon } from '../../static/icons/component/misc_icon.svg'
 // export const RightJoinSvg = icon('./static/icons/right_join.svg');
 // export const InnerJoinSvg = icon('./static/icons/inner_join.svg');
 // export const OuterJoinSvg = icon('./static/icons/outer_join.svg');
+
+export { default as SortUp } from '../../static/icons/sort_up.svg';
+export { default as SortDown } from '../../static/icons/sort_down.svg';

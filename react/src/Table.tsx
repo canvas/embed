@@ -2,21 +2,26 @@ import React from 'react';
 import { SqlType } from './__rust_generated__/SqlType';
 import { Format } from './__rust_generated__/Format';
 import { DateTime } from 'luxon';
-import { DownloadIcon } from './icons';
+import { DownloadIcon, SortDown, SortUp } from './icons';
+import useCanvasState from './state/useCanvasState';
 
 type Props = {
+    storeId: string;
     data: string[][];
     columns: {
         header: string;
         type: SqlType | null;
         format: Format | null;
+        columnId: string;
     }[];
     rowCount: number;
     title?: string;
     download?: () => void;
 };
 export function Table(props: Props) {
-    const { data, columns, rowCount, title, download } = props;
+    const { data, columns, rowCount, title, download, storeId } = props;
+    const { sorts, updateSort } = useCanvasState();
+    const tableSort = sorts[storeId];
 
     return (
         <div className="max-w-full">
@@ -27,12 +32,30 @@ export function Table(props: Props) {
                         <thead>
                             <tr>
                                 {columns.map((column, index) => {
+                                    const { columnId, header } = column;
+                                    const columnSort = tableSort?.columnId === columnId ? tableSort.order : null;
                                     return (
                                         <th
                                             key={index}
-                                            className="font-medium text-[#444] px-4 py-2 sticky top-0 bg-white border-b border-b-[#ccc]"
+                                            className="font-medium text-[#444] px-4 py-2 sticky top-0 bg-white border-b border-b-[#ccc] cursor-pointer"
+                                            onClick={() => {
+                                                if (columnSort === 'Ascending') {
+                                                    updateSort(storeId, { columnId, order: 'Descending' });
+                                                } else {
+                                                    updateSort(storeId, { columnId, order: 'Ascending' });
+                                                }
+                                            }}
                                         >
-                                            {column.header}
+                                            <div className="flex justify-between items-center">
+                                                {header}
+                                                {columnSort == 'Ascending' ? (
+                                                    <SortUp className="w-4 h-4" />
+                                                ) : columnSort === 'Descending' ? (
+                                                    <SortDown className="w-4 h-4" />
+                                                ) : (
+                                                    <div className="w-4 h-4"></div>
+                                                )}
+                                            </div>
                                         </th>
                                     );
                                 })}
