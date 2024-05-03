@@ -2,25 +2,26 @@
 Embed your Canvas charts in your application.
 
 ## Background
-The clients in this library allows you to embed the charts you've built in Canvas within your own application.
+The clients in this library allows you to embed your canvases within your own application. This requires adding code to both your frontend and backend applications.
 
-To access Canvas data from the frontend client your backend application must generate a token using your Canvas signing key.
+On the frontend you can either: 
 
-This token can contain grants for specific scopes.
+- Install the React client under `/react` using `npm install canvas-embed` and following the example under `/example`
+- Use the scripts from our CDN following the example under `/vanilla-site`
 
-For example, you might build a chart showing events in your application over time. You could add a `company` scope to this chart allowing you to filter for events by company.
+Using the frontend client requires generating an authentication token that you can safely send to your users' browser. You generate this authentication token using a secret Embed Key from Canvas with one of the backend clients (`/canvas-embed-node`, `/php`, `/python`, or `/ruby`).
 
-When generating an access token for one of your users, you would include a scope like `{ "company_id": "abc123" }`. Then when the user viewed the chart they would only have access to their company's events.
+This authentication can optionally include [scopes](https://canvasapp.gitbook.io/docs/embeds/scopes). Scopes give a user access to only a certain slice of the data depending on how you configure your canvas. If all of your users should see the same data for a given canvas then you can leave the scopes empty.
 
 ## Implementation
 
-Using chart embeds requires adding code to the backend and frontend of your application.
+Using embeds requires adding code to the backend and frontend of your application.
 
 Your backend needs to store a secret signing key from Canvas. 
 
 This key is used to sign tokens for each of your users granting them access to their data in Canvas.
 
-When Canvas receives this token we verify that it was signed with your key. We also use any scopes contained in the grant when evaluating their chart data requests.
+When Canvas receives this token we verify that it was signed with your key. We also use any scopes contained in the grant when evaluating their data requests.
 
 The React component in this library uses this token to request the user's data and then display the chart.
 
@@ -37,13 +38,17 @@ The successful flow has the following steps:
 8. The Canvas React component displays that data
 
 ## Clients
-This repo currently contains two clients:
-- React [frontend client](https://github.com/canvas/embed/tree/main/react)
+This repo currently contains four backend clients:
 - Ruby [backend client](https://github.com/canvas/embed/tree/main/ruby)
+- Python [backend client](https://github.com/canvas/embed/tree/main/python)
+- NodeJS [backend client](https://github.com/canvas/embed/tree/main/canvas-embed-node)
+- PHP [backend client](https://github.com/canvas/embed/tree/main/php)
+  
+And one frontend client:
+- [React](https://github.com/canvas/embed/tree/main/react)
+  
+Additionally, this repo shows how to use the frontend client without npm or React:
+- [browser](https://github.com/canvas/embed/tree/main/vanilla-site)
 
-Additionally, this repo contains two examples:
-
-- A [React project](https://github.com/canvas/embed/tree/main/react/example) using the React component
-- A [Rails project](https://github.com/canvas/embed/tree/main/react/example) using the Ruby gem
-
+  
 You can use these together to see how the end-to-end flow would work in your application.
