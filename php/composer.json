@@ -1,0 +1,21 @@
+{
+  "name": "canvas/embed",
+  "description": "Generate embed tokens",
+  "type": "library",
+  "require": {
+    "paragonie/halite": "^5.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Canvas\\Embed\\": "src/"
+    },
+    "files": [
+      "src/GenerateToken.php"
+    ]
+  },
+  "authors": [
+    {
+      "name": "Will Pride"
+    }
+  ]
+}
