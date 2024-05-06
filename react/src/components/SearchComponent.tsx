@@ -10,7 +10,7 @@ export const SearchComponent = ({ element, title }: { element: ComponentEmbedEle
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const debounceUpdateFilter = React.useCallback(
         debounce((value: string) => {
-            updateFilter({ [filterVariable]: [{ value, label: value }] });
+            updateFilter(filterVariable, [{ value, label: value }]);
         }, 500),
         [updateFilter],
     );

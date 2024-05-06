@@ -37,7 +37,7 @@ const Filter = ({ canvasData, filter }: { canvasData: EmbedResponse; filter: Fil
                 selections={selectedFilters[filter.variable] || []}
                 onChange={(filters: SelectOption[]) => {
                     const variable = filter.variable;
-                    updateFilter({ [variable]: filters });
+                    updateFilter(variable, filters);
                 }}
                 options={filterOptions}
                 label={filter.label}

@@ -7,7 +7,7 @@ type Filter = Record<string, SelectOption[]>;
 
 interface CanvasState {
     filters: Filter;
-    updateFilter: (filters: Filter) => void;
+    updateFilter: (variable: string, options: SelectOption[]) => void;
     sorts: Record<string, EmbedSort>;
     updateSort: (storeId: string, sort: EmbedSort) => void;
 }
@@ -17,12 +17,16 @@ interface CanvasState {
 const stateFn: (set, get) => CanvasState = (set, get) => ({
     filters: {},
     sorts: {},
-    updateFilter: (filters: Filter) => {
+    updateFilter: (variable: string, options: SelectOption[]) => {
         set((state: CanvasState) => {
             const newFilters = {
                 ...state.filters,
-                ...filters,
             };
+            if (options.length === 0) {
+                delete newFilters[variable];
+            } else {
+                newFilters[variable] = options;
+            }
             return {
                 ...state,
                 filters: newFilters,

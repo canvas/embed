@@ -24,7 +24,7 @@ export { default as HorizontalEllipsis } from '../../static/icons/nav/horizontal
 // export const BoldIcon = icon('./static/icons/toolbar/bold.svg');
 // export const ChartIcon = icon('./static/icons/toolbar/chart.svg');
 // export const CloseIcon = icon('./static/icons/close.svg');
-// export const CrossIcon = icon('./static/icons/toolbar/cross.svg');
+export { default as CloseIcon } from '../../static/icons/close.svg';
 // export const DecrementPrecisionIcon = icon('./static/icons/toolbar/decrement-precision.svg');
 // export const DrawerIcon = icon('./static/icons/toolbar/drawer_icon.svg');
 // export const ExpandIcon = icon('./static/icons/toolbar/expand.svg');
