@@ -5,8 +5,8 @@ on:
     paths:
       - "react/**"
       - ".github/**"
-    # branches:
-    #   - main
+    branches:
+      - main
 
 jobs:
   publish:
