@@ -1,4 +1,4 @@
-name: Lint
+name: Build
 
 on:
   push:
@@ -7,8 +7,8 @@ on:
       - ".github/**"
 
 jobs:
-  run-linters:
-    name: Run linters
+  run-builds:
+    name: Run builds
     runs-on: ubuntu-latest
 
     steps:
@@ -26,6 +26,10 @@ jobs:
         working-directory: ./react
         run: npm ci
 
-      - name: Run React linters
+      - name: Run React build
         working-directory: ./react
-        run: npm run lint
+        run: npm run build
+
+      - name: Run React build web
+        working-directory: ./react
+        run: npm run build-web

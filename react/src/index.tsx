@@ -8,8 +8,6 @@ import { CanvasInner } from './Canvas';
 import useCanvasState from './state/useCanvasState';
 import isEmpty from 'lodash/isEmpty';
 import { buildUrl, convertFilterParams } from './util/util';
-import { ChartData } from './__rust_generated__/ChartData';
-import { Theme, defaultTheme } from './components/layout/themes/theme.util';
 import { EmbedResponse } from './types/EmbedResponse';
 
 type CanvasProps = {
@@ -20,13 +18,6 @@ type CanvasProps = {
 
 type CanvasSnapshotProps = {
     canvasData: EmbedResponse;
-};
-
-type WrapperProps = {
-    authToken: string;
-    chartId: string;
-    timezone: string | null;
-    host?: string;
 };
 
 const API_BASE_URL = 'https://api.canvasapp.com';
@@ -143,64 +134,6 @@ export const CanvasSnapshot: React.FC<CanvasSnapshotProps> = ({ canvasData }: Ca
             <CanvasInner canvasData={canvasData} loading={false} />
         </TailwindWrapper>
     );
-};
-
-export const Chart: React.FC<WrapperProps> = ({ authToken, chartId, timezone, host: hostOverride }: WrapperProps) => {
-    const [chartData, setChartData] = useState<ChartData | null>(null);
-    const [error, setError] = useState<string | null>(null);
-    const host = hostOverride || API_BASE_URL;
-
-    useEffect(() => {
-        if (!authToken) {
-            console.warn('Missing authToken');
-            return;
-        }
-        if (!chartId) {
-            console.warn('Missing chartId');
-            return;
-        }
-        fetch(`${host}/v1/embed/embed_data?embed_id=${chartId}`, {
-            method: 'GET',
-            headers: {
-                'x-embed-key': authToken,
-            },
-        })
-            .then(async (res) => {
-                if (!res.ok) {
-                    const text = await res.text();
-                    console.error(`Error getting chart data: ${text}`);
-                    setChartData(null);
-                    setError(text);
-                } else {
-                    const chartData = await res.json();
-                    setChartData(chartData);
-                    setError(null);
-                }
-            })
-            .catch((error) => {
-                console.error(`Error getting embed data: ${error}`);
-                setError(`${error}`);
-                setChartData(null);
-            });
-    }, [authToken, chartId, host]);
-
-    if (error) {
-        return <div>{error}</div>;
-    }
-
-    if (chartData) {
-        return (
-            <TailwindWrapper>
-                <_Chart data={chartData} title="Title" timezone={timezone} theme={defaultTheme} />
-            </TailwindWrapper>
-        );
-    } else {
-        return (
-            <TailwindWrapper>
-                <_Chart data={undefined} title="Title" timezone={timezone} theme={defaultTheme} />
-            </TailwindWrapper>
-        );
-    }
 };
 
 function TailwindWrapper({ children }: { children: ReactNode }) {
