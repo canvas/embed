@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script charset="UTF-8" src="../react/dist-with-react/bundle.js"></script>
+  </head>
+  <body>
+    <div id="react-root"></div>
+    <script>
+      const canvasEmbed = window["canvas-embed"];
+      const urlParams = new URLSearchParams(window.location.search);
+      const canvasId = urlParams.get("canvas_id");
+      const authToken = urlParams.get("auth_token");
+      canvasEmbed.renderToTag(
+        "react-root",
+        canvasId,
+        authToken,
+        "http://localhost:3000"
+      );
+    </script>
+  </body>
+</html>

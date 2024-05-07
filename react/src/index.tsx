@@ -9,8 +9,9 @@ import useCanvasState from './state/useCanvasState';
 import isEmpty from 'lodash/isEmpty';
 import { buildUrl, convertFilterParams } from './util/util';
 import { ChartData } from './__rust_generated__/ChartData';
-import { Theme, defaultTheme } from './components/layout/themes/theme.util';
+import { defaultTheme } from './components/layout/themes/theme.util';
 import { EmbedResponse } from './types/EmbedResponse';
+import { createRoot } from 'react-dom/client';
 
 type CanvasProps = {
     canvasId: string;
@@ -135,6 +136,13 @@ export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostO
             </TailwindWrapper>
         );
     }
+};
+
+export const renderToTag = (elementId: string, canvasId: string, authToken: string, host?: string) => {
+    const el = document.getElementById(elementId);
+    if (!el) return;
+    const root = createRoot(el);
+    root.render(<Canvas canvasId={canvasId} authToken={authToken} host={host} />);
 };
 
 export const CanvasSnapshot: React.FC<CanvasSnapshotProps> = ({ canvasData }: CanvasSnapshotProps) => {
