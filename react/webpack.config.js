@@ -4,8 +4,8 @@ const { merge } = require('webpack-merge');
 
 module.exports = merge(base, {
     externals: {
-        react: 'react', // Treat React as an external dependency
-        'react-dom': 'react-dom', // Treat ReactDOM as an external dependency
+        react: 'React', // Treat React as an external dependency
+        'react-dom': 'ReactDom', // Treat ReactDOM as an external dependency
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
