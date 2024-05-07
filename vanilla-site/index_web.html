@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script charset="UTF-8" src="../react/dist/bundle_web.js"></script>
+    <script
+      charset="UTF-8"
+      src="https://embed.canvasapp.com/bundle_web.js"
+    ></script>
   </head>
   <body>
     <div id="react-root"></div>
@@ -10,7 +13,12 @@
       const urlParams = new URLSearchParams(window.location.search);
       const canvasId = urlParams.get("canvas_id");
       const authToken = urlParams.get("auth_token");
-      canvasEmbed.renderToTag("react-root", canvasId, authToken);
+      canvasEmbed.renderToTag(
+        "react-root",
+        canvasId,
+        authToken,
+        "http://localhost:3000"
+      );
     </script>
   </body>
 </html>

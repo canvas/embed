@@ -5,8 +5,8 @@ on:
     paths:
       - "react/**"
       - ".github/**"
-    # branches:
-    #   - main
+    branches:
+      - main
 
 jobs:
   publish:
@@ -41,3 +41,12 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
           AWS_REGION: "us-west-2"
           SOURCE_DIR: "react/dist"
+
+      - uses: jakejarvis/s3-sync-action@master
+        if: steps.build.outcome == 'success'
+        env:
+          AWS_S3_BUCKET: ${{ secrets.S3_EMBED_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.S3_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+          AWS_REGION: "us-west-2"
+          SOURCE_DIR: "vanilla-site/dist"
