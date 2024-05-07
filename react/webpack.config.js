@@ -4,8 +4,8 @@ const { merge } = require('webpack-merge');
 
 module.exports = merge(base, {
     externals: {
-        react: 'React',
-        'react-dom': 'ReactDom',
+        react: 'react',
+        'react-dom': 'react-dom',
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
