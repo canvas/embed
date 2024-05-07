@@ -6,7 +6,7 @@
     "types": "dist/index.d.ts",
     "scripts": {
         "dev": "NODE_ENV=development webpack --config webpack.config.js --watch",
-        "build": "NODE_ENV=production webpack --conflintersig webpack.config.js",
+        "build": "NODE_ENV=production webpack --config webpack.config.js",
         "build-web": "NODE_ENV=production webpack --config webpack.web.js",
         "build:css": "npx tailwindcss -i ./src/index.css -o ./dist/output.css",
         "build:css:watch": "npx tailwindcss -i ./src/index.css -o ./dist/output.css --watch",
