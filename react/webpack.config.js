@@ -4,13 +4,13 @@ const { merge } = require('webpack-merge');
 
 module.exports = merge(base, {
     externals: {
-        react: 'React', // Treat React as an external dependency
-        'react-dom': 'ReactDom', // Treat ReactDOM as an external dependency
+        react: 'React',
+        'react-dom': 'ReactDom',
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js',
         libraryTarget: 'umd',
-        library: 'canvas-embed', // Your component's name
+        library: 'canvas-embed',
     },
 });
