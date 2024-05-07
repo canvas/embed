@@ -1,0 +1,36 @@
+name: Build
+
+on:
+  push:
+    paths:
+      - "react/**"
+      - "example/**"
+      - ".github/**"
+
+jobs:
+  run-builds:
+    name: Run build example
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install React dependencies
+        working-directory: ./example
+        run: npm ci
+
+      - name: React link
+        working-directory: ./example
+        run: npm link ../react
+
+      - name: Run React build
+        working-directory: ./example
+        run: npm run build
