@@ -28,6 +28,7 @@ jobs:
         run: npm install
 
       - name: Build
+        id: build
         working-directory: react
         run: npm run build
 
