@@ -13,12 +13,7 @@
       const urlParams = new URLSearchParams(window.location.search);
       const canvasId = urlParams.get("canvas_id");
       const authToken = urlParams.get("auth_token");
-      canvasEmbed.renderToTag(
-        "react-root",
-        canvasId,
-        authToken,
-        "http://localhost:3000"
-      );
+      canvasEmbed.renderToTag("react-root", canvasId, authToken);
     </script>
   </body>
 </html>

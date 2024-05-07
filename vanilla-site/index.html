@@ -12,7 +12,7 @@
     ></script>
     <script
       charset="UTF-8"
-      src="https://embed.canvasapp.com/bundle1.js"
+      src="https://embed.canvasapp.com/bundle.js"
     ></script>
   </head>
   <body>
@@ -25,11 +25,7 @@
       const canvasId = urlParams.get("canvas_id");
       const authToken = urlParams.get("auth_token");
       root.render(
-        <canvasEmbed.Canvas
-          canvasId={canvasId}
-          authToken={authToken}
-          host="http://localhost:3000"
-        />
+        <canvasEmbed.Canvas canvasId={canvasId} authToken={authToken} />
       );
     </script>
   </body>
