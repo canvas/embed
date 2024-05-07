@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - "react/**"
+      - ".github/**"
 
 jobs:
   run-linters:
