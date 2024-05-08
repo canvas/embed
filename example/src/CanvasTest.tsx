@@ -11,6 +11,7 @@ const CanvasTest = (): React.ReactElement => {
   const [authToken, _setAuthToken] = React.useState<string>(
     localStorage.getItem("authToken") || ""
   );
+  const [isPublic, setPublic] = React.useState<boolean>(false);
   const setCanvasId = (id: string) => {
     _setCanvasId(id);
     localStorage.setItem("canvasId", id);
@@ -28,16 +29,30 @@ const CanvasTest = (): React.ReactElement => {
           onChange={(e) => setCanvasId(e.target.value)}
           className="border py-1 px-2"
         />
-        <h3>Enter Auth token:</h3>
+        <h3>Public</h3>
         <input
-          value={authToken}
-          onChange={(e) => setAuthToken(e.target.value)}
-          className="border py-1 px-2"
+          type="checkbox"
+          checked={isPublic}
+          onChange={() => setPublic(!isPublic)}
         />
+        {!isPublic && (
+          <>
+            <h3>Enter Auth token:</h3>
+            <input
+              value={authToken}
+              onChange={(e) => setAuthToken(e.target.value)}
+              className="border py-1 px-2"
+            />
+          </>
+        )}
       </div>
       <br />
-      {authToken.trim() !== "" && (
-        <Canvas canvasId={canvasId} host={HOST} authToken={authToken} />
+      {(authToken.trim() !== "" || isPublic) && (
+        <Canvas
+          canvasId={canvasId}
+          host={HOST}
+          authToken={isPublic ? undefined : authToken}
+        />
       )}
     </div>
   );

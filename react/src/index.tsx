@@ -12,7 +12,7 @@ import { EmbedResponse } from './types/EmbedResponse';
 
 type CanvasProps = {
     canvasId: string;
-    authToken: string;
+    authToken?: string;
     host?: string;
 };
 
@@ -40,9 +40,7 @@ export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostO
             }),
             {
                 method: 'GET',
-                headers: {
-                    'x-embed-key': authToken,
-                },
+                headers: authToken ? { 'x-embed-key': authToken } : undefined,
             },
         )
             .then(async (res) => {
@@ -76,9 +74,7 @@ export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostO
             }),
             {
                 method: 'GET',
-                headers: {
-                    'x-embed-key': authToken,
-                },
+                headers: authToken ? { 'x-embed-key': authToken } : undefined,
             },
         )
             .then(async (res) => {
