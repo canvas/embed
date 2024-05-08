@@ -7,8 +7,10 @@
     "scripts": {
         "dev": "NODE_ENV=development webpack --config webpack.config.js --watch",
         "dev-web": "NODE_ENV=development webpack --config webpack.web.js --watch",
+        "dev-web-slim": "NODE_ENV=development webpack --config webpack.web.slim.js --watch",
         "build": "NODE_ENV=production webpack --config webpack.config.js",
         "build-web": "NODE_ENV=production webpack --config webpack.web.js",
+        "build-web-slim": "NODE_ENV=production webpack --config webpack.web.slim.js",
         "build:css": "npx tailwindcss -i ./src/index.css -o ./dist/output.css",
         "build:css:watch": "npx tailwindcss -i ./src/index.css -o ./dist/output.css --watch",
         "copy-rust-types": "rm -rf ./src/rust_types/* && cp -r ../../sheets/frontend/src/__rust_generated__/* ./src/rust_types",

@@ -3,10 +3,13 @@ const base = require('./webpack.base.js');
 const { merge } = require('webpack-merge');
 
 module.exports = merge(base, {
-    entry: './src/WebIndex.tsx',
+    externals: {
+        react: 'React',
+        'react-dom': 'ReactDOM',
+    },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle_web.js',
+        filename: 'bundle_web_slim.js',
         libraryTarget: 'umd',
         library: 'canvas-embed',
     },
