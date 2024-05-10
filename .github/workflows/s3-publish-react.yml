@@ -31,7 +31,7 @@ jobs:
       - name: Build
         id: build
         working-directory: react
-        run: npm run build-web; npm run build-web-slim; npm run build
+        run: npm run build-web; npm run build
 
       - uses: jakejarvis/s3-sync-action@master
         if: steps.build.outcome == 'success'
