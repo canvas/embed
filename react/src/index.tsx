@@ -1,6 +1,5 @@
 import '../styles/tailwind.css';
 import '../styles/index.less';
-// import "../static/fonts/proxima-nova.css";
 
 import React, { ReactNode, useEffect, useState } from 'react';
 import { Chart as _Chart } from './Chart';

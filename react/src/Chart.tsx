@@ -3,11 +3,9 @@ import { HighchartsReact as HighchartsReactComponent } from 'highcharts-react-of
 import HighchartsReact from 'highcharts-react-official';
 import Highcharts, { PointOptionsObject } from 'highcharts';
 import Funnel from 'highcharts/modules/funnel';
-import Sankey from 'highcharts/modules/sankey';
 import Bullet from 'highcharts/modules/bullet';
 import exportingModule from 'highcharts/modules/exporting';
 import { DateTime } from 'luxon';
-// import moment from 'moment-timezone';
 import HCMore from 'highcharts/highcharts-more';
 import { ChartData } from 'src/__rust_generated__/ChartData';
 import { ChartDataSeriesConfig } from 'src/__rust_generated__/ChartDataSeriesConfig';
@@ -21,7 +19,6 @@ type YAxes = Highcharts.YAxisOptions | Highcharts.YAxisOptions[];
 type SeriesChartType = 'column' | 'bar' | 'line' | 'pie' | 'scatter' | 'area' | 'waterfall' | 'funnel' | 'bullet';
 
 Funnel(Highcharts);
-Sankey(Highcharts);
 Bullet(Highcharts);
 HCMore(Highcharts);
 exportingModule(Highcharts);
