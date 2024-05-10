@@ -13,6 +13,6 @@ module.exports = merge(base, {
         libraryTarget: 'umd',
         library: 'canvas-embed',
         clean: true,
-        mode: 'production',
     },
+    mode: 'production',
 });
