@@ -12,7 +12,7 @@ module.exports = merge(base, {
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle_web_slim.js',
+        filename: 'embed.web.slim.js',
         libraryTarget: 'umd',
         library: 'canvas-embed',
     },

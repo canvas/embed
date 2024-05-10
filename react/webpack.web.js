@@ -7,7 +7,7 @@ module.exports = merge(base, {
     entry: './src/WebIndex.tsx',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle_web.js',
+        filename: 'embed.web.js',
         libraryTarget: 'umd',
         library: 'canvas-embed',
     },
