@@ -13,7 +13,7 @@ module.exports = merge(base, {
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'embed.js',
+        filename: 'embed.min.js',
         libraryTarget: 'umd',
         library: 'canvas-embed',
         clean: true,
