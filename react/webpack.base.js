@@ -39,18 +39,6 @@ module.exports = {
                             lessOptions: {
                                 javascriptEnabled: true,
                                 relativeUrls: false,
-                                modifyVars: {
-                                    '@body-background': '#E5E5E5',
-                                    '@layout-header-height': '50px',
-                                    '@layout-body-background': '#E5E5E5',
-                                    '@layout-header-background': '#2A316B',
-                                    '@layout-sider-background': '#FFFFFF',
-                                    '@primary-color': '#2A316B', // primary color for all components
-                                    '@link-color': '#1060fd',
-                                    '@table-header-bg': '#FFFFFF',
-                                    '@select-border-color': '#d9e2ec',
-                                    '@input-border-color': '#d9e2ec',
-                                },
                             },
                         },
                     },
