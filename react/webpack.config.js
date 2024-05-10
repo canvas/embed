@@ -12,5 +12,7 @@ module.exports = merge(base, {
         filename: 'bundle.js',
         libraryTarget: 'umd',
         library: 'canvas-embed',
+        clean: true,
     },
+    mode: 'production',
 });

@@ -1,14 +1,26 @@
 const path = require('path');
 const base = require('./webpack.base.js');
 const { merge } = require('webpack-merge');
+const TerserPlugin = require('terser-webpack-plugin');
 
-// If you have React and ReactDOM you can use the renderToTag function in WebIndex.tsx to render the component
+// If you use the unpkg CDN to install React then they end up in the React and ReactDOM namespaces
+// as oppsoed to react and react-dom as they would if you installed them via npm. So we make a separate
+// build that expects the externals at the CDN locations for use there. Insanity.
 module.exports = merge(base, {
-    entry: './src/WebIndex.tsx',
+    externals: {
+        react: 'React',
+        'react-dom': 'ReactDOM',
+    },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle_web.js',
+        filename: 'embed.min.js',
         libraryTarget: 'umd',
         library: 'canvas-embed',
+        clean: true,
     },
+    optimization: {
+        minimize: true,
+        minimizer: [new TerserPlugin()],
+    },
+    mode: 'production',
 });
