@@ -1,10 +1,6 @@
-name: Build
+name: Bundle size
 
-on:
-  push:
-    paths:
-      - "react/**"
-      - ".github/**"
+on: [pull_request]
 
 jobs:
   run-builds:
@@ -20,16 +16,21 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 20
 
       - name: Install React dependencies
         working-directory: ./react
         run: npm ci
 
+      - name: Run React build web
+        working-directory: ./react
+        run: npm run build-web
+
       - name: Run React build
         working-directory: ./react
         run: npm run build
 
-      - name: Run React build web
-        working-directory: ./react
-        run: npm run build-web
+      - name: Diff bundle sizes
+        uses: preactjs/compressed-size-action@v2
+        with:
+          cwd: react
