@@ -2,7 +2,7 @@
     "name": "canvas-embed",
     "version": "1.0.67",
     "description": "Embed your Canvas in your application",
-    "main": "dist/embed.js",
+    "main": "dist/bundle.js",
     "types": "dist/index.d.ts",
     "scripts": {
         "dev": "NODE_ENV=development webpack --config webpack.config.js --watch",
