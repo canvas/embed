@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script
+      src="https://unpkg.com/react@18/umd/react.production.min.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"
+      crossorigin
+    ></script>
+    <script
+      charset="UTF-8"
+      src="https://embed.canvasapp.com/bundle_web_slim.js"
+    ></script>
+  </head>
+  <body>
+    <div id="react-root"></div>
+    <script type="text/babel">
+      const canvasEmbed = window["canvas-embed"];
+      const container = document.getElementById("react-root");
+      const root = ReactDOM.createRoot(container);
+      const urlParams = new URLSearchParams(window.location.search);
+      const canvasId = urlParams.get("canvas_id");
+      const authToken = urlParams.get("auth_token");
+      root.render(
+        <canvasEmbed.Canvas canvasId={canvasId} authToken={authToken} />
+      );
+    </script>
+  </body>
+</html>

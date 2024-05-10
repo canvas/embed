@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
-import { ChevronUpDownIcon } from '@heroicons/react/20/solid';
+import { CloseIcon } from '../icons';
 
 export type SelectOption = {
     value: string;
@@ -26,13 +26,18 @@ const MultiSelectInput = ({ selections, onChange, options, label }: MultiSelectI
                 }}
                 multiple
             >
-                <div className="relative mt-1">
-                    <Listbox.Button className="relative w-full cursor-pointer rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-                        <Listbox.Button>{buttonText}</Listbox.Button>
-                        <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                            <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
-                        </span>
-                    </Listbox.Button>
+                <div className="relative">
+                    <div className="inline-flex rounded-md shadow-md divide-x divide-gray-300">
+                        <Listbox.Button className="relative w-64 cursor-pointer rounded-r-none rounded-l-md  bg-white py-2 pl-3 pr-10 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm truncate">
+                            <Listbox.Button>{buttonText}</Listbox.Button>
+                        </Listbox.Button>
+                        <div
+                            onClick={() => onChange([])}
+                            className="inline-flex items-center gap-x-1.5 rounded-r-md px-3 py-2 text-white shadow-sm cursor-pointer"
+                        >
+                            <CloseIcon className="-ml-0.5 h-3 w-3 text-gray-400" aria-hidden="true" />
+                        </div>
+                    </div>
                     <Transition
                         as={Fragment}
                         leave="transition ease-in duration-100"

@@ -5,39 +5,30 @@ import '../styles/index.less';
 import React, { ReactNode, useEffect, useState } from 'react';
 import { Chart as _Chart } from './Chart';
 import { CanvasInner } from './Canvas';
-import { GetCanvasEmbedResponse } from './__rust_generated__/GetCanvasEmbedResponse';
 import useCanvasState from './state/useCanvasState';
 import isEmpty from 'lodash/isEmpty';
 import { buildUrl, convertFilterParams } from './util/util';
-import { ChartData } from './__rust_generated__/ChartData';
-import { defaultTheme } from './components/layout/themes/theme.util';
+import { EmbedResponse } from './types/EmbedResponse';
 
 type CanvasProps = {
     canvasId: string;
-    authToken: string;
+    authToken?: string;
     host?: string;
 };
 
 type CanvasSnapshotProps = {
-    canvasData: GetCanvasEmbedResponse;
-};
-
-type WrapperProps = {
-    authToken: string;
-    chartId: string;
-    timezone: string | null;
-    host?: string;
+    canvasData: EmbedResponse;
 };
 
 const API_BASE_URL = 'https://api.canvasapp.com';
 
 export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostOverride }: CanvasProps) => {
-    const [canvasData, setCanvasData] = useState<GetCanvasEmbedResponse | null>(null);
+    const [canvasData, setCanvasData] = useState<EmbedResponse | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [dataHash, setDataHash] = useState<string>(Math.random().toString(36).substring(7));
     const [loading, setLoading] = useState(false);
     const host = hostOverride || API_BASE_URL;
-    const filters = useCanvasState((state) => state.filters);
+    const { filters, sorts } = useCanvasState((state) => state);
 
     useEffect(() => {
         setLoading(true);
@@ -45,12 +36,11 @@ export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostO
             buildUrl(`${host}/v1/embed/canvas_embed`, {
                 canvas_id: canvasId,
                 ...(!isEmpty(filters) && convertFilterParams(filters)),
+                sorts: JSON.stringify(sorts),
             }),
             {
                 method: 'GET',
-                headers: {
-                    'x-embed-key': authToken,
-                },
+                headers: authToken ? { 'x-embed-key': authToken } : undefined,
             },
         )
             .then(async (res) => {
@@ -72,7 +62,7 @@ export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostO
                 setError(`Network error - either the server is down or you are offline`);
                 setCanvasData(null);
             });
-    }, [authToken, canvasId, filters, host]);
+    }, [authToken, canvasId, filters, host, sorts]);
 
     const downloadCsv = (elementId: string, title: string) => {
         setLoading(true);
@@ -84,9 +74,7 @@ export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostO
             }),
             {
                 method: 'GET',
-                headers: {
-                    'x-embed-key': authToken,
-                },
+                headers: authToken ? { 'x-embed-key': authToken } : undefined,
             },
         )
             .then(async (res) => {
@@ -142,64 +130,6 @@ export const CanvasSnapshot: React.FC<CanvasSnapshotProps> = ({ canvasData }: Ca
             <CanvasInner canvasData={canvasData} loading={false} />
         </TailwindWrapper>
     );
-};
-
-export const Chart: React.FC<WrapperProps> = ({ authToken, chartId, timezone, host: hostOverride }: WrapperProps) => {
-    const [chartData, setChartData] = useState<ChartData | null>(null);
-    const [error, setError] = useState<string | null>(null);
-    const host = hostOverride || API_BASE_URL;
-
-    useEffect(() => {
-        if (!authToken) {
-            console.warn('Missing authToken');
-            return;
-        }
-        if (!chartId) {
-            console.warn('Missing chartId');
-            return;
-        }
-        fetch(`${host}/v1/embed/embed_data?embed_id=${chartId}`, {
-            method: 'GET',
-            headers: {
-                'x-embed-key': authToken,
-            },
-        })
-            .then(async (res) => {
-                if (!res.ok) {
-                    const text = await res.text();
-                    console.error(`Error getting chart data: ${text}`);
-                    setChartData(null);
-                    setError(text);
-                } else {
-                    const chartData = await res.json();
-                    setChartData(chartData);
-                    setError(null);
-                }
-            })
-            .catch((error) => {
-                console.error(`Error getting embed data: ${error}`);
-                setError(`${error}`);
-                setChartData(null);
-            });
-    }, [authToken, chartId, host]);
-
-    if (error) {
-        return <div>{error}</div>;
-    }
-
-    if (chartData) {
-        return (
-            <TailwindWrapper>
-                <_Chart data={chartData} title="Title" timezone={timezone} theme={defaultTheme} />
-            </TailwindWrapper>
-        );
-    } else {
-        return (
-            <TailwindWrapper>
-                <_Chart data={undefined} title="Title" timezone={timezone} theme={defaultTheme} />
-            </TailwindWrapper>
-        );
-    }
 };
 
 function TailwindWrapper({ children }: { children: ReactNode }) {

@@ -5,28 +5,33 @@ import { EmbedElement } from './__rust_generated__/EmbedElement';
 import { BigNumber } from './components/BigNumber';
 import { ComponentEmbedElement } from './types';
 import Text from './components/Text';
-import { defaultTheme } from './components/layout/themes/theme.util';
+import { SearchComponent } from './components/SearchComponent';
+import { Theme, getTheme } from './components/layout/themes/theme.util';
 import { Table } from './Table';
 
 export const CanvasElement = ({
     element,
     elementId,
     downloadCsv,
+    theme,
 }: {
     element?: EmbedElement;
     elementId: string;
     dataHash?: string;
     downloadCsv?: (elementId: string, title: string) => void;
+    theme?: Theme;
 }) => {
     if (!element) return <></>;
 
     const { elementType, title } = element;
 
+    const mergedTheme = getTheme(theme);
+
     if (elementType.type === 'chart') {
         const chartTitle = title || 'Chart';
         return (
             <Element key={elementId} title={chartTitle} elementId={elementId}>
-                <Chart data={elementType.chartData} title={chartTitle} timezone={null} theme={defaultTheme} />
+                <Chart data={elementType.chartData} title={chartTitle} timezone={null} theme={mergedTheme} />
             </Element>
         );
     }
@@ -44,6 +49,7 @@ export const CanvasElement = ({
                 header: meta?.humanizedHeader || columnId,
                 type: meta?.sqlType ?? null,
                 format: meta?.format ?? null,
+                columnId,
             };
         });
 
@@ -54,6 +60,7 @@ export const CanvasElement = ({
                 rowCount={spreadsheetElement.rowCount}
                 download={downloadCsv ? () => downloadCsv(elementId, title) : undefined}
                 title={title}
+                storeId={spreadsheetElement.storeId}
             />
         );
     }
@@ -62,6 +69,12 @@ export const CanvasElement = ({
             return (
                 <Element key={elementId} elementId={elementId}>
                     <BigNumber element={element as ComponentEmbedElement} title={title || ''} />
+                </Element>
+            );
+        } else if (elementType.component.component === 'SearchComponent') {
+            return (
+                <Element key={elementId} elementId={elementId}>
+                    <SearchComponent element={element as ComponentEmbedElement} title={title || ''} />
                 </Element>
             );
         }

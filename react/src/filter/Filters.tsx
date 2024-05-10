@@ -1,8 +1,8 @@
 import React from 'react';
-import { GetCanvasEmbedResponse } from '@/src/__rust_generated__/GetCanvasEmbedResponse';
 import Filter from './Filter';
+import { EmbedResponse } from '../types/EmbedResponse';
 
-export function Filters({ canvasData }: { canvasData: GetCanvasEmbedResponse }) {
+export function Filters({ canvasData }: { canvasData: EmbedResponse }) {
     const filters = canvasData?.filters?.filters;
     const filtersVisible = filters?.filter(
         (filter) => filter?.filterType?.type === 'select' && filter.filterType.storeId != null,

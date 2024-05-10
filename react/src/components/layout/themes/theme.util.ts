@@ -76,3 +76,19 @@ export function colorTable(colorPaletteId: string, steps: number, theme: Theme, 
         return palette.slice(0, steps);
     }
 }
+
+export function getTheme(theme?: Theme) {
+    if (!theme) {
+        return defaultTheme;
+    }
+
+    const fullTheme = {
+        palettes: {
+            ...defaultTheme.palettes,
+            ...theme.palettes,
+        },
+        ...(theme && 'fonts' in theme ? theme.fonts : defaultTheme.fonts),
+    };
+
+    return fullTheme;
+}
