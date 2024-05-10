@@ -1,4 +1,4 @@
-export { default as IntegerIcon } from '../../static/icons/component/integer_icon.svg';
+// export { default as IntegerIcon } from '../../static/icons/component/integer_icon.svg';
 export { default as UpToTheRightIcon } from '../../static/icons/up-to-the-right.svg';
 export { default as DownToTheRightIcon } from '../../static/icons/down-to-the-right.svg';
 
@@ -7,7 +7,7 @@ export { default as DownToTheRightIcon } from '../../static/icons/down-to-the-ri
 // export const CommentModeIcon = icon('./static/icons/nav/comment_mode.svg');
 // export const PointerModeIcon = icon('./static/icons/nav/pointer_mode.svg');
 // export const VerticalEllipsis = icon('./static/icons/nav/vertical-ellipsis.svg');
-export { default as HorizontalEllipsis } from '../../static/icons/nav/horizontal_ellipsis.svg';
+export { default as HorizontalEllipsis } from '../../static/icons/horizontal_ellipsis.svg';
 // export const TextModeIcon = icon('./static/icons/nav/text_mode.svg');
 // export const HandToolIcon = icon('./static/icons/nav/hand_tool.svg');
 // export const SqlEditorIcon = icon('./static/icons/nav/sql-editor.svg');
@@ -43,7 +43,7 @@ export { default as CloseIcon } from '../../static/icons/close.svg';
 // export const UndoIcon = icon('./static/icons/toolbar/undo.svg');
 // export const ApiIcon = icon('./static/icons/api_icon.svg');
 // export const SettingsIcon = icon('./static/icons/settings.svg');
-export { default as SettingsIcon } from '../../static/icons/settings.svg';
+// export { default as SettingsIcon } from '../../static/icons/settings.svg';
 // export const ForkedSourceIcon = icon('./static/icons/forked_source_icon.svg');
 // export const SnowflakeIcon = icon('./static/icons/snowflake.svg');
 // export const BigQueryIcon = icon('./static/icons/bigquery.svg');
@@ -115,20 +115,20 @@ export { default as SettingsIcon } from '../../static/icons/settings.svg';
 // export const InfoIcon = icon('./static/icons/info.svg');
 // export const LockIcon = icon('./static/icons/lock.svg');
 
-export { default as SqlErrorIcon } from '../../static/icons/sql_editor/error.svg';
+// export { default as SqlErrorIcon } from '../../static/icons/sql_editor/error.svg';
 // export const SqlEditorV2Icon = icon('./static/icons/sql_editor/sql_editor.svg');
 
-export { default as TextIcon } from '../../static/icons/component/text_icon.svg';
-export { default as DateIcon } from '../../static/icons/component/date_icon.svg';
+// export { default as TextIcon } from '../../static/icons/component/text_icon.svg';
+// export { default as DateIcon } from '../../static/icons/component/date_icon.svg';
 // export const IntegerIcon = icon('./static/icons/component/integer_icon.svg');
 // export const DecimalIcon = icon('./static/icons/component/decimal_icon.svg');
 // export const JSONIcon = icon('./static/icons/component/json_icon.svg');
 
-export { default as DateTimeIcon } from '../../static/icons/component/date_time_icon.svg';
-export { default as BooleanIcon } from '../../static/icons/component/boolean_icon.svg';
+// export { default as DateTimeIcon } from '../../static/icons/component/date_time_icon.svg';
+// export { default as BooleanIcon } from '../../static/icons/component/boolean_icon.svg';
 // export const DownloadIcon = icon('./static/icons/download.svg');
 export { default as DownloadIcon } from '../../static/icons/download.svg';
-export { default as MiscIcon } from '../../static/icons/component/misc_icon.svg';
+// export { default as MiscIcon } from '../../static/icons/component/misc_icon.svg';
 // export const LineageArrow = icon('./static/icons/lineage_arrow.svg');
 
 // export const FormulaIcon = icon('./static/icons/formula.svg');

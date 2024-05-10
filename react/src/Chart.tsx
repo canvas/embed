@@ -7,7 +7,7 @@ import Sankey from 'highcharts/modules/sankey';
 import Bullet from 'highcharts/modules/bullet';
 import exportingModule from 'highcharts/modules/exporting';
 import { DateTime } from 'luxon';
-import moment from 'moment-timezone';
+// import moment from 'moment-timezone';
 import HCMore from 'highcharts/highcharts-more';
 import { ChartData } from 'src/__rust_generated__/ChartData';
 import { ChartDataSeriesConfig } from 'src/__rust_generated__/ChartDataSeriesConfig';
@@ -689,7 +689,7 @@ function getOptions(
         responsive,
         time: {
             timezone: timezone ? timezone : undefined,
-            moment,
+            // moment,
             useUTC: false,
         },
 
