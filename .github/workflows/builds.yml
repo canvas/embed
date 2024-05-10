@@ -33,3 +33,8 @@ jobs:
       - name: Run React build web
         working-directory: ./react
         run: npm run build-web
+
+      - name: Diff bundle sizes
+        uses: preactjs/compressed-size-action@v2
+        with:
+          cwd: react
