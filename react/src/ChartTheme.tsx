@@ -10,11 +10,11 @@ export function ChartTheme({
     children,
 }: {
     data: ChartData | undefined;
-    theme: Theme;
+    theme: Theme | undefined;
     children: ReactNode;
 }): ReactElement {
     const colors = useMemo(() => {
-        if (data) {
+        if (data && theme) {
             return getColors(data, theme);
         }
     }, [data, theme]);

@@ -8,6 +8,7 @@ import { SearchComponent } from './components/SearchComponent';
 import { Theme, getTheme } from './components/layout/themes/theme.util';
 import { Table } from './Table';
 import { SvgChart } from './SvgChart';
+import { ChartTheme } from './ChartTheme';
 
 export const CanvasElement = ({
     element,
@@ -25,13 +26,15 @@ export const CanvasElement = ({
 
     const { elementType, title } = element;
 
-    const mergedTheme = getTheme(theme);
+    const mergedTheme = getTheme(theme as any);
 
     if (elementType.type === 'chart') {
         const chartTitle = title || 'Chart';
         return (
             <Element key={elementId} title={chartTitle} elementId={elementId}>
-                <SvgChart data={elementType.chartData} theme={mergedTheme} />
+                <ChartTheme data={elementType.chartData} theme={mergedTheme}>
+                    <SvgChart data={elementType.chartData} theme={mergedTheme} />
+                </ChartTheme>
             </Element>
         );
     }
