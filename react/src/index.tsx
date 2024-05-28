@@ -2,7 +2,6 @@ import '../styles/tailwind.css';
 import '../styles/index.less';
 
 import React, { ReactNode, useEffect, useState } from 'react';
-import { Chart as _Chart } from './Chart';
 import { CanvasInner } from './Canvas';
 import useCanvasState from './state/useCanvasState';
 import isEmpty from 'lodash/isEmpty';
