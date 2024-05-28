@@ -8,6 +8,7 @@ import type { ColorTheme } from './ColorTheme';
 import type { DateAggregation } from './DateAggregation';
 import type { Format } from './Format';
 import type { Highlight } from './Highlight';
+import type { ScaleType } from './ScaleType';
 import type { SeriesFormat } from './SeriesFormat';
 import type { StackType } from './StackType';
 import type { Trendline } from './Trendline';
@@ -41,4 +42,8 @@ export interface ChartData {
     seriesConfigs: Record<string, ChartDataSeriesConfig>;
     targets: Array<Highlight>;
     fullWidth: boolean;
+    exactLabelTotals: boolean;
+    highlightMinMax: boolean;
+    xAxisType: ScaleType;
+    yAxisType: ScaleType;
 }

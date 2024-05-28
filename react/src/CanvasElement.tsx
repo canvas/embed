@@ -1,5 +1,4 @@
 import React from 'react';
-import { Chart } from './Chart';
 import { Element } from './Element';
 import { EmbedElement } from './__rust_generated__/EmbedElement';
 import { BigNumber } from './components/BigNumber';
@@ -8,6 +7,7 @@ import Text from './components/Text';
 import { SearchComponent } from './components/SearchComponent';
 import { Theme, getTheme } from './components/layout/themes/theme.util';
 import { Table } from './Table';
+import { SvgChart } from './SvgChart';
 
 export const CanvasElement = ({
     element,
@@ -31,7 +31,7 @@ export const CanvasElement = ({
         const chartTitle = title || 'Chart';
         return (
             <Element key={elementId} title={chartTitle} elementId={elementId}>
-                <Chart data={elementType.chartData} title={chartTitle} timezone={null} theme={mergedTheme} />
+                <SvgChart data={elementType.chartData} theme={mergedTheme} />
             </Element>
         );
     }
