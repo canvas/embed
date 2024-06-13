@@ -4,7 +4,7 @@ export type ValueFormat = { type: 'decimal' } | { type: 'currency'; currency: st
 
 export function formatValue(value: Ordinal, format: ValueFormat = { type: 'decimal' }): string {
     if (value instanceof Date) {
-        return Intl.DateTimeFormat(undefined, { year: 'numeric', month: 'short' }).format(value);
+        return Intl.DateTimeFormat(undefined, { year: 'numeric', month: 'short', day: 'numeric' }).format(value);
     }
 
     if (typeof value === 'string') {
