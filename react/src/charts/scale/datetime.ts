@@ -14,12 +14,27 @@ export function dateTimeScale(domain: Date[], range: [number, number]): Scale<Da
     }
 
     const ticks: Date[] = [];
-    if (Math.abs(domainMax.getTime() - domainMin.getTime()) > 1000 * 60 * 60 * 24 * 365) {
+    const dateRangeDays = Math.abs(domainMax.getTime() - domainMin.getTime()) / 1000 / 60 / 60 / 24;
+    if (dateRangeDays > 700) {
         for (let year = domainMin.getFullYear() + 1; year <= domainMax.getFullYear(); year += 1) {
             ticks.push(new Date(year, 0, 1));
         }
     } else {
         ticks.push(domainMin);
+
+        const tickCount = 6;
+
+        const tickDelta = Math.floor(dateRangeDays / (tickCount - 1));
+
+        for (let i = 1; i < 7; i++) {
+            const tick = new Date(domainMin);
+            tick.setDate(domainMin.getDate() + tickDelta * i);
+            if (tick.getTime() > domainMax.getTime()) {
+                break;
+            }
+            ticks.push(tick);
+        }
+
         ticks.push(domainMax);
     }
 
