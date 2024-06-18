@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Listbox, Transition } from '@headlessui/react';
+import { Listbox, ListboxButton, Transition } from '@headlessui/react';
 import { CloseIcon } from '../icons';
 
 export type SelectOption = {
@@ -28,9 +28,9 @@ const MultiSelectInput = ({ selections, onChange, options, label }: MultiSelectI
             >
                 <div className="relative">
                     <div className="inline-flex rounded-md shadow-md divide-x divide-gray-300">
-                        <Listbox.Button className="relative w-64 cursor-pointer rounded-r-none rounded-l-md  bg-white py-2 pl-3 pr-10 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm truncate">
-                            <Listbox.Button>{buttonText}</Listbox.Button>
-                        </Listbox.Button>
+                        <ListboxButton className="relative w-64 cursor-pointer rounded-r-none rounded-l-md  bg-white py-2 pl-3 pr-10 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm truncate">
+                            <ListboxButton>{buttonText}</ListboxButton>
+                        </ListboxButton>
                         <div
                             onClick={() => onChange([])}
                             className="inline-flex items-center gap-x-1.5 rounded-r-md px-3 py-2 text-white shadow-sm cursor-pointer"
