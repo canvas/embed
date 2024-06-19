@@ -71,14 +71,14 @@
         "tailwindcss-themer": "^3.0.1",
         "ts-loader": "^9.5.1",
         "typescript": "^5.3.3",
+        "watch": "^0.13.0",
         "webpack": "^5.89.0",
         "webpack-bundle-analyzer": "^4.10.2",
         "webpack-cli": "^5.1.4",
-        "webpack-dev-server": "^4.15.1",
-        "watch": "^0.13.0"
+        "webpack-dev-server": "^4.15.1"
     },
     "dependencies": {
-        "@headlessui/react": "^1.7.17",
+        "@headlessui/react": "^2.0.4",
         "chroma-js": "^2.4.2",
         "dompurify": "^3.1.0",
         "lodash": "^4.17.21",

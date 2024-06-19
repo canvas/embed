@@ -4,11 +4,11 @@ import { EmbedElement } from './__rust_generated__/EmbedElement';
 import { BigNumber } from './components/BigNumber';
 import { ComponentEmbedElement } from './types';
 import Text from './components/Text';
-import { SearchComponent } from './components/SearchComponent';
 import { Theme, getTheme } from './components/layout/themes/theme.util';
 import { Table } from './Table';
 import { SvgChart } from './SvgChart';
 import { ChartTheme } from './ChartTheme';
+import { InlineSearchComponent } from './components/SearchComponent';
 
 export const CanvasElement = ({
     element,
@@ -75,9 +75,12 @@ export const CanvasElement = ({
                 </Element>
             );
         } else if (elementType.component.component === 'SearchComponent') {
+            const filterVariable = JSON.parse(
+                (element as ComponentEmbedElement).elementType.component.config,
+            ).filterVariable;
             return (
                 <Element key={elementId} elementId={elementId}>
-                    <SearchComponent element={element as ComponentEmbedElement} title={title || ''} />
+                    <InlineSearchComponent filterVariable={filterVariable} label={title || ''} />
                 </Element>
             );
         }
