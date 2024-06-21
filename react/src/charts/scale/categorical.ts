@@ -7,6 +7,8 @@ export function categoricalScale(categories: string[], range: [number, number]):
         return null;
     }
 
+    const ticks = categories;
+
     const ordering = new Map();
     categories.forEach((value, index) => {
         ordering.set(value, index);
@@ -18,8 +20,6 @@ export function categoricalScale(categories: string[], range: [number, number]):
     if (!scale) {
         return null;
     }
-
-    const ticks = categories;
 
     function size(domainValue: string) {
         return scale?.size(ordering.get(domainValue)) ?? 0;
