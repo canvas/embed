@@ -13,7 +13,7 @@ export function XAxis<DomainValue extends Ordinal>({
 
     useEffect(() => {
         if (ref.current) {
-            removeOverlappedText(ref.current);
+            removeOverlappedText(ref.current, 'vertical');
         }
     });
 
@@ -69,7 +69,73 @@ export function YAxis({ yScale, width }: { yScale: Scale<number>; width: number 
     );
 }
 
-function removeOverlappedText(parent: SVGGElement) {
+export function HorizontalXAxis<DomainValue extends Ordinal>({
+    xScale,
+    x,
+}: {
+    xScale: Scale<DomainValue>;
+    x: number;
+}): ReactElement {
+    const ref = useRef<SVGGElement>(null);
+
+    useEffect(() => {
+        if (ref.current) {
+            removeOverlappedText(ref.current, 'horizontal');
+        }
+    });
+
+    return (
+        <g ref={ref}>
+            {xScale.ticks.map((tick, index) => {
+                const y = xScale.midPoint(tick);
+                const transform = `translate(${x}px, ${y}px)`;
+                return (
+                    <Fragment key={index}>
+                        <text
+                            style={{ transform }}
+                            x={0}
+                            y={0}
+                            textAnchor="end"
+                            dominantBaseline="central"
+                            className="fill-current transition-transform"
+                        >
+                            {formatValue(tick, xScale.format)}
+                        </text>
+                        {/* <path
+                            d={`M 0 0 v 5`}
+                            style={{ transform }}
+                            className="stroke-faded transition-transform [.hidden+&]:hidden"
+                        /> */}
+                    </Fragment>
+                );
+            })}
+        </g>
+    );
+}
+
+export function HorizontalYAxis({ yScale, y }: { yScale: Scale<number>; y: number }): ReactElement {
+    return (
+        <g>
+            {yScale.ticks.map((tick, index) => {
+                const x = yScale.position(tick);
+                return (
+                    <text
+                        style={{ transform: `translate(${x}px, ${y}px)` }}
+                        key={index}
+                        textAnchor="middle"
+                        dominantBaseline="right"
+                        alignmentBaseline="middle"
+                        className="fill-current transition-transform"
+                    >
+                        {formatValue(tick, yScale.format)}
+                    </text>
+                );
+            })}
+        </g>
+    );
+}
+
+function removeOverlappedText(parent: SVGGElement, orientation: 'horizontal' | 'vertical') {
     const textElements = [...parent.children].filter((element) => element.tagName === 'text');
 
     let prev: Element | null = null;
@@ -79,10 +145,20 @@ function removeOverlappedText(parent: SVGGElement) {
             const prevRect = prev.getBoundingClientRect();
             const rect = element.getBoundingClientRect();
 
-            rightMost = Math.max(rightMost, prevRect.right);
+            if (orientation === 'vertical') {
+                rightMost = Math.max(rightMost, prevRect.right);
 
-            if (rect.left < rightMost) {
-                element.classList.add('hidden');
+                if (rect.left < rightMost) {
+                    element.classList.add('hidden');
+                }
+            } else if (orientation === 'horizontal') {
+                const allowedOverhang = 8;
+
+                if (rect.top < prevRect.bottom - allowedOverhang) {
+                    element.classList.add('hidden');
+                } else {
+                    rightMost = Math.max(rightMost, prevRect.bottom - allowedOverhang);
+                }
             }
         }
         prev = element;
