@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import { ChartData } from 'src/__rust_generated__/ChartData';
-import { XAxis, YAxis } from 'src/charts/Axis';
+import { HorizontalXAxis, HorizontalYAxis, XAxis, YAxis } from 'src/charts/Axis';
 import { HorizontalGrid } from 'src/charts/HorizontalGrid';
 import { LineChart } from 'src/charts/LineChart';
 import { VerticalBarChart } from 'src/charts/VerticalBarChart';
@@ -12,6 +12,9 @@ import { parseDateTimeNtz } from 'src/util/DateUtil';
 import { DateTime } from 'luxon';
 import { ChartTheme } from './ChartTheme';
 import { Theme } from 'src/components/layout/themes/theme.util';
+import { HorizontalBarChart } from 'src/charts/HorizontalBarChart';
+import { formatValue } from 'src/charts/lib/format';
+import { VerticalGrid } from 'src/charts/VerticalGrid';
 
 type Props = {
     data: ChartData | undefined;
@@ -53,29 +56,55 @@ export function SvgChart({ data: _data, theme }: Props): ReactElement {
     const values = _data.values.map((series) => series.map(parseFloat));
 
     if (values.length === 0) {
-        return <div className="flex justify-center h-[300px] items-center">No data.</div>;
+        return <div className="flex h-[300px] items-center justify-center">No data.</div>;
     }
 
     const domainTypes = [...new Set(domainValues.map((value) => value.type))];
 
-    const planeLeft = yAxisWidth + planePadding;
-    const planeRight = width - planePadding - rightMargin;
+    const horizontalChart = _data.chartType === 'bar' && _data.horizontal;
+
+    const _planeLeft = yAxisWidth + planePadding;
+    const _planeRight = width - planePadding - rightMargin;
+
+    const _planeTop = topMargin;
+    const _planeBottom = height - xAxisHeight - bottomMargin - 1;
+
+    let xPlaneStart, xPlaneEnd, yPlaneStart, yPlaneEnd;
+
+    if (_data.horizontal) {
+        yPlaneStart = _planeLeft;
+        yPlaneEnd = _planeRight;
+        xPlaneStart = _planeTop;
+        xPlaneEnd = _planeBottom;
+    } else {
+        xPlaneStart = _planeLeft;
+        xPlaneEnd = _planeRight;
+        yPlaneStart = _planeBottom;
+        yPlaneEnd = _planeTop;
+    }
 
     let domain;
-    let xScale;
+    let xScale: any;
+    let horizontalXAxisMargin = 0;
     if (domainTypes.length === 1 && domainTypes[0] === 'date') {
         domain = domainValues.map((value) => (value.value as DateTime).toJSDate());
 
-        xScale = dateTimeScale(domain, [planeLeft, planeRight]);
+        xScale = dateTimeScale(domain, [xPlaneStart, xPlaneEnd]);
     } else if (domainTypes.length === 1 && domainTypes[0] === 'number') {
         domain = domainValues.map((value) => value.value) as number[];
 
         const xScaleFn = _data.xAxisType === 'logarithmic' ? logarithmicScale : linearScale;
-        xScale = xScaleFn(domain, [planeLeft, planeRight], { lastTick: 'trim' });
+        xScale = xScaleFn(domain, [xPlaneStart, xPlaneEnd], { lastTick: 'trim' });
     } else {
         domain = domainValues.map((value) => value.value.toString());
 
-        xScale = categoricalScale(domain, [planeLeft, planeRight]);
+        xScale = categoricalScale(domain, [xPlaneStart, xPlaneEnd]);
+    }
+
+    if (horizontalChart) {
+        const widestTick = Math.max(...domain.map((tick) => formatValue(tick, xScale?.format).length));
+        horizontalXAxisMargin = widestTick * 5;
+        yPlaneStart = Math.min(yPlaneStart + horizontalXAxisMargin, yPlaneEnd);
     }
 
     let data = domain.map((domainValue, index) => {
@@ -109,11 +138,8 @@ export function SvgChart({ data: _data, theme }: Props): ReactElement {
 
     const range = data.map((series) => series.y.reduce((acc: number, v: number | null) => acc + (v ?? 0), 0));
 
-    const planeTop = topMargin;
-    const planeBottom = height - xAxisHeight - bottomMargin - 1;
-
     const yScaleFn = _data.yAxisType === 'logarithmic' ? logarithmicScale : linearScale;
-    const yScale = yScaleFn(range, [planeBottom, planeTop], { lastTick, format });
+    const yScale = yScaleFn(range, [yPlaneStart, yPlaneEnd], { lastTick, format });
 
     if (!xScale || !yScale) {
         // TODO
@@ -128,13 +154,40 @@ export function SvgChart({ data: _data, theme }: Props): ReactElement {
         <ChartTheme data={_data} theme={theme}>
             <div ref={resizeRef}>
                 <svg width={_width} height={_height}>
-                    <XAxis xScale={xScale as any} y={yScale.rangeMin} />
-                    <YAxis yScale={yScale} width={yAxisWidth} />
+                    {horizontalChart ? (
+                        <>
+                            <HorizontalXAxis xScale={xScale as any} x={yScale.rangeMin - 12} />
+                            <HorizontalYAxis yScale={yScale} y={xPlaneEnd + 8} />
+                        </>
+                    ) : (
+                        <>
+                            <XAxis xScale={xScale as any} y={yScale.rangeMin} />
+                            <YAxis yScale={yScale} width={yAxisWidth} />
+                        </>
+                    )}
 
-                    <HorizontalGrid axis={yScale.ticks} scale={yScale} xStart={yAxisWidth} xEnd={width} />
+                    {horizontalChart ? (
+                        <VerticalGrid
+                            axis={yScale.ticks}
+                            scale={yScale}
+                            yStart={xScale.rangeMin}
+                            yEnd={xScale.rangeMax}
+                        />
+                    ) : (
+                        <HorizontalGrid axis={yScale.ticks} scale={yScale} xStart={yAxisWidth} xEnd={width} />
+                    )}
 
                     {(() => {
-                        if (_data.chartType === 'bar') {
+                        if (_data.chartType === 'bar' && _data.horizontal) {
+                            return (
+                                <HorizontalBarChart
+                                    domainScale={xScale as any}
+                                    valueScale={yScale}
+                                    data={data}
+                                    className="fill-[#5ba8f7] stroke-[#5ba8f7] stroke-1"
+                                />
+                            );
+                        } else if (_data.chartType === 'bar') {
                             return (
                                 <VerticalBarChart
                                     xScale={xScale as any}
