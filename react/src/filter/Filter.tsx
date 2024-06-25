@@ -22,7 +22,7 @@ const Filter = ({ canvasData, filter }: { canvasData: EmbedResponse; filter: Fil
             if (!uniqueValues) {
                 return [];
             }
-            const options = uniqueValues.map((option) => ({ label: option[0], value: option[1] }));
+            const options = uniqueValues.map((option) => ({ value: option[0], label: option[1] }));
             setFilterOptionsCache(options);
             return options;
         };
