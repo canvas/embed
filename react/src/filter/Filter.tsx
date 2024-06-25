@@ -18,13 +18,12 @@ const Filter = ({ canvasData, filter }: { canvasData: EmbedResponse; filter: Fil
             if (filterOptionsCache) {
                 return filterOptionsCache;
             }
-            const uniqueValues = canvasData.filters.uniqueValues[storeId];
+            const uniqueValues = canvasData.filters.uniqueValuesV2[storeId];
             if (!uniqueValues) {
                 return [];
             }
-            const options = uniqueValues.map((option) => ({ label: option[0], value: option[1] }));
-            setFilterOptionsCache(options);
-            return options;
+            setFilterOptionsCache(uniqueValues);
+            return uniqueValues;
         };
         const filterOptions = getFilterOptions();
         return (
