@@ -30,7 +30,7 @@ export function SvgChart({ data: _data, theme }: Props): ReactElement {
     const [_height, setHeight] = useState<number | undefined>(400);
 
     const width = _width ?? 600;
-    const height = Math.max(300, _height ?? 0);
+    const height = Math.max(100, _height ?? 0);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
@@ -152,7 +152,7 @@ export function SvgChart({ data: _data, theme }: Props): ReactElement {
 
     return (
         <ChartTheme data={_data} theme={theme}>
-            <div ref={resizeRef}>
+            <div ref={resizeRef} className="max-h-[90vh]">
                 <svg width={_width} height={_height}>
                     {horizontalChart ? (
                         <>
