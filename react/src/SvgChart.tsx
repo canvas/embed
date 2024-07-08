@@ -189,7 +189,8 @@ export function SvgChart({ data: _data, theme }: Props): ReactElement {
                                     domainScale={xScale as any}
                                     valueScale={yScale}
                                     data={data}
-                                    className="fill-[#5ba8f7] stroke-[#5ba8f7] stroke-1"
+                                    options={{ showTotals: _data.showBarTotals }}
+                                    className="stroke-1"
                                 />
                             );
                         } else if (_data.chartType === 'bar') {

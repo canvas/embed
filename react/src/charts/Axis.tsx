@@ -142,10 +142,6 @@ function removeOverlappedText(parent: SVGGElement, orientation: 'horizontal' | '
     let rightMost = 0;
     textElements.forEach((element) => {
         if (prev) {
-            if (element.classList.contains('invisible')) {
-                return;
-            }
-
             const prevRect = prev.getBoundingClientRect();
             const rect = element.getBoundingClientRect();
 
@@ -156,7 +152,7 @@ function removeOverlappedText(parent: SVGGElement, orientation: 'horizontal' | '
                     element.classList.add('invisible');
                 }
             } else if (orientation === 'horizontal') {
-                const allowedOverhang = 8;
+                const allowedOverhang = 4;
 
                 if (rect.top < prevRect.bottom - allowedOverhang) {
                     element.classList.add('invisible');
@@ -165,6 +161,9 @@ function removeOverlappedText(parent: SVGGElement, orientation: 'horizontal' | '
                 }
             }
         }
-        prev = element;
+
+        if (!element.classList.contains('invisible')) {
+            prev = element;
+        }
     });
 }
