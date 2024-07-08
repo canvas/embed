@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useRef, useState } from 'react';
+import React, { ReactElement, RefObject, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { ChartData } from 'src/__rust_generated__/ChartData';
 import { HorizontalXAxis, HorizontalYAxis, XAxis, YAxis } from 'src/charts/Axis';
 import { HorizontalGrid } from 'src/charts/HorizontalGrid';
@@ -40,12 +40,15 @@ export function SvgChart({ data: _data, theme }: Props): ReactElement {
         }
     });
 
+    const yAxisRef = useRef<SVGGElement>(null);
+    const yAxisTextWidth = useElementWidth(yAxisRef);
+
     if (!_data) {
         return <>Loading</>;
     }
 
     const xAxisHeight = 24;
-    const yAxisWidth = 40;
+    const yAxisWidth = yAxisTextWidth + 20;
 
     const topMargin = 16;
     const bottomMargin = 4;
@@ -101,7 +104,7 @@ export function SvgChart({ data: _data, theme }: Props): ReactElement {
         xScale = categoricalScale(domain, [xPlaneStart, xPlaneEnd]);
     }
 
-    if (horizontalChart) {
+    if (horizontalChart && yAxisWidth < 10) {
         const widestTick = Math.max(...domain.map((tick) => formatValue(tick, xScale?.format).length));
         horizontalXAxisMargin = widestTick * 5;
         yPlaneStart = Math.min(yPlaneStart + horizontalXAxisMargin, yPlaneEnd);
@@ -154,16 +157,18 @@ export function SvgChart({ data: _data, theme }: Props): ReactElement {
         <ChartTheme data={_data} theme={theme}>
             <div ref={resizeRef} className="max-h-[90vh]">
                 <svg width={_width} height={_height}>
-                    {horizontalChart ? (
-                        <>
+                    <g ref={yAxisRef}>
+                        {horizontalChart ? (
                             <HorizontalXAxis xScale={xScale as any} x={yScale.rangeMin - 12} />
-                            <HorizontalYAxis yScale={yScale} y={xPlaneEnd + 8} />
-                        </>
-                    ) : (
-                        <>
-                            <XAxis xScale={xScale as any} y={yScale.rangeMin} />
+                        ) : (
                             <YAxis yScale={yScale} width={yAxisWidth} />
-                        </>
+                        )}
+                    </g>
+
+                    {horizontalChart ? (
+                        <HorizontalYAxis yScale={yScale} y={xPlaneEnd + 8} />
+                    ) : (
+                        <XAxis xScale={xScale as any} y={yScale.rangeMin} />
                     )}
 
                     {horizontalChart ? (
@@ -243,4 +248,29 @@ function parseDomainValue(value: string): Value {
     } catch {
         return { type: 'string', value };
     }
+}
+
+function useElementWidth<DOMElement extends Element>(elementRef: RefObject<DOMElement>) {
+    const [width, setWidth] = useState(0);
+
+    useLayoutEffect(() => {
+        const resizeObserver = new ResizeObserver((entries) => {
+            if (entries.length > 0) {
+                const lastEntry = entries[entries.length - 1];
+                if (lastEntry) {
+                    setWidth(lastEntry.contentRect.width);
+                }
+            }
+        });
+
+        if (elementRef.current) {
+            resizeObserver.observe(elementRef.current);
+        }
+
+        return () => {
+            resizeObserver.disconnect();
+        };
+    });
+
+    return width;
 }
