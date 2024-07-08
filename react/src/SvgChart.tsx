@@ -79,6 +79,9 @@ export function SvgChart({ data: _data, theme }: Props): ReactElement {
         yPlaneEnd = _planeRight;
         xPlaneStart = _planeTop;
         xPlaneEnd = _planeBottom;
+        if (_data.showBarTotals) {
+            yPlaneEnd -= 20;
+        }
     } else {
         xPlaneStart = _planeLeft;
         xPlaneEnd = _planeRight;
