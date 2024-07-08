@@ -89,7 +89,7 @@ export function HorizontalBarChart<DomainValue extends Ordinal>({
                             {lastValue && showTotals && (
                                 <text
                                     style={{ transform: `translate(${x + size}px, ${y}px)` }}
-                                    x={8}
+                                    x={8 + (lastValue ? radius : 0)}
                                     y={0}
                                     textAnchor="left"
                                     dominantBaseline="middle"
