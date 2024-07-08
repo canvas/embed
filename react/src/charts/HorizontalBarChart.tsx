@@ -2,23 +2,30 @@ import React, { ReactElement } from 'react';
 import { Scale } from './lib/types';
 import { Data, Ordinal } from './lib/types';
 import { ellipticalArcCurve, horizontalLine, horizontalLineTo, moveCursorTo, verticalLine } from './svg/path';
+import { formatValue } from './lib/format';
 
 export function HorizontalBarChart<DomainValue extends Ordinal>({
     domainScale,
     valueScale,
     data,
     className,
+    options,
 }: // widestDomainValue,
 {
     domainScale: Scale<DomainValue>;
     valueScale: Scale<number>;
     data: Data<DomainValue>;
     className?: string;
+    options?: {
+        showTotals?: boolean;
+    };
     // widestDomainValue: number;
 }): ReactElement {
     const barMargin = 8;
     const barRadius = 8;
     const marginBetweenBars = 2;
+
+    const showTotals = options?.showTotals ?? false;
 
     return (
         <g className={className}>
@@ -67,16 +74,31 @@ export function HorizontalBarChart<DomainValue extends Ordinal>({
                     const lastValue = seriesIndex === lastValueIndex;
 
                     return (
-                        <HorizontalBar
-                            x={x}
-                            y={y}
-                            size={lastValue ? sign * size : sign * Math.max(size - marginBetweenBars, 0)}
-                            bandWidth={bandWidth}
-                            margin={margin}
-                            radius={lastValue ? radius : 0}
-                            key={seriesIndex}
-                            colorIndex={seriesIndex}
-                        />
+                        <>
+                            <HorizontalBar
+                                x={x}
+                                y={y}
+                                size={lastValue ? sign * size : sign * Math.max(size - marginBetweenBars, 0)}
+                                bandWidth={bandWidth}
+                                margin={margin}
+                                radius={lastValue ? radius : 0}
+                                key={seriesIndex}
+                                colorIndex={seriesIndex}
+                            />
+
+                            {lastValue && showTotals && (
+                                <text
+                                    style={{ transform: `translate(${x + size}px, ${y}px)` }}
+                                    x={8}
+                                    y={0}
+                                    textAnchor="left"
+                                    dominantBaseline="middle"
+                                    className="transition-transform stroke-none"
+                                >
+                                    {formatValue(value, valueScale.format)}
+                                </text>
+                            )}
+                        </>
                     );
                 });
             })}
