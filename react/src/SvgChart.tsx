@@ -257,7 +257,7 @@ function useElementWidth<DOMElement extends Element>(elementRef: RefObject<DOMEl
         const resizeObserver = new ResizeObserver((entries) => {
             if (entries.length > 0) {
                 const lastEntry = entries[entries.length - 1];
-                if (lastEntry) {
+                if (lastEntry && lastEntry.contentRect.width != width) {
                     setWidth(lastEntry.contentRect.width);
                 }
             }

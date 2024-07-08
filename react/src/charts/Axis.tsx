@@ -37,7 +37,7 @@ export function XAxis<DomainValue extends Ordinal>({
                         <path
                             d={`M 0 0 v 5`}
                             style={{ transform }}
-                            className="stroke-faded transition-transform [.hidden+&]:hidden"
+                            className="stroke-faded transition-transform [.invisible+&]:invisible"
                         />
                     </Fragment>
                 );
@@ -142,6 +142,10 @@ function removeOverlappedText(parent: SVGGElement, orientation: 'horizontal' | '
     let rightMost = 0;
     textElements.forEach((element) => {
         if (prev) {
+            if (element.classList.contains('invisible')) {
+                return;
+            }
+
             const prevRect = prev.getBoundingClientRect();
             const rect = element.getBoundingClientRect();
 
@@ -149,13 +153,13 @@ function removeOverlappedText(parent: SVGGElement, orientation: 'horizontal' | '
                 rightMost = Math.max(rightMost, prevRect.right);
 
                 if (rect.left < rightMost) {
-                    element.classList.add('hidden');
+                    element.classList.add('invisible');
                 }
             } else if (orientation === 'horizontal') {
                 const allowedOverhang = 8;
 
                 if (rect.top < prevRect.bottom - allowedOverhang) {
-                    element.classList.add('hidden');
+                    element.classList.add('invisible');
                 } else {
                     rightMost = Math.max(rightMost, prevRect.bottom - allowedOverhang);
                 }
