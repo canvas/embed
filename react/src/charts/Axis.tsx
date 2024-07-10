@@ -30,15 +30,11 @@ export function XAxis<DomainValue extends Ordinal>({
                             y={10}
                             textAnchor="middle"
                             dominantBaseline="hanging"
-                            className="fill-current transition-transform"
+                            className="fill-current"
                         >
                             {formatValue(tick, xScale.format)}
                         </text>
-                        <path
-                            d={`M 0 0 v 5`}
-                            style={{ transform }}
-                            className="stroke-faded transition-transform [.invisible+&]:invisible"
-                        />
+                        <path d={`M 0 0 v 5`} style={{ transform }} className="stroke-faded [.invisible+&]:invisible" />
                     </Fragment>
                 );
             })}
@@ -59,7 +55,7 @@ export function YAxis({ yScale, width }: { yScale: Scale<number>; width: number 
                         textAnchor="end"
                         dominantBaseline="right"
                         alignmentBaseline="middle"
-                        className="fill-current transition-transform"
+                        className="fill-current"
                     >
                         {formatValue(tick, yScale.format)}
                     </text>
@@ -97,15 +93,10 @@ export function HorizontalXAxis<DomainValue extends Ordinal>({
                             y={0}
                             textAnchor="end"
                             dominantBaseline="central"
-                            className="fill-current transition-transform"
+                            className="fill-current"
                         >
                             {formatValue(tick, xScale.format)}
                         </text>
-                        {/* <path
-                            d={`M 0 0 v 5`}
-                            style={{ transform }}
-                            className="stroke-faded transition-transform [.hidden+&]:hidden"
-                        /> */}
                     </Fragment>
                 );
             })}
@@ -133,7 +124,7 @@ export function HorizontalYAxis({ yScale, y }: { yScale: Scale<number>; y: numbe
                         textAnchor="middle"
                         dominantBaseline="right"
                         alignmentBaseline="middle"
-                        className="fill-current transition-transform"
+                        className="fill-current"
                     >
                         {formatValue(tick, yScale.format)}
                     </text>

@@ -32,6 +32,7 @@ export function numberScale(
     const scaleFn = options?.scaleFn ?? ((value) => value);
 
     const [rangeMin, rangeMax] = range;
+    const rangeWidth = rangeMax - rangeMin;
 
     const sortedDomain = [...domain];
     sortedDomain.sort((a, b) => a - b);
@@ -53,7 +54,8 @@ export function numberScale(
         }
     }
 
-    const tickCount = Math.min(simpleAxisThreshold, domain.length);
+    let tickCount = Math.min(simpleAxisThreshold, domain.length, Math.floor(rangeWidth / 50) + 1);
+    tickCount = Math.max(tickCount, 2);
 
     let tickMax = domainMax;
     if (lastTick === 'trim' && domain.length > simpleAxisThreshold) {
@@ -82,7 +84,6 @@ export function numberScale(
         }
     }
 
-    const rangeWidth = rangeMax - rangeMin;
     const domainWidth = scaleFn(domainMax) - scaleFn(domainMin) || 1;
 
     let bandWidth = rangeWidth / domainWidth;
