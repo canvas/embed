@@ -114,8 +114,16 @@ export function HorizontalXAxis<DomainValue extends Ordinal>({
 }
 
 export function HorizontalYAxis({ yScale, y }: { yScale: Scale<number>; y: number }): ReactElement {
+    const ref = useRef<SVGGElement>(null);
+
+    useEffect(() => {
+        if (ref.current) {
+            removeOverlappedText(ref.current, 'vertical');
+        }
+    });
+
     return (
-        <g>
+        <g ref={ref}>
             {yScale.ticks.map((tick, index) => {
                 const x = yScale.position(tick);
                 return (
