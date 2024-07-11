@@ -1,12 +1,18 @@
 import React from 'react';
 import { ComponentEmbedElement } from '../types';
 import { DownToTheRightIcon, UpToTheRightIcon } from '../icons';
+import { formatCell } from '../util/util';
 
 export const BigNumber = ({ element, title }: { element: ComponentEmbedElement; title: string }) => {
     const data = element.elementType.data;
 
     const currentNumber = data && data[0] && data[0][0] ? data[0][0] : null;
     const lastNumber = data && data[0] && data[0][1] ? data[0][1] : null;
+
+    const column = element.elementType.bigNumberColumnMeta;
+
+    const currentFormatted = currentNumber ? formatCell(currentNumber, column?.format, column?.sqlType, null) : '–';
+    const lastFormatted = lastNumber ? formatCell(lastNumber, column?.format, column?.sqlType, null) : '–';
 
     let change: string | null = null;
     let changeIcon: any = null;
@@ -43,8 +49,8 @@ export const BigNumber = ({ element, title }: { element: ComponentEmbedElement; 
                     )}
                 </div>
             )}
-            <span className="font-big-number text-3xl">{currentNumber} </span>
-            {lastNumber ? <span className="text-[15px] text-faded">from {lastNumber}</span> : null}
+            <span className="font-big-number text-3xl">{currentFormatted} </span>
+            {lastNumber ? <span className="text-[15px] text-faded">from {lastFormatted}</span> : null}
         </div>
     );
 };
