@@ -9,7 +9,6 @@ const Text = ({ element }: { element: TextEmbed }) => {
             style={{
                 ...(element.fontSize && { fontSize: element.fontSize }),
             }}
-            className="whitespace-pre"
             dangerouslySetInnerHTML={{ __html: cleanValue }}
         />
     );
