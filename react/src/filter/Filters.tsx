@@ -31,6 +31,7 @@ export function Filters({ canvasData }: { canvasData: EmbedResponse }) {
     const filtersVisible = filters?.filter(
         (filter) =>
             (filter?.filterType?.type === 'select' && filter.filterType.storeId != null) ||
+            filter.filterType.type === 'date' ||
             (filter.filterType.type === 'search' && !getInlineFilters(canvasData.elements).includes(filter.filterId)),
     );
 
