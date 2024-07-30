@@ -7,6 +7,9 @@ import useCanvasState from '../state/useCanvasState';
 
 const DATE_SELECT_OPTIONS: { label: string; value: DateSelectValue }[] = [
     { label: 'All time', value: 'AllTime' },
+    { label: 'Today', value: 'Today' },
+    { label: 'This month', value: 'ThisMonth' },
+    { label: 'This year', value: 'ThisYear' },
     { label: 'Last 7 days', value: 'Last7Days' },
     { label: 'Last 30 days', value: 'Last30Days' },
     { label: 'Last 90 days', value: 'Last90Days' },
@@ -20,6 +23,12 @@ export const DateFilterComponent = ({ filter }: { filter: FilterConfig }) => {
         switch (selectValue) {
             case 'AllTime':
                 return { type: 'preset', preset: 'AllTime' };
+            case 'Today':
+                return { type: 'preset', preset: 'Today' };
+            case 'ThisMonth':
+                return { type: 'preset', preset: 'ThisMonth' };
+            case 'ThisYear':
+                return { type: 'preset', preset: 'ThisYear' };
             case 'Last7Days':
                 return { type: 'last', count: 7, datePart: 'days' };
             case 'Last30Days':
@@ -100,4 +109,4 @@ export const DateFilterComponent = ({ filter }: { filter: FilterConfig }) => {
     );
 };
 
-type DateSelectValue = 'AllTime' | 'Last7Days' | 'Last30Days' | 'Last90Days';
+type DateSelectValue = 'AllTime' | 'Last7Days' | 'Last30Days' | 'Last90Days' | 'Today' | 'ThisMonth' | 'ThisYear';
