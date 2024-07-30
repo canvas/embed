@@ -4,6 +4,7 @@ import useCanvasState from '../state/useCanvasState';
 import { FilterConfig } from '../__rust_generated__/FilterConfig';
 import { EmbedResponse } from '../types/EmbedResponse';
 import { GlobalSearchComponent } from '../components/SearchComponent';
+import { DateFilterComponent } from './DateFilter';
 
 const Filter = ({ canvasData, filter }: { canvasData: EmbedResponse; filter: FilterConfig }) => {
     const updateFilter = useCanvasState((state) => state.updateFilter);
@@ -40,14 +41,14 @@ const Filter = ({ canvasData, filter }: { canvasData: EmbedResponse; filter: Fil
                 />
             </div>
         );
-    }
-
-    if (filter.filterType.type === 'search') {
+    } else if (filter.filterType.type === 'search') {
         return (
             <div key={filter.filterId} className="flex gap-3 mx-1">
                 <GlobalSearchComponent filterVariable={filter.variable} label={filter.label || ''} />
             </div>
         );
+    } else if (filter.filterType.type === 'date') {
+        return <DateFilterComponent filter={filter} />;
     }
 };
 
