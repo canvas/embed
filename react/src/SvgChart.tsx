@@ -58,8 +58,12 @@ export function SvgChart({ data: _data, theme }: Props): ReactElement {
     const domainValues = (_data.labels ?? []).map(parseDomainValue);
     const values = _data.values.map((series) => series.map(parseFloat));
 
-    if (values.length === 0) {
-        return <div className="flex h-[300px] items-center justify-center">No data.</div>;
+    if (domainValues.length === 0) {
+        return (
+            <div className="flex items-center justify-center" style={{ height }}>
+                No data.
+            </div>
+        );
     }
 
     const domainTypes = [...new Set(domainValues.map((value) => value.type))];
@@ -148,7 +152,6 @@ export function SvgChart({ data: _data, theme }: Props): ReactElement {
     const yScale = yScaleFn(range, [yPlaneStart, yPlaneEnd], { lastTick, format });
 
     if (!xScale || !yScale) {
-        // TODO
         return (
             <div className="flex justify-center">
                 Chart type currently unsupported in embeds. Please contact Canvas support
