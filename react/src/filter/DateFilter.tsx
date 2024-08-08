@@ -66,6 +66,10 @@ export const DateFilterComponent = ({ filter }: { filter: FilterConfig }) => {
                         <div className="inline-flex rounded-md shadow-md divide-x divide-gray-300">
                             <ListboxButton className="relative w-64 cursor-pointer rounded-r-none rounded-l-md  bg-white py-2 pl-3 pr-10 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm truncate">
                                 <ListboxButton>{buttonText}</ListboxButton>
+                                <ChevronDownIcon
+                                    className="group pointer-events-none absolute top-2.5 right-2.5 size-4 fill-white/60"
+                                    aria-hidden="true"
+                                />
                             </ListboxButton>
                         </div>
                         <Transition
@@ -74,7 +78,7 @@ export const DateFilterComponent = ({ filter }: { filter: FilterConfig }) => {
                             leaveFrom="opacity-100"
                             leaveTo="opacity-0"
                         >
-                            <ListboxOptions className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+                            <ListboxOptions className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
                                 {DATE_SELECT_OPTIONS.map(({ label, value }) => (
                                     <ListboxOption
                                         className={({ active }) =>
@@ -110,3 +114,18 @@ export const DateFilterComponent = ({ filter }: { filter: FilterConfig }) => {
 };
 
 type DateSelectValue = 'AllTime' | 'Last7Days' | 'Last30Days' | 'Last90Days' | 'Today' | 'ThisMonth' | 'ThisYear';
+
+function ChevronDownIcon({ className }: { className?: string }) {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            className={`${className} w-4 h-4`}
+        >
+            <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+        </svg>
+    );
+}
