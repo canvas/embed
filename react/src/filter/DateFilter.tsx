@@ -55,7 +55,7 @@ export const DateFilterComponent = ({ filter }: { filter: FilterConfig }) => {
 
     return (
         <div key={filter.filterId} className="flex gap-3 mx-1">
-            <div className="w-64 z-30">
+            <div className="w-64">
                 <Listbox
                     value={filterValue}
                     onChange={(item) => {
