@@ -18,7 +18,7 @@ type MultiSelectInputProps = {
 const MultiSelectInput = ({ selections, onChange, options, label }: MultiSelectInputProps) => {
     const buttonText = selections.length > 0 ? selections.map((filter) => filter.label).join(', ') : label;
     return (
-        <div className="w-72 z-30">
+        <div className="w-72">
             <Listbox
                 value={selections}
                 onChange={(items) => {
