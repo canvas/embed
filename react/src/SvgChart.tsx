@@ -2,12 +2,9 @@ import React, { ReactElement, RefObject, useEffect, useLayoutEffect, useRef, use
 import { ChartData } from 'src/__rust_generated__/ChartData';
 import { HorizontalXAxis, HorizontalYAxis, XAxis, YAxis } from 'src/charts/Axis';
 import { HorizontalGrid } from 'src/charts/HorizontalGrid';
-import { LineChart } from 'src/charts/LineChart';
+import { LineChart } from '@canvas-sdk/charts';
+import { categoricalScale, dateTimeScale, linearScale, logarithmicScale } from '@canvas-sdk/charts/scale';
 import { VerticalBarChart } from 'src/charts/VerticalBarChart';
-import { categoricalScale } from 'src/charts/scale/categorical';
-import { dateTimeScale } from 'src/charts/scale/datetime';
-import { linearScale } from 'src/charts/scale/linear';
-import { logarithmicScale } from 'src/charts/scale/logarithmic';
 import { parseDateTimeNtz } from 'src/util/DateUtil';
 import { DateTime } from 'luxon';
 import { ChartTheme } from './ChartTheme';
