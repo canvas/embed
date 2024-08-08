@@ -23,7 +23,7 @@ export function VerticalGrid({
                         y2={yEnd}
                         x1={x}
                         x2={x}
-                        className={point === 0 ? 'stroke-default' : 'stroke-divider'}
+                        className={point === 0 ? 'stroke-default' : 'stroke-[var(--chart-grid,#E3E3E5)]'}
                     />
                 );
             })}

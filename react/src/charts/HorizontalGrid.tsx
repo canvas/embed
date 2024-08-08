@@ -23,7 +23,7 @@ export function HorizontalGrid({
                         x2={xEnd}
                         y1={y}
                         y2={y}
-                        className={point === 0 ? 'stroke-default' : 'stroke-divider'}
+                        className={point === 0 ? 'stroke-default' : 'stroke-[var(--chart-grid,#E3E3E5)]'}
                     />
                 );
             })}
