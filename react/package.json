@@ -78,7 +78,7 @@
         "webpack-dev-server": "^4.15.1"
     },
     "dependencies": {
-        "@canvas-sdk/charts": "^0.5.3",
+        "@canvas-sdk/charts": "^0.5.4",
         "@headlessui/react": "^2.0.4",
         "chroma-js": "^2.4.2",
         "dompurify": "^3.1.0",

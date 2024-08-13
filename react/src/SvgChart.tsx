@@ -158,7 +158,7 @@ export function SvgChart({ data: _data, theme }: Props): ReactElement {
 
     return (
         <ChartTheme data={_data} theme={theme}>
-            <div ref={resizeRef} className="max-h-[90vh]">
+            <div ref={resizeRef} className="max-h-[90vh] [font-size:var(--chart-font-size,12px)]">
                 <svg width={_width} height={_height}>
                     <g ref={yAxisRef}>
                         {horizontalChart ? (
