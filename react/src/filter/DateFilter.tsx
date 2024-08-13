@@ -64,7 +64,7 @@ export const DateFilterComponent = ({ filter }: { filter: FilterConfig }) => {
                 >
                     <div className="relative">
                         <div className="inline-flex rounded-md shadow-md divide-x divide-gray-300">
-                            <ListboxButton className="relative w-64 cursor-pointer rounded-r-none rounded-l-md  bg-white py-2 pl-3 pr-10 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm truncate">
+                            <ListboxButton className="relative w-64 cursor-pointer rounded-md  bg-white py-2 pl-3 pr-10 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm truncate">
                                 <ListboxButton>{buttonText}</ListboxButton>
                                 <ChevronDownIcon
                                     className="group pointer-events-none absolute top-2.5 right-2.5 size-4 fill-white/60"
