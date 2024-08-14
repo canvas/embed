@@ -82,7 +82,7 @@ export const DateFilterComponent = ({ filter, defaultValue }: { filter: FilterCo
                                 {DATE_SELECT_OPTIONS.map(({ label, value }) => (
                                     <ListboxOption
                                         className={({ active }) =>
-                                            `relative cursor-pointer select-none py-2 pl-10 pr-4 ${
+                                            `relative cursor-pointer select-none py-2 pl-10 pr-4 date-filter-option-${value} ${
                                                 active ? 'bg-amber-100 text-amber-900' : 'text-gray-900'
                                             }`
                                         }
