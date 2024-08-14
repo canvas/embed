@@ -48,7 +48,8 @@ const Filter = ({ canvasData, filter }: { canvasData: EmbedResponse; filter: Fil
             </div>
         );
     } else if (filter.filterType.type === 'date') {
-        return <DateFilterComponent filter={filter} />;
+        const defaultValue = canvasData.filters.defaultValues[filter.variable];
+        return <DateFilterComponent filter={filter} defaultValue={defaultValue} />;
     }
 };
 

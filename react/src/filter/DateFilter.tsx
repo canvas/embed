@@ -15,8 +15,8 @@ const DATE_SELECT_OPTIONS: { label: string; value: DateSelectValue }[] = [
     { label: 'Last 90 days', value: 'Last90Days' },
 ];
 
-export const DateFilterComponent = ({ filter }: { filter: FilterConfig }) => {
-    const [filterValue, setFilterValue] = React.useState<DateSelectValue>('AllTime');
+export const DateFilterComponent = ({ filter, defaultValue }: { filter: FilterConfig, defaultValue }) => {
+    const [filterValue, setFilterValue] = React.useState<DateSelectValue>(defaultValue?.filter.preset ?? 'AllTime');
     const updateFilter = useCanvasState((state) => state.updateFilter);
 
     const getFilterValue = (selectValue: DateSelectValue): DateFilterValue => {
