@@ -2,7 +2,7 @@ import React, { ReactElement, RefObject, useEffect, useLayoutEffect, useRef, use
 import { ChartData } from 'src/__rust_generated__/ChartData';
 import { HorizontalXAxis, HorizontalYAxis, XAxis, YAxis } from 'src/charts/Axis';
 import { HorizontalGrid } from 'src/charts/HorizontalGrid';
-import { LineChart } from '@canvas-sdk/charts';
+import { LineChart, DonutChart } from '@canvas-sdk/charts';
 import { categoricalScale, dateTimeScale, linearScale, logarithmicScale } from '@canvas-sdk/charts/scale';
 import { VerticalBarChart } from 'src/charts/VerticalBarChart';
 import { parseDateTimeNtz } from 'src/util/DateUtil';
@@ -62,6 +62,8 @@ export function SvgChart({ data: _data, theme }: Props): ReactElement {
             </div>
         );
     }
+
+    const showAxis = _data.chartType !== 'donut';
 
     const domainTypes = [...new Set(domainValues.map((value) => value.type))];
 
@@ -158,31 +160,38 @@ export function SvgChart({ data: _data, theme }: Props): ReactElement {
 
     return (
         <ChartTheme data={_data} theme={theme}>
-            <div ref={resizeRef} className="max-h-[90vh] [font-size:var(--chart-font-size,12px)]">
+            <div
+                ref={resizeRef}
+                className="max-h-[90vh] [font-size:var(--chart-font-size,12px)] [--chart-color-0:var(--theme-light-chart-color-0)] [--chart-color-1:var(--theme-light-chart-color-1)]"
+            >
                 <svg width={_width} height={_height}>
-                    <g ref={yAxisRef}>
-                        {horizontalChart ? (
-                            <HorizontalXAxis xScale={xScale as any} x={yScale.rangeMin - 12} />
-                        ) : (
-                            <YAxis yScale={yScale} width={yAxisWidth} />
-                        )}
-                    </g>
+                    {showAxis && (
+                        <g>
+                            <g ref={yAxisRef}>
+                                {horizontalChart ? (
+                                    <HorizontalXAxis xScale={xScale as any} x={yScale.rangeMin - 12} />
+                                ) : (
+                                    <YAxis yScale={yScale} width={yAxisWidth} />
+                                )}
+                            </g>
 
-                    {horizontalChart ? (
-                        <HorizontalYAxis yScale={yScale} y={xPlaneEnd + 8} />
-                    ) : (
-                        <XAxis xScale={xScale as any} y={yScale.rangeMin} />
-                    )}
+                            {horizontalChart ? (
+                                <HorizontalYAxis yScale={yScale} y={xPlaneEnd + 8} />
+                            ) : (
+                                <XAxis xScale={xScale as any} y={yScale.rangeMin} />
+                            )}
 
-                    {horizontalChart ? (
-                        <VerticalGrid
-                            axis={yScale.ticks}
-                            scale={yScale}
-                            yStart={xScale.rangeMin}
-                            yEnd={xScale.rangeMax}
-                        />
-                    ) : (
-                        <HorizontalGrid axis={yScale.ticks} scale={yScale} xStart={yAxisWidth} xEnd={width} />
+                            {horizontalChart ? (
+                                <VerticalGrid
+                                    axis={yScale.ticks}
+                                    scale={yScale}
+                                    yStart={xScale.rangeMin}
+                                    yEnd={xScale.rangeMax}
+                                />
+                            ) : (
+                                <HorizontalGrid axis={yScale.ticks} scale={yScale} xStart={yAxisWidth} xEnd={width} />
+                            )}
+                        </g>
                     )}
 
                     {(() => {
@@ -212,6 +221,13 @@ export function SvgChart({ data: _data, theme }: Props): ReactElement {
                                     yScale={yScale}
                                     data={data}
                                     className="fill-none stroke-[#5ba8f7] stroke-2"
+                                />
+                            );
+                        } else if (_data.chartType === 'donut') {
+                            return (
+                                <DonutChart
+                                    size={Math.min(width, height)}
+                                    data={data}
                                 />
                             );
                         } else {
