@@ -31,6 +31,11 @@ module.exports = {
                         background: '#FFFFFF',
                         cohort: '#93DFC8',
                     },
+                    fontFamily: {
+                        'big-number': 'var(--theme-big-number-font-family, var(--theme-body-font-family))',
+                        display: 'var(--theme-display-font-family, var(--theme-body-font-family))',
+                        body: 'var(--theme-body-font-family)',
+                    },
                 },
             },
             themes: [
