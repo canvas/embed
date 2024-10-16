@@ -7,6 +7,7 @@ import useCanvasState from './state/useCanvasState';
 import isEmpty from 'lodash/isEmpty';
 import { buildUrl, convertFilterParams } from './util/util';
 import { EmbedResponse } from './types/EmbedResponse';
+import { Spinner } from './Spinner';
 
 type CanvasProps = {
     canvasId: string;
@@ -42,8 +43,8 @@ export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostO
             },
         )
             .then(async (res) => {
-                setLoading(false);
                 const canvasData = await res.json();
+                setLoading(false);
                 if (!res.ok) {
                     console.error(`Error getting canvas data: ${JSON.stringify(canvasData)}`);
                     setCanvasData(null);
@@ -113,6 +114,15 @@ export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostO
             </TailwindWrapper>
         );
     }
+
+    if (loading) {
+      return (
+        <TailwindWrapper>
+          <Spinner />
+        </TailwindWrapper>
+      )
+    };
+
     if (canvasData) {
         return (
             <TailwindWrapper>
