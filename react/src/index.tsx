@@ -115,14 +115,6 @@ export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostO
         );
     }
 
-    if (loading) {
-      return (
-        <TailwindWrapper>
-          <Spinner />
-        </TailwindWrapper>
-      )
-    };
-
     if (canvasData) {
         return (
             <TailwindWrapper>
@@ -130,6 +122,14 @@ export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostO
             </TailwindWrapper>
         );
     }
+
+    if (loading) {
+        return (
+          <TailwindWrapper>
+            <Spinner />
+          </TailwindWrapper>
+        )
+      };
 };
 
 export const CanvasSnapshot: React.FC<CanvasSnapshotProps> = ({ canvasData }: CanvasSnapshotProps) => {
