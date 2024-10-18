@@ -1,6 +1,6 @@
 {
     "name": "canvas-embed",
-    "version": "1.0.94",
+    "version": "1.0.95",
     "description": "Embed your Canvas in your application",
     "main": "dist/bundle.js",
     "types": "dist/index.d.ts",
