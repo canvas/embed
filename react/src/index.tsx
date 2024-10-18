@@ -118,7 +118,7 @@ export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostO
     if (canvasData) {
         return (
             <TailwindWrapper>
-                <CanvasInner canvasData={canvasData} dataHash={dataHash} loading={loading} downloadCsv={downloadCsv} />
+                <CanvasInner canvasData={canvasData} dataHash={dataHash} downloadCsv={downloadCsv} />
             </TailwindWrapper>
         );
     }
@@ -135,7 +135,7 @@ export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostO
 export const CanvasSnapshot: React.FC<CanvasSnapshotProps> = ({ canvasData }: CanvasSnapshotProps) => {
     return (
         <TailwindWrapper>
-            <CanvasInner canvasData={canvasData} loading={false} />
+            <CanvasInner canvasData={canvasData} />
         </TailwindWrapper>
     );
 };
