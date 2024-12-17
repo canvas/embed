@@ -145,7 +145,13 @@ export function SvgChart({ data: _data, theme }: Props): ReactElement {
         lastTick = 'max';
     }
 
-    const range = data.map((series) => series.y.reduce((acc: number, v: number | null) => acc + (v ?? 0), 0));
+    let range: number[] = [];
+
+    if (_data.stackType === 'standard') {
+        range = data.map((series) => series.y.reduce((acc: number, v: number | null) => acc + (v ?? 0), 0));
+    } else {
+        range = data.map((series) => series.y.reduce((acc: number, v: number | null) => Math.max(acc, v ?? 0), 0));
+    }
 
     const yScaleFn = _data.yAxisType === 'logarithmic' ? logarithmicScale : linearScale;
     const yScale = yScaleFn(range, [yPlaneStart, yPlaneEnd], { lastTick, format });
@@ -224,12 +230,7 @@ export function SvgChart({ data: _data, theme }: Props): ReactElement {
                                 />
                             );
                         } else if (_data.chartType === 'donut') {
-                            return (
-                                <DonutChart
-                                    size={Math.min(width, height)}
-                                    data={data}
-                                />
-                            );
+                            return <DonutChart size={Math.min(width, height)} data={data} />;
                         } else {
                             return (
                                 <text
