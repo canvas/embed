@@ -1,6 +1,9 @@
 import { Ordinal } from './types';
 
-export type ValueFormat = { type: 'decimal' } | { type: 'currency'; currency: string } | { type: 'percent' };
+export type ValueFormat =
+    | { type: 'decimal'; compact?: 'compact' | 'standard' }
+    | { type: 'currency'; currency: string; compact?: 'compact' | 'standard' }
+    | { type: 'percent'; compact?: 'compact' | 'standard' };
 
 export function formatValue(value: Ordinal, format: ValueFormat = { type: 'decimal' }): string {
     if (value instanceof Date) {
@@ -16,13 +19,13 @@ export function formatValue(value: Ordinal, format: ValueFormat = { type: 'decim
             return Intl.NumberFormat(undefined, {
                 minimumFractionDigits: 0,
                 maximumFractionDigits: 1,
-                notation: 'compact',
+                notation: format.compact ?? 'compact',
             }).format(value);
         case 'currency':
             return Intl.NumberFormat(undefined, {
                 style: 'currency',
                 currency: format.currency,
-                notation: 'compact',
+                notation: format.compact ?? 'compact',
             }).format(value);
         case 'percent':
             return Intl.NumberFormat(undefined, { style: 'percent' }).format(value);
