@@ -40,6 +40,10 @@ export function SvgChart({ data: _data, theme }: Props): ReactElement {
     const yAxisRef = useRef<SVGGElement>(null);
     const yAxisTextWidth = useElementWidth(yAxisRef);
 
+    const [hoverX, setHoverX] = useState<number | null>(null);
+    const [hoverY, setHoverY] = useState<number | null>(null);
+    const [selectedX, setSelectedX] = useState<number | null>(null);
+
     if (!_data) {
         return <>Loading</>;
     }
@@ -164,13 +168,80 @@ export function SvgChart({ data: _data, theme }: Props): ReactElement {
         );
     }
 
+    function onMouseMove(event: any) {
+        const { offsetX, offsetY } = event.nativeEvent;
+
+        const offset = horizontalChart ? offsetY : offsetX;
+
+        let x = bisectBy(
+            xScale.midPoint,
+            data.map((d) => d.x),
+            offset,
+        );
+        if (x >= data.length) {
+            x = data.length - 1;
+        }
+        if (
+            x > 0 &&
+            Math.abs(xScale.midPoint(data[x - 1]?.x) - offset) < Math.abs(xScale.midPoint(data[x]?.x) - offset)
+        ) {
+            x -= 1;
+        }
+        setSelectedX(x);
+        setHoverX(offsetX);
+        setHoverY(offsetY);
+    }
+
+    function onMouseLeave() {
+        setSelectedX(null);
+        setHoverX(null);
+        setHoverY(null);
+    }
+
+    let selectedData: { x: string; y: number[] } | null = null;
+    if (selectedX !== null) {
+        selectedData = data[selectedX];
+    }
+
     return (
         <ChartTheme data={_data} theme={theme}>
             <div
                 ref={resizeRef}
-                className="max-h-[90vh] [font-size:var(--chart-font-size,12px)] [--chart-color-0:var(--theme-light-chart-color-0)] [--chart-color-1:var(--theme-light-chart-color-1)]"
+                className="max-h-[90vh] [font-size:var(--chart-font-size,12px)] [--chart-color-0:var(--theme-light-chart-color-0)] [--chart-color-1:var(--theme-light-chart-color-1)] [--chart-color-2:var(--theme-light-chart-color-2)] [--chart-color-3:var(--theme-light-chart-color-3)] [--chart-color-4:var(--theme-light-chart-color-4)] [--chart-color-5:var(--theme-light-chart-color-5)] [--chart-color-6:var(--theme-light-chart-color-6)] [--chart-color-7:var(--theme-light-chart-color-7)] [--chart-color-8:var(--theme-light-chart-color-8)] [--chart-color-9:var(--theme-light-chart-color-9)]"
             >
-                <svg width={_width} height={_height}>
+                <div
+                    className="absolute z-50 top-0 left-0 pointer-events-none bg-white border border-black rounded-md px-4 py-2 shadow-md"
+                    style={
+                        hoverX! && hoverY && selectedX != null && selectedData != null
+                            ? { left: hoverX + 10, top: hoverY, width: 'max-content' }
+                            : { display: 'none' }
+                    }
+                >
+                    <div className="text-black">
+                        {selectedData && selectedX !== null ? (
+                            <div className="flex flex-col gap-2">
+                                <div className="font-semibold">{_data.labels[selectedX]}</div>
+                                <div className="flex flex-col gap-px">
+                                    {selectedData.y.map((y, index) => (
+                                        <div key={index} className="flex items-center gap-1">
+                                            <div
+                                                className="rounded-full w-1.5 h-1.5 mr-px"
+                                                style={{ backgroundColor: `var(--chart-color-${index})` }}
+                                            ></div>
+                                            <div>{_data.seriesNames[index]}:</div>
+                                            <div className="font-semibold">
+                                                {formatValue(y, { ...yScale.format, compact: 'standard' })}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        ) : (
+                            ''
+                        )}
+                    </div>
+                </div>
+                <svg width={_width} height={_height} onMouseMove={onMouseMove} onMouseLeave={onMouseLeave}>
                     {showAxis && (
                         <g>
                             <g ref={yAxisRef}>
@@ -294,4 +365,19 @@ function useElementWidth<DOMElement extends Element>(elementRef: RefObject<DOMEl
     });
 
     return width;
+}
+
+function bisectBy<T>(fn: (value: T) => number, data: T[], value: number) {
+    let low = 0;
+    let high = data.length;
+    while (low < high) {
+        const mid = Math.floor((low + high) / 2);
+        const midValue = data[mid];
+        if (midValue !== undefined && fn(midValue) < value) {
+            low = mid + 1;
+        } else {
+            high = mid;
+        }
+    }
+    return low;
 }
