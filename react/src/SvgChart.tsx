@@ -168,8 +168,6 @@ export function SvgChart({ data: _data, theme }: Props): ReactElement {
         );
     }
 
-    // console.log(_data);
-
     function onMouseMove(event: any) {
         const { offsetX, offsetY } = event.nativeEvent;
 
