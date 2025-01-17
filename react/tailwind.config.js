@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    important: '.canvas-embed',
+    important: ':where(.canvas-embed)',
     darkMode: 'class',
     content: ['./src/**/*.{js,ts,jsx,tsx,html}'],
     theme: {
@@ -30,11 +30,6 @@ module.exports = {
                         highlight: '#F5F5F5',
                         background: '#FFFFFF',
                         cohort: '#93DFC8',
-                    },
-                    fontFamily: {
-                        'big-number': 'var(--theme-big-number-font-family, var(--theme-body-font-family))',
-                        display: 'var(--theme-display-font-family, var(--theme-body-font-family))',
-                        body: 'var(--theme-body-font-family)',
                     },
                 },
             },

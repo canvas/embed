@@ -67,10 +67,12 @@ export const BigNumber = ({ element, title }: { element: ComponentEmbedElement; 
     }
 
     return (
-        <div>
+        <div className="big-number flex flex-col gap-1">
             {title && (
-                <div className="flex gap-x-4 items-center mb-1">
-                    <div className="text-[15px] font-medium text-default/80">{title}</div>
+                <div className="flex gap-x-4 items-center">
+                    <div className="big-number-title font-[family-name:--big-number-title-font-family] text-[length:--big-number-title-font-size] font-[--big-number-title-font-weight] text-[--big-number-title-color]">
+                        {title}
+                    </div>
                     {change ? (
                         <div className="flex items-center gap-1">
                             {changeIcon} {change}%
@@ -80,8 +82,12 @@ export const BigNumber = ({ element, title }: { element: ComponentEmbedElement; 
                     )}
                 </div>
             )}
-            <span className="font-big-number text-3xl">{currentFormatted} </span>
-            {lastNumber ? <span className="text-[15px] text-faded">from {lastFormatted}</span> : null}
+            <div>
+                <span className="big-number-value font-[family-name:--big-number-font-family] text-[length:--big-number-font-size] font-[--big-number-font-weight] text-[--big-number-color]">
+                    {currentFormatted}{' '}
+                </span>
+                {lastNumber ? <span className="text-[15px] text-faded">from {lastFormatted}</span> : null}
+            </div>
         </div>
     );
 };
