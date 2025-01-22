@@ -123,6 +123,15 @@ export function SvgChart({ data: _data, theme }: Props): ReactElement {
     let data = domain.map((domainValue, index) => {
         return { x: domainValue, y: values.map((series) => series[index] ?? null) };
     });
+    data.sort((a, b) => {
+        if (a.x instanceof Date && b.x instanceof Date) {
+            return a.x.getTime() - b.x.getTime();
+        }
+        if (typeof a.x === 'number' && typeof b.x === 'number') {
+            return a.x - b.x;
+        }
+        return 0;
+    });
 
     let format;
 
@@ -199,8 +208,10 @@ export function SvgChart({ data: _data, theme }: Props): ReactElement {
     }
 
     let selectedData: { x: string; y: number[] } | null = null;
+    let formattedSelectedLabel: string | null = null;
     if (selectedX !== null) {
         selectedData = data[selectedX];
+        formattedSelectedLabel = formatValue(data[selectedX].x, xScale.format);
     }
 
     return (
@@ -220,7 +231,7 @@ export function SvgChart({ data: _data, theme }: Props): ReactElement {
                     <div className="text-black">
                         {selectedData && selectedX !== null ? (
                             <div className="flex flex-col gap-2">
-                                <div className="font-semibold">{_data.labels[selectedX]}</div>
+                                <div className="font-semibold">{formattedSelectedLabel}</div>
                                 <div className="flex flex-col gap-px">
                                     {selectedData.y.map((y, index) => (
                                         <div key={index} className="flex items-center gap-1">
