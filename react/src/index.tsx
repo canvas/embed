@@ -13,6 +13,7 @@ type CanvasProps = {
     canvasId: string;
     authToken?: string;
     host?: string;
+    onError?: (error: string) => void;
 };
 
 type CanvasSnapshotProps = {
@@ -21,7 +22,7 @@ type CanvasSnapshotProps = {
 
 const API_BASE_URL = 'https://api.canvasapp.com';
 
-export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostOverride }: CanvasProps) => {
+export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostOverride, onError }: CanvasProps) => {
     const [canvasData, setCanvasData] = useState<EmbedResponse | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [dataHash, setDataHash] = useState<string>(Math.random().toString(36).substring(7));
@@ -92,32 +93,18 @@ export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostO
     };
 
     if (error) {
-        return (
-            <TailwindWrapper>
-                <div className="flex flex-col gap-3">
-                    <div className="text-red-500 text-xl">
-                        <strong className="mr-1">Error_: </strong>
-                        <span>{error}</span>
-                    </div>
-                    <div className="text-red-500">
-                        Canvas embed instructions can be viewed{' '}
-                        <a
-                            href="https://canvasapp.com/docs/building-canvases/embeds"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="underline"
-                        >
-                            here
-                        </a>
-                    </div>
-                </div>
-            </TailwindWrapper>
-        );
+        console.error(`Error fetching embed data: ${error}`);
+        if (onError) {
+            onError(error);
+        }
+
+        return '';
     }
 
     if (canvasData) {
         return (
             <TailwindWrapper>
+                <div dangerouslySetInnerHTML={{ __html: `<!-- ${process.env.REACT_APP_VERSION} -->` }} />
                 <CanvasInner canvasData={canvasData} dataHash={dataHash} downloadCsv={downloadCsv} />
             </TailwindWrapper>
         );
@@ -125,11 +112,11 @@ export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostO
 
     if (loading) {
         return (
-          <TailwindWrapper>
-            <Spinner />
-          </TailwindWrapper>
-        )
-      };
+            <TailwindWrapper>
+                <Spinner />
+            </TailwindWrapper>
+        );
+    }
 };
 
 export const CanvasSnapshot: React.FC<CanvasSnapshotProps> = ({ canvasData }: CanvasSnapshotProps) => {

@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
     mode: process.env.NODE_ENV || 'production',
@@ -10,6 +11,11 @@ module.exports = {
             src: path.resolve(__dirname, 'src'),
         },
     },
+    plugins: [
+        new webpack.DefinePlugin({
+            'process.env.REACT_APP_VERSION': JSON.stringify(process.env.npm_package_version),
+        }),
+    ],
     module: {
         rules: [
             {
