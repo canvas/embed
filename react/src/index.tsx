@@ -50,6 +50,9 @@ export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostO
                     console.error(`Error getting canvas data: ${JSON.stringify(canvasData)}`);
                     setCanvasData(null);
                     setError(canvasData.message);
+                    if (onError) {
+                        onError(canvasData.message);
+                    }
                 } else {
                     setCanvasData(canvasData);
                     setDataHash(Math.random().toString(36).substring(7));
@@ -59,7 +62,11 @@ export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostO
             .catch((error) => {
                 setLoading(false);
                 console.log(`Error getting canvas data: ${error}`);
-                setError(`Network error - either the server is down or you are offline`);
+                const message = `Network error - either the server is down or you are offline`;
+                setError(message);
+                if (onError) {
+                    onError(message);
+                }
                 setCanvasData(null);
             });
     }, [authToken, canvasId, filters, host, sorts]);
@@ -94,9 +101,6 @@ export const Canvas: React.FC<CanvasProps> = ({ canvasId, authToken, host: hostO
 
     if (error) {
         console.error(`Error fetching embed data: ${error}`);
-        if (onError) {
-            onError(error);
-        }
 
         return '';
     }
