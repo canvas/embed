@@ -11,7 +11,7 @@ type CanvasInnerProps = {
 export const CanvasInner = ({ canvasData, dataHash, downloadCsv }: CanvasInnerProps) => {
     const { elementOrder, elements, theme } = canvasData;
     return (
-        <div className="flex flex-1 flex-col overflow-y-auto gap-4">
+        <div className="flex flex-1 flex-col overflow-visible gap-4">
             <div className="flex items-center gap-1">
                 <Filters canvasData={canvasData} />
             </div>
